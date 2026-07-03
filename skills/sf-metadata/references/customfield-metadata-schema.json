@@ -1,0 +1,688 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/schemas/salesforce-customfield-metadata.json",
+  "title": "Salesforce CustomField Metadata",
+  "description": "JSON Schema for Salesforce CustomField metadata (API v66.0). Auto-generated from the org's metadata WSDL by pull_schema.py.",
+  "type": "object",
+  "$defs": {
+    "CustomField": {
+      "type": "object",
+      "properties": {
+        "businessOwnerGroup": {
+          "type": "string"
+        },
+        "businessOwnerUser": {
+          "type": "string"
+        },
+        "businessStatus": {
+          "type": "string"
+        },
+        "caseSensitive": {
+          "type": "boolean"
+        },
+        "complianceGroup": {
+          "type": "string"
+        },
+        "customDataType": {
+          "type": "string"
+        },
+        "defaultValue": {
+          "type": "string"
+        },
+        "deleteConstraint": {
+          "type": "string",
+          "enum": ["Cascade", "Restrict", "SetNull"]
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayFormat": {
+          "type": "string"
+        },
+        "elementType": {
+          "type": "string",
+          "enum": ["Float", "Text"]
+        },
+        "encryptionScheme": {
+          "type": "string",
+          "enum": [
+            "None",
+            "ProbabilisticEncryption",
+            "CaseSensitiveDeterministicEncryption",
+            "CaseInsensitiveDeterministicEncryption"
+          ]
+        },
+        "escapeMarkup": {
+          "type": "boolean"
+        },
+        "externalDeveloperName": {
+          "type": "string"
+        },
+        "externalId": {
+          "type": "boolean"
+        },
+        "fieldManageability": {
+          "type": "string",
+          "enum": ["DeveloperControlled", "SubscriberControlled", "Locked"]
+        },
+        "formula": {
+          "type": "string"
+        },
+        "formulaTreatBlanksAs": {
+          "type": "string",
+          "enum": ["BlankAsBlank", "BlankAsZero"]
+        },
+        "inlineHelpText": {
+          "type": "string"
+        },
+        "isAIPredictionField": {
+          "type": "boolean"
+        },
+        "isConvertLeadDisabled": {
+          "type": "boolean"
+        },
+        "isFilteringDisabled": {
+          "type": "boolean"
+        },
+        "isNameField": {
+          "type": "boolean"
+        },
+        "isSortingDisabled": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "lookupFilter": {
+          "$ref": "#/$defs/LookupFilter"
+        },
+        "maskChar": {
+          "type": "string",
+          "enum": ["asterisk", "X"]
+        },
+        "maskType": {
+          "type": "string",
+          "enum": ["all", "creditCard", "ssn", "lastFour", "sin", "nino"]
+        },
+        "metadataRelationshipControllingField": {
+          "type": "string"
+        },
+        "mktDataLakeFieldAttributes": {
+          "$ref": "#/$defs/MktDataLakeFieldAttributes"
+        },
+        "mktDataModelFieldAttributes": {
+          "$ref": "#/$defs/MktDataModelFieldAttributes"
+        },
+        "populateExistingRows": {
+          "type": "boolean"
+        },
+        "precision": {
+          "type": "integer"
+        },
+        "referenceTargetField": {
+          "type": "string"
+        },
+        "referenceTo": {
+          "type": "string"
+        },
+        "relationshipLabel": {
+          "type": "string"
+        },
+        "relationshipName": {
+          "type": "string"
+        },
+        "relationshipOrder": {
+          "type": "integer"
+        },
+        "reparentableMasterDetail": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "restrictedAdminField": {
+          "type": "boolean"
+        },
+        "scale": {
+          "type": "integer"
+        },
+        "securityClassification": {
+          "type": "string"
+        },
+        "startingNumber": {
+          "type": "integer"
+        },
+        "stripMarkup": {
+          "type": "boolean"
+        },
+        "summarizedField": {
+          "type": "string"
+        },
+        "summaryFilterItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FilterItem"
+          }
+        },
+        "summaryForeignKey": {
+          "type": "string"
+        },
+        "summaryOperation": {
+          "type": "string",
+          "enum": ["count", "sum", "min", "max"]
+        },
+        "trackFeedHistory": {
+          "type": "boolean"
+        },
+        "trackHistory": {
+          "type": "boolean"
+        },
+        "trackTrending": {
+          "type": "boolean"
+        },
+        "translateData": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "AutoNumber",
+            "Lookup",
+            "MasterDetail",
+            "Checkbox",
+            "Currency",
+            "Date",
+            "DateTime",
+            "Email",
+            "Number",
+            "Percent",
+            "Phone",
+            "Picklist",
+            "MultiselectPicklist",
+            "Text",
+            "TextArea",
+            "LongTextArea",
+            "Html",
+            "Url",
+            "EncryptedText",
+            "Summary",
+            "Hierarchy",
+            "File",
+            "MetadataRelationship",
+            "Location",
+            "ExternalLookup",
+            "IndirectLookup",
+            "CustomDataType",
+            "Time",
+            "Address",
+            "Array",
+            "Integer",
+            "Long"
+          ]
+        },
+        "unique": {
+          "type": "boolean"
+        },
+        "valueSet": {
+          "$ref": "#/$defs/ValueSet"
+        },
+        "visibleLines": {
+          "type": "integer"
+        },
+        "writeRequiresMasterRead": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "CustomFieldBinding": {
+      "type": "object",
+      "properties": {
+        "implementationField": {
+          "type": "string"
+        },
+        "interfaceField": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["implementationField", "interfaceField"]
+    },
+    "CustomFieldDisplay": {
+      "type": "object",
+      "properties": {
+        "displayType": {
+          "type": "string",
+          "enum": ["Dropdown", "ColorSwatch", "Pill"]
+        },
+        "fieldApiName": {
+          "type": "string"
+        },
+        "isProtected": {
+          "type": "boolean"
+        },
+        "masterLabel": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["displayType", "fieldApiName", "masterLabel"]
+    },
+    "CustomFieldTranslation": {
+      "type": "object",
+      "properties": {
+        "caseValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectNameCaseValue"
+          }
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "Neuter",
+            "Masculine",
+            "Feminine",
+            "AnimateMasculine",
+            "ClassI",
+            "ClassIII",
+            "ClassV",
+            "ClassVII",
+            "ClassIX",
+            "ClassXI",
+            "ClassXIV",
+            "ClassXV",
+            "ClassXVI",
+            "ClassXVII",
+            "ClassXVIII"
+          ]
+        },
+        "help": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "lookupFilter": {
+          "$ref": "#/$defs/LookupFilterTranslation"
+        },
+        "name": {
+          "type": "string"
+        },
+        "picklistValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PicklistValueTranslation"
+          }
+        },
+        "relationshipLabel": {
+          "type": "string"
+        },
+        "startsWith": {
+          "type": "string",
+          "enum": ["Consonant", "Vowel", "Special"]
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name"]
+    },
+    "CustomValue": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["default"]
+    },
+    "FilterItem": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "equals",
+            "notEqual",
+            "lessThan",
+            "greaterThan",
+            "lessOrEqual",
+            "greaterOrEqual",
+            "contains",
+            "notContain",
+            "startsWith",
+            "includes",
+            "excludes",
+            "within"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "valueField": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["field", "operation"]
+    },
+    "LookupFilter": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "booleanFilter": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "filterItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FilterItem"
+          }
+        },
+        "infoMessage": {
+          "type": "string"
+        },
+        "isOptional": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["active", "isOptional"]
+    },
+    "LookupFilterTranslation": {
+      "type": "object",
+      "properties": {
+        "errorMessage": {
+          "type": "string"
+        },
+        "informationalMessage": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["errorMessage", "informationalMessage"]
+    },
+    "MktDataLakeFieldAttributes": {
+      "type": "object",
+      "properties": {
+        "dateFormat": {
+          "type": "string"
+        },
+        "definitionCreationType": {
+          "type": "string",
+          "enum": [
+            "Standard",
+            "Custom",
+            "System",
+            "Derived",
+            "Bridge",
+            "Curated",
+            "Segment_Membership",
+            "Calculated_Insight",
+            "Ml_Prediction",
+            "Activation_Audience",
+            "CG_Audience",
+            "Ad_Audience_Insights",
+            "Transform",
+            "ADG",
+            "External",
+            "Vector_Embedding",
+            "Chunk",
+            "Directory_Table",
+            "Semantic",
+            "Problem_Records",
+            "Clean_Room",
+            "Deletion_Records",
+            "Auxiliary"
+          ]
+        },
+        "externalName": {
+          "type": "string"
+        },
+        "isEventDate": {
+          "type": "boolean"
+        },
+        "isInternalOrganization": {
+          "type": "boolean"
+        },
+        "isRecordModified": {
+          "type": "boolean"
+        },
+        "keyQualifierName": {
+          "type": "string"
+        },
+        "mktDatalakeSrcKeyQualifier": {
+          "type": "string"
+        },
+        "primaryIndexOrder": {
+          "type": "integer"
+        },
+        "usageTag": {
+          "type": "string",
+          "enum": ["NONE", "KEY_QUALIFIER"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "MktDataModelFieldAttributes": {
+      "type": "object",
+      "properties": {
+        "definitionCreationType": {
+          "type": "string",
+          "enum": [
+            "Standard",
+            "Custom",
+            "System",
+            "Derived",
+            "Bridge",
+            "Curated",
+            "Segment_Membership",
+            "Calculated_Insight",
+            "Ml_Prediction",
+            "Activation_Audience",
+            "CG_Audience",
+            "Ad_Audience_Insights",
+            "Transform",
+            "ADG",
+            "External",
+            "Vector_Embedding",
+            "Chunk",
+            "Directory_Table",
+            "Semantic",
+            "Problem_Records",
+            "Clean_Room",
+            "Deletion_Records",
+            "Auxiliary"
+          ]
+        },
+        "invalidMergeActionType": {
+          "type": "string",
+          "enum": ["Drop", "Keep", "Override"]
+        },
+        "isDynamicLookup": {
+          "type": "boolean"
+        },
+        "keyQualifierName": {
+          "type": "string"
+        },
+        "labelOverride": {
+          "type": "string"
+        },
+        "mappingAlertType": {
+          "type": "string",
+          "enum": ["None", "Warning", "Error"]
+        },
+        "masterLabel": {
+          "type": "string"
+        },
+        "primaryIndexOrder": {
+          "type": "integer"
+        },
+        "refAttrDeveloperName": {
+          "type": "string"
+        },
+        "usageTag": {
+          "type": "string",
+          "enum": ["None", "KeyQualifier"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "ObjectNameCaseValue": {
+      "type": "object",
+      "properties": {
+        "article": {
+          "type": "string",
+          "enum": ["None", "Indefinite", "Definite"]
+        },
+        "caseType": {
+          "type": "string",
+          "enum": [
+            "Nominative",
+            "Accusative",
+            "Genitive",
+            "Dative",
+            "Inessive",
+            "Elative",
+            "Illative",
+            "Adessive",
+            "Ablative",
+            "Allative",
+            "Essive",
+            "Translative",
+            "Partitive",
+            "Objective",
+            "Subjective",
+            "Instrumental",
+            "Prepositional",
+            "Locative",
+            "Vocative",
+            "Sublative",
+            "Superessive",
+            "Delative",
+            "Causalfinal",
+            "Essiveformal",
+            "Termanative",
+            "Distributive",
+            "Ergative",
+            "Adverbial",
+            "Abessive",
+            "Comitative"
+          ]
+        },
+        "plural": {
+          "type": "boolean"
+        },
+        "possessive": {
+          "type": "string",
+          "enum": ["None", "First", "Second"]
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["value"]
+    },
+    "PicklistValueTranslation": {
+      "type": "object",
+      "properties": {
+        "masterLabel": {
+          "type": "string"
+        },
+        "translation": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["masterLabel"]
+    },
+    "ValueSet": {
+      "type": "object",
+      "properties": {
+        "controllingField": {
+          "type": "string"
+        },
+        "restricted": {
+          "type": "boolean"
+        },
+        "valueSetDefinition": {
+          "$ref": "#/$defs/ValueSetValuesDefinition"
+        },
+        "valueSetName": {
+          "type": "string"
+        },
+        "valueSettings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ValueSettings"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "ValueSetValuesDefinition": {
+      "type": "object",
+      "properties": {
+        "sorted": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CustomValue"
+          }
+        }
+      },
+      "additionalProperties": true,
+      "required": ["sorted"]
+    },
+    "ValueSettings": {
+      "type": "object",
+      "properties": {
+        "controllingFieldValue": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "valueName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["valueName"]
+    }
+  },
+  "x-salesforce-api-version": "66.0",
+  "$ref": "#/$defs/CustomField"
+}

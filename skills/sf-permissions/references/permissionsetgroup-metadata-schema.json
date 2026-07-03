@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/schemas/salesforce-permissionsetgroup-metadata.json",
+  "title": "Salesforce PermissionSetGroup Metadata",
+  "description": "JSON Schema for Salesforce PermissionSetGroup metadata (API v66.0). Auto-generated from the org's metadata WSDL by pull_schema.py.",
+  "type": "object",
+  "$defs": {
+    "PermissionSetGroup": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "hasActivationRequired": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        },
+        "mutingPermissionSets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "permissionSets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label"]
+    }
+  },
+  "x-salesforce-api-version": "66.0",
+  "$ref": "#/$defs/PermissionSetGroup"
+}

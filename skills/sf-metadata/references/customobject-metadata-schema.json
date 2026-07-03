@@ -1,0 +1,2229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/schemas/salesforce-customobject-metadata.json",
+  "title": "Salesforce CustomObject Metadata",
+  "description": "JSON Schema for Salesforce CustomObject metadata (API v66.0). Auto-generated from the org's metadata WSDL by pull_schema.py.",
+  "type": "object",
+  "$defs": {
+    "ActionOverride": {
+      "type": "object",
+      "properties": {
+        "actionName": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "formFactor": {
+          "type": "string",
+          "enum": ["Small", "Medium", "Large"]
+        },
+        "skipRecordTypeSelect": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Default",
+            "Standard",
+            "Scontrol",
+            "Visualforce",
+            "Flexipage",
+            "LightningComponent"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "ArticleTypeChannelDisplay": {
+      "type": "object",
+      "properties": {
+        "articleTypeTemplates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArticleTypeTemplate"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "ArticleTypeTemplate": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "type": "string",
+          "enum": ["AllChannels", "App", "Pkb", "Csp", "Prm"]
+        },
+        "page": {
+          "type": "string"
+        },
+        "template": {
+          "type": "string",
+          "enum": ["Page", "Tab", "Toc"]
+        }
+      },
+      "additionalProperties": true,
+      "required": ["channel", "template"]
+    },
+    "BusinessProcess": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PicklistValue"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "CompactLayout": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label"]
+    },
+    "CustomField": {
+      "type": "object",
+      "properties": {
+        "businessOwnerGroup": {
+          "type": "string"
+        },
+        "businessOwnerUser": {
+          "type": "string"
+        },
+        "businessStatus": {
+          "type": "string"
+        },
+        "caseSensitive": {
+          "type": "boolean"
+        },
+        "complianceGroup": {
+          "type": "string"
+        },
+        "customDataType": {
+          "type": "string"
+        },
+        "defaultValue": {
+          "type": "string"
+        },
+        "deleteConstraint": {
+          "type": "string",
+          "enum": ["Cascade", "Restrict", "SetNull"]
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayFormat": {
+          "type": "string"
+        },
+        "elementType": {
+          "type": "string",
+          "enum": ["Float", "Text"]
+        },
+        "encryptionScheme": {
+          "type": "string",
+          "enum": [
+            "None",
+            "ProbabilisticEncryption",
+            "CaseSensitiveDeterministicEncryption",
+            "CaseInsensitiveDeterministicEncryption"
+          ]
+        },
+        "escapeMarkup": {
+          "type": "boolean"
+        },
+        "externalDeveloperName": {
+          "type": "string"
+        },
+        "externalId": {
+          "type": "boolean"
+        },
+        "fieldManageability": {
+          "type": "string",
+          "enum": ["DeveloperControlled", "SubscriberControlled", "Locked"]
+        },
+        "formula": {
+          "type": "string"
+        },
+        "formulaTreatBlanksAs": {
+          "type": "string",
+          "enum": ["BlankAsBlank", "BlankAsZero"]
+        },
+        "inlineHelpText": {
+          "type": "string"
+        },
+        "isAIPredictionField": {
+          "type": "boolean"
+        },
+        "isConvertLeadDisabled": {
+          "type": "boolean"
+        },
+        "isFilteringDisabled": {
+          "type": "boolean"
+        },
+        "isNameField": {
+          "type": "boolean"
+        },
+        "isSortingDisabled": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "lookupFilter": {
+          "$ref": "#/$defs/LookupFilter"
+        },
+        "maskChar": {
+          "type": "string",
+          "enum": ["asterisk", "X"]
+        },
+        "maskType": {
+          "type": "string",
+          "enum": ["all", "creditCard", "ssn", "lastFour", "sin", "nino"]
+        },
+        "metadataRelationshipControllingField": {
+          "type": "string"
+        },
+        "mktDataLakeFieldAttributes": {
+          "$ref": "#/$defs/MktDataLakeFieldAttributes"
+        },
+        "mktDataModelFieldAttributes": {
+          "$ref": "#/$defs/MktDataModelFieldAttributes"
+        },
+        "populateExistingRows": {
+          "type": "boolean"
+        },
+        "precision": {
+          "type": "integer"
+        },
+        "referenceTargetField": {
+          "type": "string"
+        },
+        "referenceTo": {
+          "type": "string"
+        },
+        "relationshipLabel": {
+          "type": "string"
+        },
+        "relationshipName": {
+          "type": "string"
+        },
+        "relationshipOrder": {
+          "type": "integer"
+        },
+        "reparentableMasterDetail": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "restrictedAdminField": {
+          "type": "boolean"
+        },
+        "scale": {
+          "type": "integer"
+        },
+        "securityClassification": {
+          "type": "string"
+        },
+        "startingNumber": {
+          "type": "integer"
+        },
+        "stripMarkup": {
+          "type": "boolean"
+        },
+        "summarizedField": {
+          "type": "string"
+        },
+        "summaryFilterItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FilterItem"
+          }
+        },
+        "summaryForeignKey": {
+          "type": "string"
+        },
+        "summaryOperation": {
+          "type": "string",
+          "enum": ["count", "sum", "min", "max"]
+        },
+        "trackFeedHistory": {
+          "type": "boolean"
+        },
+        "trackHistory": {
+          "type": "boolean"
+        },
+        "trackTrending": {
+          "type": "boolean"
+        },
+        "translateData": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "AutoNumber",
+            "Lookup",
+            "MasterDetail",
+            "Checkbox",
+            "Currency",
+            "Date",
+            "DateTime",
+            "Email",
+            "Number",
+            "Percent",
+            "Phone",
+            "Picklist",
+            "MultiselectPicklist",
+            "Text",
+            "TextArea",
+            "LongTextArea",
+            "Html",
+            "Url",
+            "EncryptedText",
+            "Summary",
+            "Hierarchy",
+            "File",
+            "MetadataRelationship",
+            "Location",
+            "ExternalLookup",
+            "IndirectLookup",
+            "CustomDataType",
+            "Time",
+            "Address",
+            "Array",
+            "Integer",
+            "Long"
+          ]
+        },
+        "unique": {
+          "type": "boolean"
+        },
+        "valueSet": {
+          "$ref": "#/$defs/ValueSet"
+        },
+        "visibleLines": {
+          "type": "integer"
+        },
+        "writeRequiresMasterRead": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "CustomFieldBinding": {
+      "type": "object",
+      "properties": {
+        "implementationField": {
+          "type": "string"
+        },
+        "interfaceField": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["implementationField", "interfaceField"]
+    },
+    "CustomFieldTranslation": {
+      "type": "object",
+      "properties": {
+        "caseValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectNameCaseValue"
+          }
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "Neuter",
+            "Masculine",
+            "Feminine",
+            "AnimateMasculine",
+            "ClassI",
+            "ClassIII",
+            "ClassV",
+            "ClassVII",
+            "ClassIX",
+            "ClassXI",
+            "ClassXIV",
+            "ClassXV",
+            "ClassXVI",
+            "ClassXVII",
+            "ClassXVIII"
+          ]
+        },
+        "help": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "lookupFilter": {
+          "$ref": "#/$defs/LookupFilterTranslation"
+        },
+        "name": {
+          "type": "string"
+        },
+        "picklistValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PicklistValueTranslation"
+          }
+        },
+        "relationshipLabel": {
+          "type": "string"
+        },
+        "startsWith": {
+          "type": "string",
+          "enum": ["Consonant", "Vowel", "Special"]
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name"]
+    },
+    "CustomObject": {
+      "type": "object",
+      "properties": {
+        "actionOverrides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ActionOverride"
+          }
+        },
+        "allowInChatterGroups": {
+          "type": "boolean"
+        },
+        "articleTypeChannelDisplay": {
+          "$ref": "#/$defs/ArticleTypeChannelDisplay"
+        },
+        "businessProcesses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BusinessProcess"
+          }
+        },
+        "compactLayoutAssignment": {
+          "type": "string"
+        },
+        "compactLayouts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CompactLayout"
+          }
+        },
+        "customHelp": {
+          "type": "string"
+        },
+        "customHelpPage": {
+          "type": "string"
+        },
+        "customSettingsType": {
+          "type": "string",
+          "enum": ["List", "Hierarchy"]
+        },
+        "deploymentStatus": {
+          "type": "string",
+          "enum": ["InDevelopment", "Deployed"]
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "enableActivities": {
+          "type": "boolean"
+        },
+        "enableBulkApi": {
+          "type": "boolean"
+        },
+        "enableDataTranslation": {
+          "type": "boolean"
+        },
+        "enableDivisions": {
+          "type": "boolean"
+        },
+        "enableEnhancedLookup": {
+          "type": "boolean"
+        },
+        "enableFeeds": {
+          "type": "boolean"
+        },
+        "enableHistory": {
+          "type": "boolean"
+        },
+        "enableLicensing": {
+          "type": "boolean"
+        },
+        "enablePublishStatusTracking": {
+          "type": "boolean"
+        },
+        "enableReports": {
+          "type": "boolean"
+        },
+        "enableSearch": {
+          "type": "boolean"
+        },
+        "enableSharing": {
+          "type": "boolean"
+        },
+        "enableStreamingApi": {
+          "type": "boolean"
+        },
+        "eventType": {
+          "type": "string",
+          "enum": ["HighVolume", "StandardVolume", "ExternalEvent"]
+        },
+        "externalDataSource": {
+          "type": "string"
+        },
+        "externalName": {
+          "type": "string"
+        },
+        "externalRepository": {
+          "type": "string"
+        },
+        "externalSharingModel": {
+          "type": "string",
+          "enum": [
+            "Private",
+            "Read",
+            "ReadSelect",
+            "ReadWrite",
+            "ReadWriteTransfer",
+            "FullAccess",
+            "ControlledByParent",
+            "ControlledByLeadOrContact",
+            "ControlledByCampaign"
+          ]
+        },
+        "fieldSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldSet"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CustomField"
+          }
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "Neuter",
+            "Masculine",
+            "Feminine",
+            "AnimateMasculine",
+            "ClassI",
+            "ClassIII",
+            "ClassV",
+            "ClassVII",
+            "ClassIX",
+            "ClassXI",
+            "ClassXIV",
+            "ClassXV",
+            "ClassXVI",
+            "ClassXVII",
+            "ClassXVIII"
+          ]
+        },
+        "historyRetentionPolicy": {
+          "$ref": "#/$defs/HistoryRetentionPolicy"
+        },
+        "household": {
+          "type": "boolean"
+        },
+        "indexes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Index"
+          }
+        },
+        "label": {
+          "type": "string"
+        },
+        "listViews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ListView"
+          }
+        },
+        "mktDataLakeAttributes": {
+          "$ref": "#/$defs/MktDataLakeAttributes"
+        },
+        "mktDataModelAttributes": {
+          "$ref": "#/$defs/MktDataModelAttributes"
+        },
+        "nameField": {
+          "$ref": "#/$defs/CustomField"
+        },
+        "pluralLabel": {
+          "type": "string"
+        },
+        "profileSearchLayouts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ProfileSearchLayouts"
+          }
+        },
+        "publishBehavior": {
+          "type": "string",
+          "enum": ["PublishAfterCommit", "PublishImmediately"]
+        },
+        "recordTypeTrackFeedHistory": {
+          "type": "boolean"
+        },
+        "recordTypeTrackHistory": {
+          "type": "boolean"
+        },
+        "recordTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordType"
+          }
+        },
+        "searchLayouts": {
+          "$ref": "#/$defs/SearchLayouts"
+        },
+        "sharingModel": {
+          "type": "string",
+          "enum": [
+            "Private",
+            "Read",
+            "ReadSelect",
+            "ReadWrite",
+            "ReadWriteTransfer",
+            "FullAccess",
+            "ControlledByParent",
+            "ControlledByLeadOrContact",
+            "ControlledByCampaign"
+          ]
+        },
+        "sharingReasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SharingReason"
+          }
+        },
+        "sharingRecalculations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SharingRecalculation"
+          }
+        },
+        "startsWith": {
+          "type": "string",
+          "enum": ["Consonant", "Vowel", "Special"]
+        },
+        "validationRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ValidationRule"
+          }
+        },
+        "visibility": {
+          "type": "string",
+          "enum": ["PackageProtected", "Protected", "Public"]
+        },
+        "webLinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WebLink"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "CustomObjectBinding": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CustomFieldBinding"
+          }
+        },
+        "implementationObject": {
+          "type": "string"
+        },
+        "interfaceObject": {
+          "type": "string"
+        },
+        "masterLabel": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["implementationObject", "interfaceObject", "masterLabel"]
+    },
+    "CustomObjectTranslation": {
+      "type": "object",
+      "properties": {
+        "caseValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectNameCaseValue"
+          }
+        },
+        "fieldSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldSetTranslation"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CustomFieldTranslation"
+          }
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "Neuter",
+            "Masculine",
+            "Feminine",
+            "AnimateMasculine",
+            "ClassI",
+            "ClassIII",
+            "ClassV",
+            "ClassVII",
+            "ClassIX",
+            "ClassXI",
+            "ClassXIV",
+            "ClassXV",
+            "ClassXVI",
+            "ClassXVII",
+            "ClassXVIII"
+          ]
+        },
+        "layouts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LayoutTranslation"
+          }
+        },
+        "nameFieldLabel": {
+          "type": "string"
+        },
+        "quickActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/QuickActionTranslation"
+          }
+        },
+        "recordTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordTypeTranslation"
+          }
+        },
+        "sharingReasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SharingReasonTranslation"
+          }
+        },
+        "standardFields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StandardFieldTranslation"
+          }
+        },
+        "startsWith": {
+          "type": "string",
+          "enum": ["Consonant", "Vowel", "Special"]
+        },
+        "validationRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ValidationRuleTranslation"
+          }
+        },
+        "webLinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WebLinkTranslation"
+          }
+        },
+        "workflowTasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WorkflowTaskTranslation"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "CustomValue": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["default"]
+    },
+    "FieldSet": {
+      "type": "object",
+      "properties": {
+        "availableFields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldSetItem"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayedFields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldSetItem"
+          }
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["description", "label"]
+    },
+    "FieldSetItem": {
+      "type": "object",
+      "properties": {
+        "alternativeDisplayFormat": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "isFieldManaged": {
+          "type": "boolean"
+        },
+        "isRequired": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "FieldSetTranslation": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label", "name"]
+    },
+    "FilterItem": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "equals",
+            "notEqual",
+            "lessThan",
+            "greaterThan",
+            "lessOrEqual",
+            "greaterOrEqual",
+            "contains",
+            "notContain",
+            "startsWith",
+            "includes",
+            "excludes",
+            "within"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "valueField": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["field", "operation"]
+    },
+    "HistoryRetentionPolicy": {
+      "type": "object",
+      "properties": {
+        "archiveAfterMonths": {
+          "type": "integer"
+        },
+        "archiveRetentionYears": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["archiveAfterMonths", "archiveRetentionYears"]
+    },
+    "Index": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IndexField"
+          }
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label"]
+    },
+    "IndexField": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sortDirection": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name", "sortDirection"]
+    },
+    "LayoutSectionTranslation": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "section": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label", "section"]
+    },
+    "LayoutTranslation": {
+      "type": "object",
+      "properties": {
+        "layout": {
+          "type": "string"
+        },
+        "layoutType": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LayoutSectionTranslation"
+          }
+        }
+      },
+      "additionalProperties": true,
+      "required": ["layout"]
+    },
+    "ListView": {
+      "type": "object",
+      "properties": {
+        "booleanFilter": {
+          "type": "string"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "division": {
+          "type": "string"
+        },
+        "filterScope": {
+          "type": "string",
+          "enum": [
+            "Everything",
+            "Mine",
+            "Queue",
+            "Delegated",
+            "MyTerritory",
+            "MyTeamTerritory",
+            "Team",
+            "SalesTeam",
+            "AssignedToMe",
+            "MineAndMyGroups",
+            "ScopingRule"
+          ]
+        },
+        "filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ListViewFilter"
+          }
+        },
+        "label": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string",
+          "enum": [
+            "en_US",
+            "de",
+            "es",
+            "fr",
+            "it",
+            "ja",
+            "sv",
+            "ko",
+            "zh_TW",
+            "zh_CN",
+            "pt_BR",
+            "nl_NL",
+            "da",
+            "th",
+            "fi",
+            "ru",
+            "es_MX",
+            "no",
+            "hu",
+            "pl",
+            "cs",
+            "tr",
+            "in",
+            "ro",
+            "vi",
+            "uk",
+            "iw",
+            "el",
+            "bg",
+            "en_GB",
+            "ar",
+            "sk",
+            "pt_PT",
+            "hr",
+            "sl",
+            "fr_CA",
+            "ka",
+            "sr",
+            "sh",
+            "en_AU",
+            "en_MY",
+            "en_IN",
+            "en_PH",
+            "en_CA",
+            "ro_MD",
+            "bs",
+            "mk",
+            "lv",
+            "lt",
+            "et",
+            "sq",
+            "sh_ME",
+            "mt",
+            "ga",
+            "eu",
+            "cy",
+            "is",
+            "cac",
+            "quc",
+            "cak",
+            "ms",
+            "tl",
+            "lb",
+            "rm",
+            "hy",
+            "hi",
+            "ur",
+            "bn",
+            "de_AT",
+            "de_CH",
+            "ta",
+            "ar_DZ",
+            "ar_BH",
+            "ar_EG",
+            "ar_IQ",
+            "ar_JO",
+            "ar_KW",
+            "ar_LB",
+            "ar_LY",
+            "ar_MA",
+            "ar_OM",
+            "ar_QA",
+            "ar_SA",
+            "ar_SD",
+            "ar_SY",
+            "ar_TN",
+            "ar_AE",
+            "ar_YE",
+            "zh_SG",
+            "zh_HK",
+            "en_HK",
+            "en_IE",
+            "en_SG",
+            "en_ZA",
+            "fr_BE",
+            "fr_LU",
+            "fr_CH",
+            "de_BE",
+            "de_LU",
+            "it_CH",
+            "nl_BE",
+            "es_AR",
+            "es_BO",
+            "es_CL",
+            "es_CO",
+            "es_CR",
+            "es_DO",
+            "es_EC",
+            "es_SV",
+            "es_GT",
+            "es_HN",
+            "es_NI",
+            "es_PA",
+            "es_PY",
+            "es_PE",
+            "es_PR",
+            "es_US",
+            "es_UY",
+            "es_VE",
+            "ca",
+            "af",
+            "sw",
+            "zu",
+            "xh",
+            "te",
+            "ml",
+            "kn",
+            "mr",
+            "gu",
+            "pa",
+            "en_NZ",
+            "mi",
+            "my",
+            "fa",
+            "km",
+            "am",
+            "kk",
+            "ht",
+            "sm",
+            "haw",
+            "zh_MY",
+            "ru_LT",
+            "ru_PL",
+            "ru_AM",
+            "ru_KZ",
+            "ru_KG",
+            "ru_BY",
+            "ru_MD",
+            "ru_UA",
+            "en_AE",
+            "en_BE",
+            "en_CY",
+            "en_DE",
+            "en_IL",
+            "en_IT",
+            "en_NL",
+            "en_MT",
+            "en_ES",
+            "en_PL",
+            "en_DK",
+            "en_SE",
+            "en_NO",
+            "en_FR",
+            "en_HU",
+            "en_CZ",
+            "en_SK",
+            "en_RO",
+            "en_CH",
+            "en_AL",
+            "en_AD",
+            "en_AG",
+            "en_AT",
+            "en_BS",
+            "en_BB",
+            "en_BZ",
+            "en_BA",
+            "en_BG",
+            "en_HR",
+            "en_DM",
+            "en_EE",
+            "en_FI",
+            "en_GI",
+            "en_GR",
+            "en_GD",
+            "en_GY",
+            "en_IS",
+            "en_JM",
+            "en_JP",
+            "en_LV",
+            "en_LI",
+            "en_LT",
+            "en_LU",
+            "en_MC",
+            "en_ME",
+            "en_MK",
+            "en_PT",
+            "en_RS",
+            "en_SI",
+            "en_KR",
+            "en_KN",
+            "en_LC",
+            "en_VC",
+            "en_TW",
+            "en_TH",
+            "en_TT",
+            "en_TR",
+            "nl_SR",
+            "fr_HT",
+            "de_LI",
+            "es_AD",
+            "sv_FI",
+            "el_CY",
+            "fr_MA",
+            "kl",
+            "ji",
+            "hmn",
+            "eo",
+            "iw_EO"
+          ]
+        },
+        "queue": {
+          "type": "string"
+        },
+        "sharedTo": {
+          "$ref": "#/$defs/SharedTo"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["filterScope", "label"]
+    },
+    "ListViewFilter": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "equals",
+            "notEqual",
+            "lessThan",
+            "greaterThan",
+            "lessOrEqual",
+            "greaterOrEqual",
+            "contains",
+            "notContain",
+            "startsWith",
+            "includes",
+            "excludes",
+            "within"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["field", "operation"]
+    },
+    "LookupFilter": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "booleanFilter": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "filterItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FilterItem"
+          }
+        },
+        "infoMessage": {
+          "type": "string"
+        },
+        "isOptional": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["active", "isOptional"]
+    },
+    "LookupFilterTranslation": {
+      "type": "object",
+      "properties": {
+        "errorMessage": {
+          "type": "string"
+        },
+        "informationalMessage": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["errorMessage", "informationalMessage"]
+    },
+    "MktDataLakeAttributes": {
+      "type": "object",
+      "properties": {
+        "creationType": {
+          "type": "string",
+          "enum": [
+            "Standard",
+            "Custom",
+            "System",
+            "Derived",
+            "Bridge",
+            "Curated",
+            "Segment_Membership",
+            "Calculated_Insight",
+            "Ml_Prediction",
+            "Activation_Audience",
+            "CG_Audience",
+            "Ad_Audience_Insights",
+            "Transform",
+            "ADG",
+            "External",
+            "Vector_Embedding",
+            "Chunk",
+            "Directory_Table",
+            "Semantic",
+            "Problem_Records",
+            "Clean_Room",
+            "Deletion_Records",
+            "Auxiliary"
+          ]
+        },
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "objectCategory": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "MktDataLakeFieldAttributes": {
+      "type": "object",
+      "properties": {
+        "dateFormat": {
+          "type": "string"
+        },
+        "definitionCreationType": {
+          "type": "string",
+          "enum": [
+            "Standard",
+            "Custom",
+            "System",
+            "Derived",
+            "Bridge",
+            "Curated",
+            "Segment_Membership",
+            "Calculated_Insight",
+            "Ml_Prediction",
+            "Activation_Audience",
+            "CG_Audience",
+            "Ad_Audience_Insights",
+            "Transform",
+            "ADG",
+            "External",
+            "Vector_Embedding",
+            "Chunk",
+            "Directory_Table",
+            "Semantic",
+            "Problem_Records",
+            "Clean_Room",
+            "Deletion_Records",
+            "Auxiliary"
+          ]
+        },
+        "externalName": {
+          "type": "string"
+        },
+        "isEventDate": {
+          "type": "boolean"
+        },
+        "isInternalOrganization": {
+          "type": "boolean"
+        },
+        "isRecordModified": {
+          "type": "boolean"
+        },
+        "keyQualifierName": {
+          "type": "string"
+        },
+        "mktDatalakeSrcKeyQualifier": {
+          "type": "string"
+        },
+        "primaryIndexOrder": {
+          "type": "integer"
+        },
+        "usageTag": {
+          "type": "string",
+          "enum": ["NONE", "KEY_QUALIFIER"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "MktDataModelAttributes": {
+      "type": "object",
+      "properties": {
+        "creationType": {
+          "type": "string",
+          "enum": [
+            "Standard",
+            "Custom",
+            "System",
+            "Derived",
+            "Bridge",
+            "Curated",
+            "Segment_Membership",
+            "Calculated_Insight",
+            "Ml_Prediction",
+            "Activation_Audience",
+            "CG_Audience",
+            "Ad_Audience_Insights",
+            "Transform",
+            "ADG",
+            "External",
+            "Vector_Embedding",
+            "Chunk",
+            "Directory_Table",
+            "Semantic",
+            "Problem_Records",
+            "Clean_Room",
+            "Deletion_Records",
+            "Auxiliary"
+          ]
+        },
+        "dataModelTaxonomy": {
+          "type": "string"
+        },
+        "dataSpaceName": {
+          "type": "string"
+        },
+        "dataSpacePrefix": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "isSegmentable": {
+          "type": "boolean"
+        },
+        "isUsedForMetrics": {
+          "type": "boolean"
+        },
+        "labelOverride": {
+          "type": "string"
+        },
+        "masterLabel": {
+          "type": "string"
+        },
+        "objectCategory": {
+          "type": "string"
+        },
+        "referenceEntityGroup": {
+          "type": "string"
+        },
+        "referenceEntityName": {
+          "type": "string"
+        },
+        "referenceEntitySubjectArea": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "MktDataModelFieldAttributes": {
+      "type": "object",
+      "properties": {
+        "definitionCreationType": {
+          "type": "string",
+          "enum": [
+            "Standard",
+            "Custom",
+            "System",
+            "Derived",
+            "Bridge",
+            "Curated",
+            "Segment_Membership",
+            "Calculated_Insight",
+            "Ml_Prediction",
+            "Activation_Audience",
+            "CG_Audience",
+            "Ad_Audience_Insights",
+            "Transform",
+            "ADG",
+            "External",
+            "Vector_Embedding",
+            "Chunk",
+            "Directory_Table",
+            "Semantic",
+            "Problem_Records",
+            "Clean_Room",
+            "Deletion_Records",
+            "Auxiliary"
+          ]
+        },
+        "invalidMergeActionType": {
+          "type": "string",
+          "enum": ["Drop", "Keep", "Override"]
+        },
+        "isDynamicLookup": {
+          "type": "boolean"
+        },
+        "keyQualifierName": {
+          "type": "string"
+        },
+        "labelOverride": {
+          "type": "string"
+        },
+        "mappingAlertType": {
+          "type": "string",
+          "enum": ["None", "Warning", "Error"]
+        },
+        "masterLabel": {
+          "type": "string"
+        },
+        "primaryIndexOrder": {
+          "type": "integer"
+        },
+        "refAttrDeveloperName": {
+          "type": "string"
+        },
+        "usageTag": {
+          "type": "string",
+          "enum": ["None", "KeyQualifier"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "ObjectNameCaseValue": {
+      "type": "object",
+      "properties": {
+        "article": {
+          "type": "string",
+          "enum": ["None", "Indefinite", "Definite"]
+        },
+        "caseType": {
+          "type": "string",
+          "enum": [
+            "Nominative",
+            "Accusative",
+            "Genitive",
+            "Dative",
+            "Inessive",
+            "Elative",
+            "Illative",
+            "Adessive",
+            "Ablative",
+            "Allative",
+            "Essive",
+            "Translative",
+            "Partitive",
+            "Objective",
+            "Subjective",
+            "Instrumental",
+            "Prepositional",
+            "Locative",
+            "Vocative",
+            "Sublative",
+            "Superessive",
+            "Delative",
+            "Causalfinal",
+            "Essiveformal",
+            "Termanative",
+            "Distributive",
+            "Ergative",
+            "Adverbial",
+            "Abessive",
+            "Comitative"
+          ]
+        },
+        "plural": {
+          "type": "boolean"
+        },
+        "possessive": {
+          "type": "string",
+          "enum": ["None", "First", "Second"]
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["value"]
+    },
+    "PicklistValue": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "allowEmail": {
+          "type": "boolean"
+        },
+        "closed": {
+          "type": "boolean"
+        },
+        "controllingFieldValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "converted": {
+          "type": "boolean"
+        },
+        "cssExposed": {
+          "type": "boolean"
+        },
+        "forecastCategory": {
+          "type": "string",
+          "enum": ["Omitted", "Pipeline", "BestCase", "MostLikely", "Forecast", "Closed"]
+        },
+        "highPriority": {
+          "type": "boolean"
+        },
+        "probability": {
+          "type": "integer"
+        },
+        "reverseRole": {
+          "type": "string"
+        },
+        "reviewed": {
+          "type": "boolean"
+        },
+        "won": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["default"]
+    },
+    "PicklistValueTranslation": {
+      "type": "object",
+      "properties": {
+        "masterLabel": {
+          "type": "string"
+        },
+        "translation": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["masterLabel"]
+    },
+    "ProfileSearchLayouts": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profileName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "QuickActionTranslation": {
+      "type": "object",
+      "properties": {
+        "aspect": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label", "name"]
+    },
+    "RecordType": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "businessProcess": {
+          "type": "string"
+        },
+        "compactLayoutAssignment": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "picklistValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordTypePicklistValue"
+          }
+        }
+      },
+      "additionalProperties": true,
+      "required": ["active", "label"]
+    },
+    "RecordTypePicklistValue": {
+      "type": "object",
+      "properties": {
+        "picklist": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PicklistValue"
+          }
+        }
+      },
+      "additionalProperties": true,
+      "required": ["picklist"]
+    },
+    "RecordTypeTranslation": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label", "name"]
+    },
+    "SearchLayouts": {
+      "type": "object",
+      "properties": {
+        "customTabListAdditionalFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excludedStandardButtons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "listViewButtons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lookupDialogsAdditionalFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lookupFilterFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lookupPhoneDialogsAdditionalFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "massQuickActions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "searchFilterFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "searchResultsAdditionalFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "searchResultsCustomButtons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "SharedTo": {
+      "type": "object",
+      "properties": {
+        "allCustomerPortalUsers": {
+          "type": "string"
+        },
+        "allInternalUsers": {
+          "type": "string"
+        },
+        "allPartnerUsers": {
+          "type": "string"
+        },
+        "channelProgramGroup": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "channelProgramGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "group": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "guestUser": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "managerSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "managers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "portalRole": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "portalRoleAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "queue": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "roleAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "roleAndSubordinatesInternal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rolesAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "territories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "territoriesAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "territory": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "territoryAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "SharingReason": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label"]
+    },
+    "SharingReasonTranslation": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label", "name"]
+    },
+    "SharingRecalculation": {
+      "type": "object",
+      "properties": {
+        "className": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["className"]
+    },
+    "StandardFieldTranslation": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name"]
+    },
+    "ValidationRule": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "errorConditionFormula": {
+          "type": "string"
+        },
+        "errorDisplayField": {
+          "type": "string"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["active", "errorConditionFormula", "errorMessage"]
+    },
+    "ValidationRuleTranslation": {
+      "type": "object",
+      "properties": {
+        "errorMessage": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["errorMessage", "name"]
+    },
+    "ValueSet": {
+      "type": "object",
+      "properties": {
+        "controllingField": {
+          "type": "string"
+        },
+        "restricted": {
+          "type": "boolean"
+        },
+        "valueSetDefinition": {
+          "$ref": "#/$defs/ValueSetValuesDefinition"
+        },
+        "valueSetName": {
+          "type": "string"
+        },
+        "valueSettings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ValueSettings"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "ValueSetValuesDefinition": {
+      "type": "object",
+      "properties": {
+        "sorted": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CustomValue"
+          }
+        }
+      },
+      "additionalProperties": true,
+      "required": ["sorted"]
+    },
+    "ValueSettings": {
+      "type": "object",
+      "properties": {
+        "controllingFieldValue": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "valueName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["valueName"]
+    },
+    "WebLink": {
+      "type": "object",
+      "properties": {
+        "availability": {
+          "type": "string",
+          "enum": ["online", "offline"]
+        },
+        "description": {
+          "type": "string"
+        },
+        "displayType": {
+          "type": "string",
+          "enum": ["link", "button", "massActionButton"]
+        },
+        "encodingKey": {
+          "type": "string",
+          "enum": [
+            "UTF-8",
+            "ISO-8859-1",
+            "Shift_JIS",
+            "ISO-2022-JP",
+            "EUC-JP",
+            "ks_c_5601-1987",
+            "Big5",
+            "GB2312",
+            "Big5-HKSCS",
+            "x-SJIS_0213"
+          ]
+        },
+        "hasMenubar": {
+          "type": "boolean"
+        },
+        "hasScrollbars": {
+          "type": "boolean"
+        },
+        "hasToolbar": {
+          "type": "boolean"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "isResizable": {
+          "type": "boolean"
+        },
+        "linkType": {
+          "type": "string",
+          "enum": ["url", "sControl", "javascript", "page", "flow"]
+        },
+        "masterLabel": {
+          "type": "string"
+        },
+        "openType": {
+          "type": "string",
+          "enum": ["newWindow", "sidebar", "noSidebar", "replace", "onClickJavaScript"]
+        },
+        "page": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string",
+          "enum": ["fullScreen", "none", "topLeft"]
+        },
+        "protected": {
+          "type": "boolean"
+        },
+        "requireRowSelection": {
+          "type": "boolean"
+        },
+        "scontrol": {
+          "type": "string"
+        },
+        "showsLocation": {
+          "type": "boolean"
+        },
+        "showsStatus": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        },
+        "width": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["availability", "displayType", "linkType", "openType", "protected"]
+    },
+    "WebLinkTranslation": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label", "name"]
+    },
+    "WorkflowTaskTranslation": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name"]
+    }
+  },
+  "x-salesforce-api-version": "66.0",
+  "$ref": "#/$defs/CustomObject"
+}

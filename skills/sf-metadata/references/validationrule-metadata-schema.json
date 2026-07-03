@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/schemas/salesforce-validationrule-metadata.json",
+  "title": "Salesforce ValidationRule Metadata",
+  "description": "JSON Schema for Salesforce ValidationRule metadata (API v66.0). Auto-generated from the org's metadata WSDL by pull_schema.py.",
+  "type": "object",
+  "$defs": {
+    "ValidationRule": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "errorConditionFormula": {
+          "type": "string"
+        },
+        "errorDisplayField": {
+          "type": "string"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["active", "errorConditionFormula", "errorMessage"]
+    },
+    "ValidationRuleTranslation": {
+      "type": "object",
+      "properties": {
+        "errorMessage": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["errorMessage", "name"]
+    }
+  },
+  "x-salesforce-api-version": "66.0",
+  "$ref": "#/$defs/ValidationRule"
+}

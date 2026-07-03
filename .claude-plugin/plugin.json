@@ -1,0 +1,26 @@
+{
+  "name": "salesforce-core-skills",
+  "version": "1.0.0",
+  "description": "General-purpose Salesforce admin and developer skills for use with any Salesforce MCP server.",
+  "author": {
+    "name": "Kugamon",
+    "email": "info@kugamon.com"
+  },
+  "repository": "https://github.com/kugamon/salesforce-core-skills",
+  "license": "MIT",
+  "keywords": [
+    "salesforce",
+    "apex",
+    "flow",
+    "lwc",
+    "data",
+    "metadata",
+    "permissions",
+    "soql",
+    "diagram",
+    "orchestration",
+    "audit",
+    "mcp"
+  ],
+  "skills": "./skills"
+}

@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/schemas/salesforce-recordtype-metadata.json",
+  "title": "Salesforce RecordType Metadata",
+  "description": "JSON Schema for Salesforce RecordType metadata (API v66.0). Auto-generated from the org's metadata WSDL by pull_schema.py.",
+  "type": "object",
+  "$defs": {
+    "PicklistValue": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "allowEmail": {
+          "type": "boolean"
+        },
+        "closed": {
+          "type": "boolean"
+        },
+        "controllingFieldValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "converted": {
+          "type": "boolean"
+        },
+        "cssExposed": {
+          "type": "boolean"
+        },
+        "forecastCategory": {
+          "type": "string",
+          "enum": ["Omitted", "Pipeline", "BestCase", "MostLikely", "Forecast", "Closed"]
+        },
+        "highPriority": {
+          "type": "boolean"
+        },
+        "probability": {
+          "type": "integer"
+        },
+        "reverseRole": {
+          "type": "string"
+        },
+        "reviewed": {
+          "type": "boolean"
+        },
+        "won": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["default"]
+    },
+    "RecordType": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "businessProcess": {
+          "type": "string"
+        },
+        "compactLayoutAssignment": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "picklistValues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RecordTypePicklistValue"
+          }
+        }
+      },
+      "additionalProperties": true,
+      "required": ["active", "label"]
+    },
+    "RecordTypePicklistValue": {
+      "type": "object",
+      "properties": {
+        "picklist": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PicklistValue"
+          }
+        }
+      },
+      "additionalProperties": true,
+      "required": ["picklist"]
+    },
+    "RecordTypeTranslation": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["label", "name"]
+    }
+  },
+  "x-salesforce-api-version": "66.0",
+  "$ref": "#/$defs/RecordType"
+}

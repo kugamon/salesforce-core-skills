@@ -1,0 +1,314 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/schemas/salesforce-sharingrules-metadata.json",
+  "title": "Salesforce SharingRules Metadata",
+  "description": "JSON Schema for Salesforce SharingRules metadata (API v66.0). Auto-generated from the org's metadata WSDL by pull_schema.py.",
+  "type": "object",
+  "$defs": {
+    "AccountSharingRuleSettings": {
+      "type": "object",
+      "properties": {
+        "caseAccessLevel": {
+          "type": "string"
+        },
+        "contactAccessLevel": {
+          "type": "string"
+        },
+        "opportunityAccessLevel": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["caseAccessLevel", "contactAccessLevel", "opportunityAccessLevel"]
+    },
+    "FilterItem": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "equals",
+            "notEqual",
+            "lessThan",
+            "greaterThan",
+            "lessOrEqual",
+            "greaterOrEqual",
+            "contains",
+            "notContain",
+            "startsWith",
+            "includes",
+            "excludes",
+            "within"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "valueField": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["field", "operation"]
+    },
+    "SharedTo": {
+      "type": "object",
+      "properties": {
+        "allCustomerPortalUsers": {
+          "type": "string"
+        },
+        "allInternalUsers": {
+          "type": "string"
+        },
+        "allPartnerUsers": {
+          "type": "string"
+        },
+        "channelProgramGroup": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "channelProgramGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "group": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "guestUser": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "managerSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "managers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "portalRole": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "portalRoleAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "queue": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "roleAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "roleAndSubordinatesInternal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rolesAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "territories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "territoriesAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "territory": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "territoryAndSubordinates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "SharingBaseRule": {
+      "type": "object",
+      "properties": {
+        "accessLevel": {
+          "type": "string"
+        },
+        "accountSettings": {
+          "$ref": "#/$defs/AccountSharingRuleSettings"
+        },
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "sharedTo": {
+          "$ref": "#/$defs/SharedTo"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["accessLevel", "label", "sharedTo"]
+    },
+    "SharingCriteriaRule": {
+      "type": "object",
+      "properties": {
+        "booleanFilter": {
+          "type": "string"
+        },
+        "criteriaItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FilterItem"
+          }
+        },
+        "includeRecordsOwnedByAll": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/SharingBaseRule"
+        }
+      ],
+      "required": ["includeRecordsOwnedByAll"]
+    },
+    "SharingGuestRule": {
+      "type": "object",
+      "properties": {
+        "booleanFilter": {
+          "type": "string"
+        },
+        "criteriaItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FilterItem"
+          }
+        },
+        "includeHVUOwnedRecords": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/SharingBaseRule"
+        }
+      ],
+      "required": ["includeHVUOwnedRecords"]
+    },
+    "SharingOwnerRule": {
+      "type": "object",
+      "properties": {
+        "sharedFrom": {
+          "$ref": "#/$defs/SharedTo"
+        }
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/SharingBaseRule"
+        }
+      ],
+      "required": ["sharedFrom"]
+    },
+    "SharingRules": {
+      "type": "object",
+      "properties": {
+        "sharingCriteriaRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SharingCriteriaRule"
+          }
+        },
+        "sharingGuestRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SharingGuestRule"
+          }
+        },
+        "sharingOwnerRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SharingOwnerRule"
+          }
+        },
+        "sharingTerritoryRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SharingTerritoryRule"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "SharingTerritoryRule": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "$ref": "#/$defs/SharingOwnerRule"
+        }
+      ]
+    }
+  },
+  "x-salesforce-api-version": "66.0",
+  "$ref": "#/$defs/SharingRules"
+}

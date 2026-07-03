@@ -1,0 +1,483 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/schemas/salesforce-flexipage-metadata.json",
+  "title": "Salesforce FlexiPage Metadata",
+  "description": "JSON Schema for Salesforce FlexiPage metadata (API v66.0). Auto-generated from the org's metadata WSDL by pull_schema.py.",
+  "type": "object",
+  "$defs": {
+    "ComponentInstance": {
+      "type": "object",
+      "properties": {
+        "componentInstanceProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ComponentInstanceProperty"
+          }
+        },
+        "componentName": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "visibilityRule": {
+          "$ref": "#/$defs/UiFormulaRule"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["componentName"]
+    },
+    "ComponentInstanceProperty": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["decorator"]
+        },
+        "value": {
+          "type": "string"
+        },
+        "valueList": {
+          "$ref": "#/$defs/ComponentInstancePropertyList"
+        }
+      },
+      "additionalProperties": true
+    },
+    "ComponentInstancePropertyList": {
+      "type": "object",
+      "properties": {
+        "valueListItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ComponentInstancePropertyListItem"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "ComponentInstancePropertyListItem": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "visibilityRule": {
+          "$ref": "#/$defs/UiFormulaRule"
+        }
+      },
+      "additionalProperties": true
+    },
+    "FieldInstance": {
+      "type": "object",
+      "properties": {
+        "fieldInstanceProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldInstanceProperty"
+          }
+        },
+        "fieldItem": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "visibilityRule": {
+          "$ref": "#/$defs/UiFormulaRule"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["fieldItem"]
+    },
+    "FieldInstanceProperty": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "FlexiPage": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FlexiPageEvent"
+          }
+        },
+        "flexiPageRegions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FlexiPageRegion"
+          }
+        },
+        "masterLabel": {
+          "type": "string"
+        },
+        "parentFlexiPage": {
+          "type": "string"
+        },
+        "platformActionlist": {
+          "$ref": "#/$defs/PlatformActionList"
+        },
+        "quickActionList": {
+          "$ref": "#/$defs/QuickActionList"
+        },
+        "sobjectType": {
+          "type": "string"
+        },
+        "template": {
+          "$ref": "#/$defs/FlexiPageTemplateInstance"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "AppPage",
+            "ObjectPage",
+            "RecordPage",
+            "HomePage",
+            "ForecastingPage",
+            "MailAppAppPage",
+            "CommAppPage",
+            "CommForgotPasswordPage",
+            "CommLoginPage",
+            "CommObjectPage",
+            "CommQuickActionCreatePage",
+            "CommRecordPage",
+            "CommRelatedListPage",
+            "CommSearchResultPage",
+            "CommGlobalSearchResultPage",
+            "CommSelfRegisterPage",
+            "CommThemeLayoutPage",
+            "UtilityBar",
+            "RecordPreview",
+            "EmbeddedServicePage",
+            "CommCheckoutPage",
+            "CommOrderConfirmationPage",
+            "CommFlowPage",
+            "EmailTemplatePage",
+            "ApplicationLayout",
+            "CommNoSearchResultsPage",
+            "CommElectronicSignaturePage",
+            "CommContractDocumentsPage",
+            "CommContractDetailViewPage",
+            "EmailContentPage",
+            "ServiceDocument",
+            "LandingPage",
+            "CdpRecordPage",
+            "SlackAppHome",
+            "SlackMessage",
+            "SlackModal",
+            "SlackNotification",
+            "EasyHomePage",
+            "CardPage",
+            "VoiceExtension",
+            "ConfiguratorAppPage",
+            "OmniSupervisorPage",
+            "MobileAppPage"
+          ]
+        }
+      },
+      "additionalProperties": true,
+      "required": ["masterLabel", "template", "type"]
+    },
+    "FlexiPageEvent": {
+      "type": "object",
+      "properties": {
+        "sourceName": {
+          "type": "string"
+        },
+        "sourceProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FlexiPageEventSourceProperty"
+          }
+        },
+        "sourceType": {
+          "type": "string",
+          "enum": ["Component"]
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FlexiPageEventTarget"
+          }
+        }
+      },
+      "additionalProperties": true,
+      "required": ["sourceName", "sourceType"]
+    },
+    "FlexiPageEventPropertyMapping": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name"]
+    },
+    "FlexiPageEventSourceProperty": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name", "value"]
+    },
+    "FlexiPageEventTarget": {
+      "type": "object",
+      "properties": {
+        "mappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FlexiPageEventPropertyMapping"
+          }
+        },
+        "method": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FlexiPageEventTargetProperty"
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "FlexipageServices",
+            "LwcServices",
+            "InvocableApexServices",
+            "InvocableExternalServices",
+            "ActionServices",
+            "ViewServices"
+          ]
+        }
+      },
+      "additionalProperties": true,
+      "required": ["method", "name", "type"]
+    },
+    "FlexiPageEventTargetProperty": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name", "value"]
+    },
+    "FlexiPageRegion": {
+      "type": "object",
+      "properties": {
+        "appendable": {
+          "type": "string",
+          "enum": ["disabled", "enabled"]
+        },
+        "itemInstances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ItemInstance"
+          }
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["Append", "Prepend", "Replace"]
+        },
+        "name": {
+          "type": "string"
+        },
+        "prependable": {
+          "type": "string",
+          "enum": ["disabled", "enabled"]
+        },
+        "replaceable": {
+          "type": "string",
+          "enum": ["disabled", "enabled"]
+        },
+        "type": {
+          "type": "string",
+          "enum": ["Region", "Facet", "Background"]
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name", "type"]
+    },
+    "FlexiPageTemplateInstance": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ComponentInstanceProperty"
+          }
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name"]
+    },
+    "ItemInstance": {
+      "type": "object",
+      "properties": {
+        "componentInstance": {
+          "$ref": "#/$defs/ComponentInstance"
+        },
+        "fieldInstance": {
+          "$ref": "#/$defs/FieldInstance"
+        }
+      },
+      "additionalProperties": true
+    },
+    "PlatformActionList": {
+      "type": "object",
+      "properties": {
+        "actionListContext": {
+          "type": "string",
+          "enum": [
+            "ListView",
+            "RelatedList",
+            "ListViewRecord",
+            "RelatedListRecord",
+            "Record",
+            "FeedElement",
+            "Chatter",
+            "Global",
+            "Flexipage",
+            "MruList",
+            "MruRow",
+            "RecordEdit",
+            "Photo",
+            "BannerPhoto",
+            "ObjectHomeChart",
+            "ListViewDefinition",
+            "Dockable",
+            "Lookup",
+            "Assistant"
+          ]
+        },
+        "platformActionListItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlatformActionListItem"
+          }
+        },
+        "relatedSourceEntity": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["actionListContext"]
+    },
+    "PlatformActionListItem": {
+      "type": "object",
+      "properties": {
+        "actionName": {
+          "type": "string"
+        },
+        "actionType": {
+          "type": "string",
+          "enum": [
+            "QuickAction",
+            "StandardButton",
+            "CustomButton",
+            "ProductivityAction",
+            "ActionLink",
+            "InvocableAction"
+          ]
+        },
+        "sortOrder": {
+          "type": "integer"
+        },
+        "subtype": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["actionName", "actionType", "sortOrder"]
+    },
+    "QuickActionList": {
+      "type": "object",
+      "properties": {
+        "quickActionListItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/QuickActionListItem"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "QuickActionListItem": {
+      "type": "object",
+      "properties": {
+        "quickActionName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["quickActionName"]
+    },
+    "UiFormulaCriterion": {
+      "type": "object",
+      "properties": {
+        "leftValue": {
+          "type": "string"
+        },
+        "operator": {
+          "type": "string"
+        },
+        "rightValue": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["leftValue", "operator"]
+    },
+    "UiFormulaRule": {
+      "type": "object",
+      "properties": {
+        "booleanFilter": {
+          "type": "string"
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/UiFormulaCriterion"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "x-salesforce-api-version": "66.0",
+  "$ref": "#/$defs/FlexiPage"
+}

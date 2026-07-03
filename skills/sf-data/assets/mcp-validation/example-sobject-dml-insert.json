@@ -1,0 +1,44 @@
+{
+  "tool": "sobject_dml",
+  "params": {
+    "sObject": "Account",
+    "operation": "insert",
+    "records": [
+      {
+        "Name": "Test Account 1",
+        "Industry": "Technology",
+        "Type": "Prospect",
+        "AnnualRevenue": 5000000
+      },
+      {
+        "Name": "Test Account 2",
+        "Industry": "Finance",
+        "Type": "Customer",
+        "AnnualRevenue": 12000000
+      },
+      {
+        "Name": "Test Account 3",
+        "Industry": "Healthcare",
+        "Type": "Prospect",
+        "AnnualRevenue": 3000000
+      },
+      {
+        "Name": "Test Account 4",
+        "Industry": "Technology",
+        "Type": "Partner",
+        "AnnualRevenue": 8000000
+      },
+      {
+        "Name": "Test Account 5",
+        "Industry": "Retail",
+        "Type": "Customer",
+        "AnnualRevenue": 1500000
+      }
+    ],
+    "sf_user": "prod"
+  },
+  "context": {
+    "purpose": "Insert varied test accounts for trigger and flow testing",
+    "cleanup_planned": true
+  }
+}
