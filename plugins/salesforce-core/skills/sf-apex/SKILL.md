@@ -1,6 +1,6 @@
 ---
 name: sf-apex
-plugin: salesforce-core-skills
+plugin: salesforce-core
 argument-hint: '[create|update|validate] [class|trigger|test-class] {name} ...'
 metadata:
   version: 2.0.3

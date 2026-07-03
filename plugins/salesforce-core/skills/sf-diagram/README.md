@@ -13,7 +13,7 @@ Salesforce architecture diagram generation skill for AI coding tools. Create Mer
 
 ## Installation
 
-For full installation instructions (various AI tools), see the [root README](../../../../README.md).
+For full installation instructions (various AI tools), see the [root README](../../../README.md).
 
 ## Usage
 

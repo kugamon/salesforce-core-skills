@@ -19,7 +19,7 @@ Run a comprehensive Salesforce org audit that inventories and evaluates all majo
 
 ## Installation
 
-For full installation instructions (various AI tools), see the [root README](../../README.md).
+For full installation instructions (various AI tools), see the [root README](../../../README.md).
 
 ## Quick Start
 

@@ -14,7 +14,7 @@ Lightning Web Components development skill with PICKLES architecture methodology
 
 ## Installation
 
-For full installation instructions (various AI tools), see the [root README](../../../../README.md).
+For full installation instructions (various AI tools), see the [root README](../../../README.md).
 
 ## Quick Start
 

@@ -12,7 +12,7 @@ Generates and reviews Salesforce Apex code with 2025 best practices and 150-poin
 
 ## Installation
 
-For full installation instructions (various AI tools), see the [root README](../../../../README.md).
+For full installation instructions (various AI tools), see the [root README](../../../README.md).
 
 ## Quick Start
 

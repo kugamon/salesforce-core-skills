@@ -1,6 +1,6 @@
 ---
 name: sf-permissions
-plugin: salesforce-core-skills
+plugin: salesforce-core
 metadata:
   version: 2.0.1
 argument-hint: '[hierarchy|audit|analyze|create|clone|update|delete|agent-access] ...'

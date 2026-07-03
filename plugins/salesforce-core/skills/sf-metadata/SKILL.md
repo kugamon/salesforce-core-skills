@@ -1,6 +1,6 @@
 ---
 name: sf-metadata
-plugin: salesforce-core-skills
+plugin: salesforce-core
 argument-hint: '[create|update|delete|describe] {ObjectName|FieldName|type} ...'
 metadata:
   version: 2.0.1

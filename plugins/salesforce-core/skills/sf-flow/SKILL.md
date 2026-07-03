@@ -1,6 +1,6 @@
 ---
 name: sf-flow
-plugin: salesforce-core-skills
+plugin: salesforce-core
 argument-hint: '[create|update|validate] {FlowName} ...'
 metadata:
   version: 2.2.0

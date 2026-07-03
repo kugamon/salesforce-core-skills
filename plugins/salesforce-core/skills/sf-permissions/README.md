@@ -12,7 +12,7 @@ Salesforce permission analysis and auditing skill for AI coding tools. Analyze P
 
 ## Installation
 
-For full installation instructions (various AI tools), see the [root README](../../../../README.md).
+For full installation instructions (various AI tools), see the [root README](../../../README.md).
 
 ## Usage
 

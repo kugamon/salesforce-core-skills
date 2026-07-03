@@ -14,7 +14,7 @@ Creates and validates Salesforce Flows with 110-point scoring and Winter '26 bes
 
 ## Installation
 
-For full installation instructions (various AI tools), see the [root README](../../../../README.md).
+For full installation instructions (various AI tools), see the [root README](../../../README.md).
 
 ## Quick Start
 

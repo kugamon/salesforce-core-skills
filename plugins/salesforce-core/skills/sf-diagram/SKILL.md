@@ -1,6 +1,6 @@
 ---
 name: sf-diagram
-plugin: salesforce-core-skills
+plugin: salesforce-core
 argument-hint: '[oauth|erd|integration|landscape|hierarchy|agentforce] ...'
 metadata:
   version: 2.0.1

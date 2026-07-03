@@ -1,6 +1,6 @@
 ---
 name: sf-data
-plugin: salesforce-core-skills
+plugin: salesforce-core
 argument-hint: '[query|build-query|insert|update|upsert|delete|validate|describe] {target} ...'
 metadata:
   version: 2.0.2

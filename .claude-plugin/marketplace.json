@@ -1,0 +1,32 @@
+{
+  "name": "salesforce-core-marketplace",
+  "owner": {
+    "name": "Kugamon"
+  },
+  "plugins": [
+    {
+      "name": "salesforce-core",
+      "source": "./plugins/salesforce-core",
+      "description": "Eight general-purpose Salesforce admin & developer skills — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Diagrams, and Org Audit — that work with any Salesforce MCP server.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Kugamon"
+      },
+      "homepage": "https://github.com/kugamon/salesforce-core-skills",
+      "license": "MIT",
+      "keywords": [
+        "salesforce",
+        "mcp",
+        "apex",
+        "flow",
+        "lwc",
+        "soql",
+        "metadata",
+        "permissions",
+        "audit",
+        "claude-desktop",
+        "cowork"
+      ]
+    }
+  ]
+}

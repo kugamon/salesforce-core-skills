@@ -1,0 +1,25 @@
+{
+  "name": "salesforce-core",
+  "version": "1.0.0",
+  "description": "Cowork / Claude Desktop plugin with eight general-purpose Salesforce admin & developer skills — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Diagrams, and Org Audit — that work with any Salesforce MCP server.",
+  "author": {
+    "name": "Kugamon"
+  },
+  "homepage": "https://github.com/kugamon/salesforce-core-skills",
+  "repository": "https://github.com/kugamon/salesforce-core-skills",
+  "license": "MIT",
+  "keywords": [
+    "salesforce",
+    "mcp",
+    "apex",
+    "flow",
+    "lwc",
+    "soql",
+    "metadata",
+    "permissions",
+    "audit",
+    "claude-desktop",
+    "cowork"
+  ],
+  "skills": "./skills"
+}

@@ -11,7 +11,7 @@ Salesforce metadata operations skill for AI coding tools. Create custom objects,
 
 ## Installation
 
-For full installation instructions (various AI tools), see the [root README](../../../../README.md).
+For full installation instructions (various AI tools), see the [root README](../../../README.md).
 
 ## Usage
 

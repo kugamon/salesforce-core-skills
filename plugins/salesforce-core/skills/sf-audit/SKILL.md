@@ -1,6 +1,6 @@
 ---
 name: sf-audit
-plugin: salesforce-core-skills
+plugin: salesforce-core
 argument-hint: '[full|apex|flow|lwc|metadata|permissions|reports|integrations|coverage|licensing|team|change-history|data-quality] ...'
 description: >
   Run a comprehensive Salesforce org audit producing 18 documents from a single scan.
