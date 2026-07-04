@@ -7,8 +7,8 @@
     {
       "name": "salesforce-core",
       "source": "./plugins/salesforce-core",
-      "description": "Eight general-purpose Salesforce admin & developer skills — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Diagrams, and Org Audit — that work with any Salesforce MCP server.",
-      "version": "1.0.0",
+      "description": "Eight general-purpose Salesforce admin & developer skills \u2014 Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Diagrams, and Org Audit \u2014 that work with any Salesforce MCP server.",
+      "version": "1.1.1",
       "author": {
         "name": "Kugamon"
       },
