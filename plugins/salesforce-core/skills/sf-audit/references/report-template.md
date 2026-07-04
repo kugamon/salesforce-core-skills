@@ -392,3 +392,88 @@ audit_output/
 | `{SCORE}`        | Computed weighted org health score (0–100)     |
 | `{RATING}`       | Score-to-rating lookup (see Section 1)         |
 | `{RATING_COLOR}` | Severity colour for the rating (see Section 1) |
+
+---
+
+## 7. Visualization Requirements (all formats)
+
+Reports exist to be understood at a glance. Every generated document —
+regardless of format — must present quantitative findings visually, not as
+prose. Minimum visual set for any scored report:
+
+| Visual | Purpose | DOCX | XLSX | HTML |
+| --- | --- | --- | --- | --- |
+| Overall score gauge | The one number executives read | Traffic-light table cell or embedded image | Colored score cell + data bar | Animated SVG donut gauge |
+| Category breakdown | Where the points were lost | Table with colored score cells | Bar chart (openpyxl `BarChart`) | Animated horizontal bars |
+| Severity/score distribution | How findings skew | Table with count + colored bars | Pie/bar chart + conditional formatting | Inline SVG bar or donut chart |
+| Top-N offenders | What to fix first | Ranked table, worst highlighted | Sorted sheet with data bars | Ranked cards or table with severity pills |
+| Trend (when history exists) | Direction of travel | Embedded line-chart image | Line chart | Inline SVG sparkline/line |
+
+Rules of thumb: tables for inventories and evidence; charts for
+distributions, comparisons, and proportions; never a paragraph where a table
+works, never a table where a chart works. Charts in DOCX are embedded images
+(render SVG/matplotlib to PNG); charts in XLSX use openpyxl's native chart
+classes plus conditional-formatting data bars; charts in HTML are inline SVG
+drawn by embedded JS (no chart libraries needed).
+
+## 8. HTML Deliverable Standards
+
+Every HTML report is a **single self-contained file**: all CSS in one
+`<style>` block, all JS in one `<script>` block, charts as inline SVG, icons
+as inline SVG or unicode, no CDN links, no external fonts, no network
+requests of any kind. The file must render fully offline and survive being
+emailed as an attachment. (System font stack: `-apple-system,
+BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif`.)
+
+### Modern design baseline
+
+- Card-based layout on the `--body-bg` page background; cards use
+  `border-radius: 12px`, subtle shadow (`0 1px 3px rgba(16,24,40,.08)`),
+  generous whitespace
+- Sticky top nav with section links and smooth scrolling
+  (`html { scroll-behavior: smooth }`)
+- Severity/score pills, not bare text ("Critical" sits in a red pill)
+- Hover states on rows and cards (background shift + slight lift)
+- Responsive: single column under 768px; tables get
+  `overflow-x: auto` wrappers
+
+### CSS animation (required, tasteful)
+
+Animate the data, not the chrome. Standard kit — copy into the `<style>`/`<script>` blocks:
+
+```css
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+.reveal { opacity:0; }
+.reveal.in { animation: fadeUp .5s ease-out forwards; }
+.bar { transform-origin:left; transform:scaleX(0); transition:transform .8s cubic-bezier(.22,1,.36,1); }
+.bar.in { transform:scaleX(1); }
+.gauge-arc { transition: stroke-dashoffset 1s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .bar, .gauge-arc { animation:none !important; transition:none !important; opacity:1 !important; transform:none !important; }
+}
+```
+
+```js
+// Reveal sections and grow bars as they scroll into view
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}), { threshold: .15 });
+document.querySelectorAll('.reveal, .bar').forEach(el => io.observe(el));
+
+// Count-up for headline numbers (data-target holds the final value)
+document.querySelectorAll('[data-target]').forEach(el => {
+  const end = parseFloat(el.dataset.target); const t0 = performance.now();
+  const step = t => { const p = Math.min((t - t0) / 900, 1);
+    el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+});
+```
+
+Donut gauge technique: an SVG circle with `stroke-dasharray` equal to the
+circumference and `stroke-dashoffset` animated from full to
+`circumference × (1 − score)`; color the stroke with the score-band color
+from §1. Bars are divs (or SVG rects) scaled by `.bar.in`.
+
+Keep animations under ~1s, ease-out, one-shot (no loops), and always behind
+the `prefers-reduced-motion` guard — the report should impress, not distract.

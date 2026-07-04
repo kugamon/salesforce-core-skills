@@ -1664,9 +1664,11 @@ One sheet per domain, plus a Summary sheet. Columns per domain:
 
 ### HTML report (`Salesforce_Org_Audit_Report.html`)
 
+Single self-contained file (inline CSS/JS, no external requests) with the modern-design and animation kit from `references/report-template.md` §8. Every HTML deliverable in this skill follows the same standard, and every report format meets the §7 visualization minimums (gauge, category breakdown, distribution chart, top-N).
+
 Same content as Word, formatted for browser. Include:
 
-- Score distribution visual (bar chart or table)
+- Score distribution visual — inline SVG chart, animated per report-template.md §7–8
 - Links to intermediate source files
 - Collapsible PS/PSG hierarchy tree
 - Automation overlap matrix table

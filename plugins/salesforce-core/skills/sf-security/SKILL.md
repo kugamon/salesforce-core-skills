@@ -88,7 +88,7 @@ a 92-point org with one hardcoded secret is not "Excellent".
 ### Phase 4: Report
 
 Produce the scored report in the sf-audit house format (Word/Excel/HTML —
-reuse `sf-audit/references/report-template.md` styling): executive summary,
+reuse `sf-audit/references/report-template.md` styling, including the §7 visualization minimums — score gauge, category bars, severity distribution chart — and the §8 single-file HTML standard with inline CSS/JS and scroll-reveal animations): executive summary,
 score by category, findings table sorted by severity, remediation plan with
 effort estimates, and the AppExchange readiness verdict if relevant.
 
