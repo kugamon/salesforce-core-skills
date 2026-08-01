@@ -59,6 +59,10 @@ Per record, in order:
    actually does, mapped to the org's Industry picklist values — fetch them
    via describe, don't invent new ones), current title, employee-count
    band, person and company LinkedIn URLs.
+   Apply `references/data-quality-rules.md` throughout: active-picklist
+   verification (§1), org-dominant address/code conventions and HQ rule
+   (§2), field-length checks (§3), first-party email corroboration (§6),
+   and stated-not-inferred source attribution (§5).
 3. **Record confidence + source per field.** High = company's own site or
    the person's own profile. Medium = third-party databases. Low = inference
    — Low-confidence values are presented but not written unless the user
@@ -68,6 +72,10 @@ Per record, in order:
    MCP DML tool in batches of ≤10. NEVER overwrite an existing non-null
    value unless explicitly asked — enrichment fills gaps, it doesn't
    relitigate CRM history.
+5. **Verify after write.** Re-query the updated records — Flows, validation
+   rules, and sync automations can accept a write and then revert it. If a
+   field reverts, automation owns it: capture intent in a notes field and
+   tell the user rather than retrying (data-quality-rules §8).
 
 Contacts: same workflow against Contact (Account.Website often answers
 company questions — check inside Salesforce before searching outside).
@@ -90,6 +98,17 @@ feedback for the admin).
 - Batches ≤10 records; respect API limits
 - PII discipline: enrich business data (title, company, industry) — do not
   hunt personal phone numbers, home addresses, or private accounts
+- Opt-out is a one-way door: never unset an email opt-out without documented
+  re-opt-in; bounced addresses are unverified until corroborated first-party
+- Departed contacts: flag, never delete — and spawn a cross-referenced lead
+  at the new company when relevant (data-quality-rules §7)
+
+## References
+
+| File | Read when |
+| --- | --- |
+| `references/data-quality-rules.md` | Before any batch of writes — picklist, convention, attribution, and verification rules |
+| `references/execution-modes.md` | Start of session |
 
 ## Cross-skill handoffs
 
