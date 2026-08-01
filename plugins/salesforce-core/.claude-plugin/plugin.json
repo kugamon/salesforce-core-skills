@@ -1,6 +1,6 @@
 {
   "name": "salesforce-core",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Cowork / Claude Desktop plugin with thirteen general-purpose Salesforce admin & developer skills that work with any Salesforce MCP server.",
   "author": {
     "name": "Kugamon"
