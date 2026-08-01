@@ -1,5 +1,6 @@
 # salesforce-core-skills
 
+[![Validate](https://github.com/kugamon/salesforce-core-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/kugamon/salesforce-core-skills/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A Claude Desktop / Cowork **plugin marketplace** that ships a single plugin (`salesforce-core`) with **thirteen general-purpose Salesforce admin & developer skills** — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Architecture Diagrams, Org Audit, Test Generation, Security Review, Debug Log Analysis, Campaign Analytics, and Lead Enrichment.
