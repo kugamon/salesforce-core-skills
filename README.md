@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A Claude Desktop / Cowork **plugin marketplace** that ships a single plugin (`salesforce-core`) with **eight general-purpose Salesforce admin & developer skills** — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Architecture Diagrams, and Org Audit.
+A Claude Desktop / Cowork **plugin marketplace** that ships a single plugin (`salesforce-core`) with **thirteen general-purpose Salesforce admin & developer skills** — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Architecture Diagrams, Org Audit, Test Generation, Security Review, Debug Log Analysis, Campaign Analytics, and Lead Enrichment.
 
 This repo **does not install an MCP server**. It assumes you already have a Salesforce MCP server connected to your org. The skills are **tool-agnostic** — they reference MCP capabilities generically rather than one vendor's tool names, so they work with any Salesforce MCP server.
 
@@ -14,9 +14,13 @@ Out of the box, Claude can call your Salesforce MCP server's tools — but it do
 - **How to build Flows that pass review** (naming, fault paths, entry conditions, subflow patterns)
 - **How to optimize SOQL** (selectivity, indexes) or run safe bulk DML with cleanup/rollback plans
 - **How to audit an org end-to-end** and produce Word / Excel / HTML reports
+- **How to write tests that catch regressions** (assertion quality, 200-record bulk proofs, runAs enforcement tests) and run them via the Tooling API
+- **What the AppExchange security review checks** (CRUD/FLS, injection, sharing, secrets) and how to get submission-ready
+- **How to read a debug log** — trace flags, limit meters, SOQL-in-loop signatures, row-lock diagnosis
+- **How to enrich CRM data safely** — active-picklist verification, source attribution, anti-fabrication rules
 - **Which execution mode to use** — local SFDX metadata, Salesforce CLI, MCP + code execution, or MCP-only
 
-This plugin encodes those rules as Cowork skills with structured scoring rubrics (150-point Apex, 110-point Flow, 165-point LWC SLDS 2), reference guides, metadata schemas, and validation scripts. After you install it, Claude routes Salesforce tasks to the right skill automatically.
+This plugin encodes those rules as Cowork skills with structured scoring rubrics (150-point Apex, 110-point Flow, 165-point LWC SLDS 2, 120-point tests, 100-point security), reference guides, metadata schemas, and validation scripts. After you install it, Claude routes Salesforce tasks to the right skill automatically.
 
 ## Prerequisites
 
@@ -25,7 +29,7 @@ You need a Salesforce MCP server connected to Claude Desktop, wired to your targ
 1. **[salesforce-mcp-auto-auth-chrome](https://github.com/kugamon/salesforce-mcp-auto-auth-chrome)** — local MCP server with 14 Salesforce tools that auto-refreshes its session from your Chrome login (no tokens to paste).
 2. **Any other Salesforce MCP server** — the skills reason about capabilities (SOQL query, DML, metadata create, Tooling API), not specific tool names.
 
-## The 8 skills
+## The 13 skills
 
 | Skill | What it does | Scoring |
 | --- | --- | --- |
@@ -37,6 +41,11 @@ You need a Salesforce MCP server connected to Claude Desktop, wired to your targ
 | [sf-permissions](plugins/salesforce-core/skills/sf-permissions/README.md) | Permission Set analysis, "Who has X?" auditing | — |
 | [sf-diagram](plugins/salesforce-core/skills/sf-diagram/README.md) | Architecture diagrams (ERDs, OAuth flows, integrations) in Mermaid | — |
 | [sf-audit](plugins/salesforce-core/skills/sf-audit/README.md) | Comprehensive org audit with Word, Excel and HTML reports | — |
+| [sf-test](plugins/salesforce-core/skills/sf-test/README.md) | Generate, review, and run Apex test classes | 120-point |
+| [sf-security](plugins/salesforce-core/skills/sf-security/README.md) | Security audit + AppExchange review readiness | 100-point |
+| [sf-debug](plugins/salesforce-core/skills/sf-debug/README.md) | Debug log capture and analysis via the Tooling API | — |
+| [sf-campaigns](plugins/salesforce-core/skills/sf-campaigns/README.md) | Campaign performance, funnels, ROI, and lead-source analysis | — |
+| [sf-leads](plugins/salesforce-core/skills/sf-leads/README.md) | Lead/Contact enrichment with citations, confidence ratings, and approval gates | — |
 
 ## Org connection convention
 
@@ -60,6 +69,10 @@ Each skill detects one of four execution modes per session and adapts:
 
 See any skill's `references/execution-modes.md` for details.
 
+## Report standards
+
+Skills that generate documents (sf-audit, sf-security) follow shared standards in [`report-template.md`](plugins/salesforce-core/skills/sf-audit/references/report-template.md): every scored report includes charts and tables (score gauges, category breakdowns, severity distributions, top-N offenders), and every HTML deliverable is a **single self-contained file** — inline CSS/JS, inline SVG charts, no external requests — with modern card-based design and tasteful scroll-reveal animations.
+
 ## Repo layout
 
 ```
@@ -77,12 +90,17 @@ salesforce-core-skills/                  # repo root = a marketplace
         └── skills/
             ├── sf-apex/                 # each skill: SKILL.md + README +
             ├── sf-audit/                #   references/ + assets/ + scripts/
+            ├── sf-campaigns/
             ├── sf-data/
+            ├── sf-debug/
             ├── sf-diagram/
             ├── sf-flow/
+            ├── sf-leads/
             ├── sf-lwc/
             ├── sf-metadata/
-            └── sf-permissions/
+            ├── sf-permissions/
+            ├── sf-security/
+            └── sf-test/
 ```
 
 The marketplace pattern means future contributors can add more plugins under `plugins/<name>/` and register them in `marketplace.json` — the install URL stays the same.
@@ -127,10 +145,13 @@ Claude should detect the execution mode, connect to your Salesforce MCP server, 
 ## Sample prompts
 
 - "Perform a thorough audit of the Apex classes and Flows in my Salesforce org. Generate Word, HTML and Excel versions of the report."
-- "I need a new custom object called Inspection__c with fields for Status, Inspector, and Date. Then create an Apex trigger that auto-assigns inspectors based on region, a Screen Flow for field technicians to submit inspection results, and seed 50 test records so I can demo it."
+- "Write tests for AccountService and show me the coverage."
+- "Is this codebase ready for AppExchange security review?"
+- "Why am I getting 'Too many SOQL queries: 101' on opportunity save?"
+- "Which campaigns are actually working? Rank them by ROI."
+- "Find leads missing industry or title and enrich the top 10."
 - "Analyze all my profiles and permission sets and recommend security fixes and cleanup."
 - "Create an ERD diagram for my Sales Cloud data model including Account, Contact, Opportunity, and Lead."
-- "Build a SOQL query that shows me all opportunities closing this quarter with amount over $100K."
 
 ## Model choice
 
@@ -150,7 +171,7 @@ For reports, analysis and simple metadata tasks a fast model (e.g. Sonnet) is a 
 
 PRs welcome. Especially useful contributions:
 
-- Additional skills (e.g. sf-reports, sf-experience-cloud) — drop a folder under `plugins/salesforce-core/skills/`
+- Additional skills (e.g. sf-deploy, sf-docs, sf-integration) — drop a folder under `plugins/salesforce-core/skills/`
 - New plugins under `plugins/<name>/`, registered in `marketplace.json`
 - Improved scoring rubrics and reference guides as Salesforce releases evolve
 
