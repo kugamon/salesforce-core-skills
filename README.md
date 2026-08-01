@@ -203,8 +203,6 @@ Keep skill files terse — a focused skill that triggers correctly beats a spraw
 ## Related projects
 
 - **[salesforce-mcp-auto-auth-chrome](https://github.com/kugamon/salesforce-mcp-auto-auth-chrome)** — our recommended Salesforce MCP server (auto-auth from Chrome).
-- **[forcedotcom/sf-skills](https://github.com/forcedotcom/sf-skills)** — Salesforce's official skill library. Broader platform coverage (Agentforce, Data 360, OmniStudio, Commerce), SFDX-project-first. Use it for greenfield development inside an SFDX project; use this repo for MCP-connected live-org admin, audit, and data work.
-- **[elijeangilles/revops-skills](https://github.com/elijeangilles/revops-skills)** — complementary RevOps analytics pack (pipeline hygiene, forecast prep) that also runs against any Salesforce MCP server.
 - **[kugamon/kugamon-skills](https://github.com/kugamon/kugamon-skills)** — Quote-to-Cash and Subscription Management skills for orgs running the Kugamon managed packages, built on top of this plugin.
 
 ## License
