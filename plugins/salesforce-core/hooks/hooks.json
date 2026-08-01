@@ -10,6 +10,16 @@
             "timeout": 30
           }
         ]
+      },
+      {
+        "matcher": "mcp__.*__metadata_create|mcp__.*__metadata_update|mcp__.*__tooling_api_dml|mcp__.*__sobject_dml|mcp__.*__apex_execute|mcp__.*__bulk_delete_records|mcp__.*__delete_record|mcp__.*__update_record|mcp__.*__create_record",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/shared/hooks/scripts/guardrails.py",
+            "timeout": 15
+          }
+        ]
       }
     ]
   }

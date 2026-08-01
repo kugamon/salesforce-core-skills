@@ -1,0 +1,292 @@
+Id,CampaignId,CampaignName,LeadOrContactName,Company,Status,HasResponded,FirstRespondedDate,LeadSource
+00vSAMPLE00001,701SAMPLE0001,AppExchange Marketplace Listing,Emma Chen,Corex Medical,Sent,False,,Web - Search
+00vSAMPLE00002,701SAMPLE0001,AppExchange Marketplace Listing,Mia Kim,Ionberg Cloud,Responded,True,2026-02-15,AppExchange
+00vSAMPLE00003,701SAMPLE0001,AppExchange Marketplace Listing,Ava Garcia,Corex Medical,Responded,True,2026-02-18,Referral - Partner
+00vSAMPLE00004,701SAMPLE0001,AppExchange Marketplace Listing,Ava Silva,Corex Medical,No Show,False,,List / Campaign
+00vSAMPLE00005,701SAMPLE0001,AppExchange Marketplace Listing,Ivy Chen,Krest Manufacturing,Sent,False,,List / Campaign
+00vSAMPLE00006,701SAMPLE0001,AppExchange Marketplace Listing,Zoe Tanaka,Corex Medical,Sent,False,,Event
+00vSAMPLE00007,701SAMPLE0001,AppExchange Marketplace Listing,Emma Garcia,Acme Analytics,No Show,False,,Event
+00vSAMPLE00008,701SAMPLE0001,AppExchange Marketplace Listing,Kai Tanaka,Krest Manufacturing,Sent,False,,List / Campaign
+00vSAMPLE00009,701SAMPLE0001,AppExchange Marketplace Listing,Emma Idris,Helix Bio,Responded,True,2026-02-11,Referral - Partner
+00vSAMPLE00010,701SAMPLE0001,AppExchange Marketplace Listing,Kai Silva,Northwind Robotics,Responded,True,2026-02-23,Web - Search
+00vSAMPLE00011,701SAMPLE0001,AppExchange Marketplace Listing,Owen Garcia,Acme Analytics,Responded,True,2026-02-14,Event
+00vSAMPLE00012,701SAMPLE0001,AppExchange Marketplace Listing,Ruth Costa,Evergreen SaaS,Sent,False,,Event
+00vSAMPLE00013,701SAMPLE0001,AppExchange Marketplace Listing,Sofia Tanaka,Ionberg Cloud,Responded,True,2026-02-22,Web - Search
+00vSAMPLE00014,701SAMPLE0001,AppExchange Marketplace Listing,Lucas Novak,Fjord Data,Responded,True,2026-02-10,Referral - Partner
+00vSAMPLE00015,701SAMPLE0001,AppExchange Marketplace Listing,Lucas Weber,Corex Medical,Sent,False,,AppExchange
+00vSAMPLE00016,701SAMPLE0001,AppExchange Marketplace Listing,Zoe Idris,Acme Analytics,Sent,False,,Web - Search
+00vSAMPLE00017,701SAMPLE0001,AppExchange Marketplace Listing,Zoe Silva,Fjord Data,Responded,True,2026-02-22,List / Campaign
+00vSAMPLE00018,701SAMPLE0001,AppExchange Marketplace Listing,Mia Tanaka,Corex Medical,Sent,False,,Referral - Partner
+00vSAMPLE00019,701SAMPLE0001,AppExchange Marketplace Listing,Ivy Moreau,Evergreen SaaS,No Show,False,,Web - Search
+00vSAMPLE00020,701SAMPLE0001,AppExchange Marketplace Listing,Mia Quinn,Northwind Robotics,Responded,True,2026-02-05,Web - Search
+00vSAMPLE00021,701SAMPLE0001,AppExchange Marketplace Listing,Ethan Moreau,Fjord Data,Responded,True,2026-02-14,Referral - Partner
+00vSAMPLE00022,701SAMPLE0001,AppExchange Marketplace Listing,Ruth Tanaka,Juniper Retail,Sent,False,,AppExchange
+00vSAMPLE00023,701SAMPLE0001,AppExchange Marketplace Listing,Ivy Weber,Deltaline Logistics,Responded,True,2026-02-15,Web - Search
+00vSAMPLE00024,701SAMPLE0001,AppExchange Marketplace Listing,Ruth Chen,Helix Bio,Sent,False,,Web - Search
+00vSAMPLE00025,701SAMPLE0001,AppExchange Marketplace Listing,Emma Ali,Bluepeak Software,Responded,True,2026-02-13,Web - Search
+00vSAMPLE00026,701SAMPLE0001,AppExchange Marketplace Listing,Ava Weber,Northwind Robotics,Responded,True,2026-02-05,Event
+00vSAMPLE00027,701SAMPLE0001,AppExchange Marketplace Listing,Owen Berg,Corex Medical,Sent,False,,Referral - Partner
+00vSAMPLE00028,701SAMPLE0001,AppExchange Marketplace Listing,Noah Garcia,Acme Analytics,Responded,True,2026-02-26,Referral - Partner
+00vSAMPLE00029,701SAMPLE0001,AppExchange Marketplace Listing,Mia Osei,Helix Bio,Responded,True,2026-02-07,Event
+00vSAMPLE00030,701SAMPLE0001,AppExchange Marketplace Listing,Leo Silva,Krest Manufacturing,Responded,True,2026-02-11,List / Campaign
+00vSAMPLE00031,701SAMPLE0001,AppExchange Marketplace Listing,Kai Larsen,Acme Analytics,Responded,True,2026-02-09,Web - Search
+00vSAMPLE00032,701SAMPLE0001,AppExchange Marketplace Listing,Noah Weber,Ionberg Cloud,Sent,False,,Referral - Partner
+00vSAMPLE00033,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Lucas Chen,Krest Manufacturing,Responded,True,2026-03-22,AppExchange
+00vSAMPLE00034,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Lucas Garcia,Evergreen SaaS,Sent,False,,AppExchange
+00vSAMPLE00035,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Lucas Tanaka,Corex Medical,Responded,True,2026-03-19,Web - Search
+00vSAMPLE00036,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Max Berg,Fjord Data,Responded,True,2026-03-08,AppExchange
+00vSAMPLE00037,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Emma Moreau,Fjord Data,Attended,True,2026-03-15,List / Campaign
+00vSAMPLE00038,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Liam Kim,Fjord Data,Sent,False,,Event
+00vSAMPLE00039,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Emma Berg,Corex Medical,Responded,True,2026-03-19,List / Campaign
+00vSAMPLE00040,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Mia Moreau,Deltaline Logistics,Sent,False,,List / Campaign
+00vSAMPLE00041,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Lucas Garcia,Helix Bio,Responded,True,2026-03-05,AppExchange
+00vSAMPLE00042,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Ava Garcia,Bluepeak Software,Responded,True,2026-03-15,List / Campaign
+00vSAMPLE00043,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Max Silva,Northwind Robotics,No Show,False,,Web - Search
+00vSAMPLE00044,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Nora Chen,Deltaline Logistics,No Show,False,,List / Campaign
+00vSAMPLE00045,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Owen Moreau,Bluepeak Software,Responded,True,2026-03-08,Event
+00vSAMPLE00046,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Sofia Patel,Krest Manufacturing,Sent,False,,Event
+00vSAMPLE00047,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Liam Patel,Helix Bio,Responded,True,2026-03-18,Web - Search
+00vSAMPLE00048,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Liam Garcia,Acme Analytics,Sent,False,,Referral - Partner
+00vSAMPLE00049,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Noah Berg,Acme Analytics,No Show,False,,Referral - Partner
+00vSAMPLE00050,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Lucas Patel,Fjord Data,Responded,True,2026-03-23,Referral - Partner
+00vSAMPLE00051,701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Zoe Tanaka,Juniper Retail,Responded,True,2026-03-24,Event
+00vSAMPLE00052,701SAMPLE0003,Dreamforce 2025 Booth,Ivy Idris,Juniper Retail,Sent,False,,Event
+00vSAMPLE00053,701SAMPLE0003,Dreamforce 2025 Booth,Ruth Weber,Northwind Robotics,Responded,True,2026-04-16,Referral - Partner
+00vSAMPLE00054,701SAMPLE0003,Dreamforce 2025 Booth,Emma Garcia,Helix Bio,Responded,True,2026-04-10,Web - Search
+00vSAMPLE00055,701SAMPLE0003,Dreamforce 2025 Booth,Kai Garcia,Evergreen SaaS,Responded,True,2026-04-11,Web - Search
+00vSAMPLE00056,701SAMPLE0003,Dreamforce 2025 Booth,Ruth Ali,Juniper Retail,Sent,False,,Referral - Partner
+00vSAMPLE00057,701SAMPLE0003,Dreamforce 2025 Booth,Owen Kim,Deltaline Logistics,Sent,False,,AppExchange
+00vSAMPLE00058,701SAMPLE0003,Dreamforce 2025 Booth,Emma Osei,Deltaline Logistics,Sent,False,,Referral - Partner
+00vSAMPLE00059,701SAMPLE0003,Dreamforce 2025 Booth,Sofia Weber,Juniper Retail,Responded,True,2026-04-22,Event
+00vSAMPLE00060,701SAMPLE0003,Dreamforce 2025 Booth,Max Tanaka,Acme Analytics,Sent,False,,List / Campaign
+00vSAMPLE00061,701SAMPLE0003,Dreamforce 2025 Booth,Ivy Patel,Evergreen SaaS,Sent,False,,Web - Search
+00vSAMPLE00062,701SAMPLE0003,Dreamforce 2025 Booth,Ivy Novak,Helix Bio,Responded,True,2026-04-24,List / Campaign
+00vSAMPLE00063,701SAMPLE0003,Dreamforce 2025 Booth,Ava Kim,Krest Manufacturing,Responded,True,2026-04-06,Referral - Partner
+00vSAMPLE00064,701SAMPLE0003,Dreamforce 2025 Booth,Liam Costa,Fjord Data,Sent,False,,Web - Search
+00vSAMPLE00065,701SAMPLE0003,Dreamforce 2025 Booth,Liam Ali,Northwind Robotics,Attended,True,2026-04-13,Web - Search
+00vSAMPLE00066,701SAMPLE0003,Dreamforce 2025 Booth,Lucas Kim,Helix Bio,Attended,True,2026-04-15,Referral - Partner
+00vSAMPLE00067,701SAMPLE0003,Dreamforce 2025 Booth,Mia Berg,Bluepeak Software,Sent,False,,List / Campaign
+00vSAMPLE00068,701SAMPLE0003,Dreamforce 2025 Booth,Ava Novak,Fjord Data,Attended,True,2026-04-27,Web - Search
+00vSAMPLE00069,701SAMPLE0003,Dreamforce 2025 Booth,Ivy Novak,Fjord Data,Responded,True,2026-04-03,List / Campaign
+00vSAMPLE00070,701SAMPLE0003,Dreamforce 2025 Booth,Lucas Silva,Evergreen SaaS,Responded,True,2026-04-11,Web - Search
+00vSAMPLE00071,701SAMPLE0004,CPQ Migration Guide (Gated Content),Ava Silva,Evergreen SaaS,No Show,False,,Event
+00vSAMPLE00072,701SAMPLE0004,CPQ Migration Guide (Gated Content),Noah Tanaka,Juniper Retail,Attended,True,2026-05-18,List / Campaign
+00vSAMPLE00073,701SAMPLE0004,CPQ Migration Guide (Gated Content),Zoe Chen,Deltaline Logistics,Responded,True,2026-05-07,Referral - Partner
+00vSAMPLE00074,701SAMPLE0004,CPQ Migration Guide (Gated Content),Ivy Patel,Ionberg Cloud,Responded,True,2026-05-15,Event
+00vSAMPLE00075,701SAMPLE0004,CPQ Migration Guide (Gated Content),Zoe Moreau,Fjord Data,Responded,True,2026-05-20,Web - Search
+00vSAMPLE00076,701SAMPLE0004,CPQ Migration Guide (Gated Content),Ivy Patel,Northwind Robotics,No Show,False,,Referral - Partner
+00vSAMPLE00077,701SAMPLE0004,CPQ Migration Guide (Gated Content),Sofia Costa,Acme Analytics,No Show,False,,Event
+00vSAMPLE00078,701SAMPLE0004,CPQ Migration Guide (Gated Content),Zoe Kim,Helix Bio,Sent,False,,Event
+00vSAMPLE00079,701SAMPLE0004,CPQ Migration Guide (Gated Content),Leo Weber,Krest Manufacturing,No Show,False,,Event
+00vSAMPLE00080,701SAMPLE0004,CPQ Migration Guide (Gated Content),Mia Silva,Juniper Retail,No Show,False,,List / Campaign
+00vSAMPLE00081,701SAMPLE0004,CPQ Migration Guide (Gated Content),Ethan Ali,Helix Bio,No Show,False,,AppExchange
+00vSAMPLE00082,701SAMPLE0004,CPQ Migration Guide (Gated Content),Owen Ali,Fjord Data,Responded,True,2026-05-27,Referral - Partner
+00vSAMPLE00083,701SAMPLE0004,CPQ Migration Guide (Gated Content),Zoe Larsen,Granite Fintech,Responded,True,2026-05-23,Web - Search
+00vSAMPLE00084,701SAMPLE0004,CPQ Migration Guide (Gated Content),Max Novak,Deltaline Logistics,Responded,True,2026-05-18,Referral - Partner
+00vSAMPLE00085,701SAMPLE0004,CPQ Migration Guide (Gated Content),Zoe Garcia,Juniper Retail,Responded,True,2026-05-11,Web - Search
+00vSAMPLE00086,701SAMPLE0004,CPQ Migration Guide (Gated Content),Sofia Osei,Northwind Robotics,Sent,False,,Web - Search
+00vSAMPLE00087,701SAMPLE0004,CPQ Migration Guide (Gated Content),Max Garcia,Fjord Data,Responded,True,2026-05-22,Referral - Partner
+00vSAMPLE00088,701SAMPLE0004,CPQ Migration Guide (Gated Content),Sofia Idris,Fjord Data,Responded,True,2026-05-09,Web - Search
+00vSAMPLE00089,701SAMPLE0004,CPQ Migration Guide (Gated Content),Ava Kim,Corex Medical,No Show,False,,Web - Search
+00vSAMPLE00090,701SAMPLE0005,Spring Nurture Drip,Ruth Patel,Acme Analytics,Responded,True,2026-06-16,Web - Search
+00vSAMPLE00091,701SAMPLE0005,Spring Nurture Drip,Ruth Weber,Ionberg Cloud,Responded,True,2026-06-28,Referral - Partner
+00vSAMPLE00092,701SAMPLE0005,Spring Nurture Drip,Leo Larsen,Krest Manufacturing,Sent,False,,List / Campaign
+00vSAMPLE00093,701SAMPLE0005,Spring Nurture Drip,Ruth Tanaka,Juniper Retail,Responded,True,2026-06-10,Referral - Partner
+00vSAMPLE00094,701SAMPLE0005,Spring Nurture Drip,Max Berg,Granite Fintech,Sent,False,,AppExchange
+00vSAMPLE00095,701SAMPLE0005,Spring Nurture Drip,Owen Berg,Evergreen SaaS,Sent,False,,Event
+00vSAMPLE00096,701SAMPLE0005,Spring Nurture Drip,Noah Osei,Corex Medical,Sent,False,,List / Campaign
+00vSAMPLE00097,701SAMPLE0005,Spring Nurture Drip,Mia Silva,Fjord Data,Responded,True,2026-06-15,Event
+00vSAMPLE00098,701SAMPLE0005,Spring Nurture Drip,Ruth Moreau,Corex Medical,Sent,False,,List / Campaign
+00vSAMPLE00099,701SAMPLE0005,Spring Nurture Drip,Nora Chen,Granite Fintech,No Show,False,,AppExchange
+00vSAMPLE00100,701SAMPLE0005,Spring Nurture Drip,Kai Ali,Fjord Data,No Show,False,,Referral - Partner
+00vSAMPLE00101,701SAMPLE0005,Spring Nurture Drip,Lucas Quinn,Deltaline Logistics,Responded,True,2026-06-15,List / Campaign
+00vSAMPLE00102,701SAMPLE0005,Spring Nurture Drip,Ava Idris,Juniper Retail,Attended,True,2026-06-23,List / Campaign
+00vSAMPLE00103,701SAMPLE0005,Spring Nurture Drip,Ethan Larsen,Ionberg Cloud,Sent,False,,Referral - Partner
+00vSAMPLE00104,701SAMPLE0005,Spring Nurture Drip,Ava Idris,Acme Analytics,Sent,False,,List / Campaign
+00vSAMPLE00105,701SAMPLE0005,Spring Nurture Drip,Mia Larsen,Northwind Robotics,Sent,False,,Event
+00vSAMPLE00106,701SAMPLE0005,Spring Nurture Drip,Nora Weber,Granite Fintech,Responded,True,2026-06-12,Event
+00vSAMPLE00107,701SAMPLE0005,Spring Nurture Drip,Nora Tanaka,Deltaline Logistics,No Show,False,,AppExchange
+00vSAMPLE00108,701SAMPLE0005,Spring Nurture Drip,Max Chen,Evergreen SaaS,Sent,False,,Web - Search
+00vSAMPLE00109,701SAMPLE0005,Spring Nurture Drip,Noah Patel,Corex Medical,Sent,False,,Web - Search
+00vSAMPLE00110,701SAMPLE0005,Spring Nurture Drip,Ava Osei,Bluepeak Software,Responded,True,2026-06-17,AppExchange
+00vSAMPLE00111,701SAMPLE0005,Spring Nurture Drip,Sofia Larsen,Evergreen SaaS,Sent,False,,Web - Search
+00vSAMPLE00112,701SAMPLE0005,Spring Nurture Drip,Emma Novak,Acme Analytics,Sent,False,,Referral - Partner
+00vSAMPLE00113,701SAMPLE0005,Spring Nurture Drip,Ava Ali,Fjord Data,No Show,False,,Web - Search
+00vSAMPLE00114,701SAMPLE0005,Spring Nurture Drip,Noah Berg,Krest Manufacturing,Responded,True,2026-06-26,Event
+00vSAMPLE00115,701SAMPLE0005,Spring Nurture Drip,Emma Patel,Helix Bio,Attended,True,2026-06-15,Event
+00vSAMPLE00116,701SAMPLE0005,Spring Nurture Drip,Noah Weber,Fjord Data,Sent,False,,List / Campaign
+00vSAMPLE00117,701SAMPLE0005,Spring Nurture Drip,Emma Moreau,Juniper Retail,Attended,True,2026-06-28,List / Campaign
+00vSAMPLE00118,701SAMPLE0005,Spring Nurture Drip,Mia Moreau,Krest Manufacturing,Sent,False,,Referral - Partner
+00vSAMPLE00119,701SAMPLE0005,Spring Nurture Drip,Ivy Quinn,Fjord Data,Responded,True,2026-06-28,Referral - Partner
+00vSAMPLE00120,701SAMPLE0005,Spring Nurture Drip,Ivy Weber,Acme Analytics,Responded,True,2026-06-10,List / Campaign
+00vSAMPLE00121,701SAMPLE0005,Spring Nurture Drip,Lucas Larsen,Evergreen SaaS,No Show,False,,AppExchange
+00vSAMPLE00122,701SAMPLE0005,Spring Nurture Drip,Max Weber,Granite Fintech,Sent,False,,Web - Search
+00vSAMPLE00123,701SAMPLE0005,Spring Nurture Drip,Kai Tanaka,Deltaline Logistics,Attended,True,2026-06-21,Event
+00vSAMPLE00124,701SAMPLE0005,Spring Nurture Drip,Ava Silva,Corex Medical,Responded,True,2026-06-25,List / Campaign
+00vSAMPLE00125,701SAMPLE0005,Spring Nurture Drip,Max Berg,Juniper Retail,Responded,True,2026-06-24,List / Campaign
+00vSAMPLE00126,701SAMPLE0005,Spring Nurture Drip,Ruth Chen,Deltaline Logistics,Responded,True,2026-06-09,List / Campaign
+00vSAMPLE00127,701SAMPLE0006,TrailblazerDX Happy Hour,Lucas Ali,Granite Fintech,Attended,True,2026-01-19,Referral - Partner
+00vSAMPLE00128,701SAMPLE0006,TrailblazerDX Happy Hour,Kai Moreau,Evergreen SaaS,Attended,True,2026-01-24,List / Campaign
+00vSAMPLE00129,701SAMPLE0006,TrailblazerDX Happy Hour,Ivy Ali,Corex Medical,Sent,False,,AppExchange
+00vSAMPLE00130,701SAMPLE0006,TrailblazerDX Happy Hour,Sofia Weber,Krest Manufacturing,Responded,True,2026-01-19,Web - Search
+00vSAMPLE00131,701SAMPLE0006,TrailblazerDX Happy Hour,Sofia Silva,Deltaline Logistics,Responded,True,2026-01-25,Referral - Partner
+00vSAMPLE00132,701SAMPLE0006,TrailblazerDX Happy Hour,Owen Kim,Deltaline Logistics,Responded,True,2026-01-09,Event
+00vSAMPLE00133,701SAMPLE0006,TrailblazerDX Happy Hour,Ethan Ali,Krest Manufacturing,Sent,False,,Referral - Partner
+00vSAMPLE00134,701SAMPLE0006,TrailblazerDX Happy Hour,Mia Tanaka,Northwind Robotics,Sent,False,,Referral - Partner
+00vSAMPLE00135,701SAMPLE0006,TrailblazerDX Happy Hour,Owen Osei,Acme Analytics,Responded,True,2026-01-02,Referral - Partner
+00vSAMPLE00136,701SAMPLE0006,TrailblazerDX Happy Hour,Owen Quinn,Granite Fintech,Responded,True,2026-01-12,Web - Search
+00vSAMPLE00137,701SAMPLE0006,TrailblazerDX Happy Hour,Liam Tanaka,Acme Analytics,Responded,True,2026-01-28,AppExchange
+00vSAMPLE00138,701SAMPLE0006,TrailblazerDX Happy Hour,Nora Quinn,Ionberg Cloud,Responded,True,2026-01-22,AppExchange
+00vSAMPLE00139,701SAMPLE0006,TrailblazerDX Happy Hour,Mia Osei,Acme Analytics,Sent,False,,Web - Search
+00vSAMPLE00140,701SAMPLE0006,TrailblazerDX Happy Hour,Emma Moreau,Helix Bio,Responded,True,2026-01-14,List / Campaign
+00vSAMPLE00141,701SAMPLE0006,TrailblazerDX Happy Hour,Ruth Ali,Deltaline Logistics,No Show,False,,Referral - Partner
+00vSAMPLE00142,701SAMPLE0006,TrailblazerDX Happy Hour,Liam Kim,Juniper Retail,Responded,True,2026-01-08,Event
+00vSAMPLE00143,701SAMPLE0006,TrailblazerDX Happy Hour,Noah Novak,Bluepeak Software,Responded,True,2026-01-19,AppExchange
+00vSAMPLE00144,701SAMPLE0006,TrailblazerDX Happy Hour,Ethan Chen,Granite Fintech,No Show,False,,Referral - Partner
+00vSAMPLE00145,701SAMPLE0006,TrailblazerDX Happy Hour,Max Ali,Corex Medical,Sent,False,,Event
+00vSAMPLE00146,701SAMPLE0006,TrailblazerDX Happy Hour,Owen Larsen,Juniper Retail,Responded,True,2026-01-09,Event
+00vSAMPLE00147,701SAMPLE0006,TrailblazerDX Happy Hour,Sofia Moreau,Helix Bio,Responded,True,2026-01-09,Web - Search
+00vSAMPLE00148,701SAMPLE0006,TrailblazerDX Happy Hour,Ivy Osei,Northwind Robotics,Responded,True,2026-01-07,Event
+00vSAMPLE00149,701SAMPLE0006,TrailblazerDX Happy Hour,Owen Larsen,Granite Fintech,Responded,True,2026-01-24,Event
+00vSAMPLE00150,701SAMPLE0006,TrailblazerDX Happy Hour,Nora Tanaka,Granite Fintech,Responded,True,2026-01-04,Referral - Partner
+00vSAMPLE00151,701SAMPLE0006,TrailblazerDX Happy Hour,Liam Moreau,Ionberg Cloud,Attended,True,2026-01-10,AppExchange
+00vSAMPLE00152,701SAMPLE0006,TrailblazerDX Happy Hour,Noah Berg,Juniper Retail,Sent,False,,Event
+00vSAMPLE00153,701SAMPLE0006,TrailblazerDX Happy Hour,Liam Novak,Helix Bio,Responded,True,2026-01-22,List / Campaign
+00vSAMPLE00154,701SAMPLE0006,TrailblazerDX Happy Hour,Ivy Novak,Juniper Retail,No Show,False,,List / Campaign
+00vSAMPLE00155,701SAMPLE0006,TrailblazerDX Happy Hour,Noah Quinn,Fjord Data,Attended,True,2026-01-12,Event
+00vSAMPLE00156,701SAMPLE0006,TrailblazerDX Happy Hour,Emma Novak,Fjord Data,Attended,True,2026-01-24,List / Campaign
+00vSAMPLE00157,701SAMPLE0006,TrailblazerDX Happy Hour,Owen Idris,Granite Fintech,Sent,False,,AppExchange
+00vSAMPLE00158,701SAMPLE0006,TrailblazerDX Happy Hour,Zoe Tanaka,Acme Analytics,Attended,True,2026-01-26,List / Campaign
+00vSAMPLE00159,701SAMPLE0006,TrailblazerDX Happy Hour,Ava Larsen,Northwind Robotics,No Show,False,,Web - Search
+00vSAMPLE00160,701SAMPLE0006,TrailblazerDX Happy Hour,Kai Quinn,Northwind Robotics,Responded,True,2026-01-08,Event
+00vSAMPLE00161,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Mia Ali,Krest Manufacturing,Responded,True,2026-02-17,AppExchange
+00vSAMPLE00162,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ava Berg,Deltaline Logistics,Sent,False,,Referral - Partner
+00vSAMPLE00163,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ava Moreau,Corex Medical,Responded,True,2026-02-28,AppExchange
+00vSAMPLE00164,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ruth Kim,Granite Fintech,Sent,False,,Event
+00vSAMPLE00165,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ivy Moreau,Granite Fintech,Responded,True,2026-02-09,List / Campaign
+00vSAMPLE00166,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Mia Idris,Ionberg Cloud,Responded,True,2026-02-18,Web - Search
+00vSAMPLE00167,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Noah Tanaka,Evergreen SaaS,No Show,False,,Referral - Partner
+00vSAMPLE00168,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ivy Chen,Krest Manufacturing,Sent,False,,Event
+00vSAMPLE00169,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Max Osei,Helix Bio,Responded,True,2026-02-17,Event
+00vSAMPLE00170,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Zoe Idris,Evergreen SaaS,Responded,True,2026-02-08,Web - Search
+00vSAMPLE00171,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Nora Berg,Northwind Robotics,No Show,False,,Event
+00vSAMPLE00172,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Max Idris,Juniper Retail,No Show,False,,Web - Search
+00vSAMPLE00173,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Max Patel,Helix Bio,Sent,False,,Referral - Partner
+00vSAMPLE00174,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Zoe Kim,Acme Analytics,Responded,True,2026-02-18,List / Campaign
+00vSAMPLE00175,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ava Osei,Juniper Retail,No Show,False,,Web - Search
+00vSAMPLE00176,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Noah Quinn,Evergreen SaaS,Sent,False,,Referral - Partner
+00vSAMPLE00177,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Nora Garcia,Juniper Retail,Attended,True,2026-02-19,List / Campaign
+00vSAMPLE00178,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Zoe Quinn,Ionberg Cloud,Sent,False,,AppExchange
+00vSAMPLE00179,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Lucas Ali,Krest Manufacturing,Responded,True,2026-02-04,List / Campaign
+00vSAMPLE00180,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Emma Kim,Bluepeak Software,Responded,True,2026-02-24,Event
+00vSAMPLE00181,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ava Patel,Northwind Robotics,Attended,True,2026-02-11,Event
+00vSAMPLE00182,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Kai Moreau,Corex Medical,Sent,False,,Referral - Partner
+00vSAMPLE00183,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Leo Novak,Bluepeak Software,Sent,False,,AppExchange
+00vSAMPLE00184,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Nora Berg,Ionberg Cloud,Responded,True,2026-02-06,Web - Search
+00vSAMPLE00185,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ruth Tanaka,Deltaline Logistics,Responded,True,2026-02-23,AppExchange
+00vSAMPLE00186,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ruth Ali,Acme Analytics,Sent,False,,List / Campaign
+00vSAMPLE00187,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Kai Ali,Krest Manufacturing,No Show,False,,Event
+00vSAMPLE00188,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Ruth Ali,Fjord Data,Responded,True,2026-02-17,AppExchange
+00vSAMPLE00189,701SAMPLE0007,Partner Co-Marketing - SI Alliance,Lucas Idris,Ionberg Cloud,Attended,True,2026-02-11,Event
+00vSAMPLE00190,701SAMPLE0008,LinkedIn Thought Leadership Q2,Nora Tanaka,Ionberg Cloud,Sent,False,,AppExchange
+00vSAMPLE00191,701SAMPLE0008,LinkedIn Thought Leadership Q2,Max Ali,Ionberg Cloud,Responded,True,2026-03-27,Event
+00vSAMPLE00192,701SAMPLE0008,LinkedIn Thought Leadership Q2,Lucas Silva,Juniper Retail,Sent,False,,Web - Search
+00vSAMPLE00193,701SAMPLE0008,LinkedIn Thought Leadership Q2,Emma Patel,Granite Fintech,Sent,False,,AppExchange
+00vSAMPLE00194,701SAMPLE0008,LinkedIn Thought Leadership Q2,Kai Osei,Deltaline Logistics,Responded,True,2026-03-12,List / Campaign
+00vSAMPLE00195,701SAMPLE0008,LinkedIn Thought Leadership Q2,Ethan Silva,Helix Bio,Sent,False,,Event
+00vSAMPLE00196,701SAMPLE0008,LinkedIn Thought Leadership Q2,Ivy Novak,Granite Fintech,Sent,False,,Event
+00vSAMPLE00197,701SAMPLE0008,LinkedIn Thought Leadership Q2,Zoe Kim,Acme Analytics,Responded,True,2026-03-06,Web - Search
+00vSAMPLE00198,701SAMPLE0008,LinkedIn Thought Leadership Q2,Nora Costa,Fjord Data,Responded,True,2026-03-02,Event
+00vSAMPLE00199,701SAMPLE0008,LinkedIn Thought Leadership Q2,Emma Larsen,Juniper Retail,Attended,True,2026-03-25,Event
+00vSAMPLE00200,701SAMPLE0008,LinkedIn Thought Leadership Q2,Nora Costa,Juniper Retail,Responded,True,2026-03-09,List / Campaign
+00vSAMPLE00201,701SAMPLE0008,LinkedIn Thought Leadership Q2,Ava Weber,Juniper Retail,Responded,True,2026-03-04,List / Campaign
+00vSAMPLE00202,701SAMPLE0009,Trial Signup Follow-up,Owen Moreau,Bluepeak Software,Responded,True,2026-04-03,AppExchange
+00vSAMPLE00203,701SAMPLE0009,Trial Signup Follow-up,Owen Quinn,Acme Analytics,Responded,True,2026-04-09,Referral - Partner
+00vSAMPLE00204,701SAMPLE0009,Trial Signup Follow-up,Mia Idris,Evergreen SaaS,Responded,True,2026-04-23,Referral - Partner
+00vSAMPLE00205,701SAMPLE0009,Trial Signup Follow-up,Leo Osei,Juniper Retail,No Show,False,,AppExchange
+00vSAMPLE00206,701SAMPLE0009,Trial Signup Follow-up,Max Moreau,Northwind Robotics,Sent,False,,Event
+00vSAMPLE00207,701SAMPLE0009,Trial Signup Follow-up,Sofia Larsen,Corex Medical,Responded,True,2026-04-13,AppExchange
+00vSAMPLE00208,701SAMPLE0009,Trial Signup Follow-up,Kai Costa,Fjord Data,Sent,False,,Event
+00vSAMPLE00209,701SAMPLE0009,Trial Signup Follow-up,Sofia Kim,Acme Analytics,Responded,True,2026-04-23,Web - Search
+00vSAMPLE00210,701SAMPLE0009,Trial Signup Follow-up,Ava Patel,Corex Medical,Attended,True,2026-04-06,Referral - Partner
+00vSAMPLE00211,701SAMPLE0009,Trial Signup Follow-up,Sofia Garcia,Ionberg Cloud,Responded,True,2026-04-08,Web - Search
+00vSAMPLE00212,701SAMPLE0009,Trial Signup Follow-up,Zoe Osei,Deltaline Logistics,Sent,False,,Web - Search
+00vSAMPLE00213,701SAMPLE0009,Trial Signup Follow-up,Mia Tanaka,Acme Analytics,Sent,False,,AppExchange
+00vSAMPLE00214,701SAMPLE0009,Trial Signup Follow-up,Mia Chen,Corex Medical,Attended,True,2026-04-20,Event
+00vSAMPLE00215,701SAMPLE0009,Trial Signup Follow-up,Ava Novak,Northwind Robotics,Sent,False,,Web - Search
+00vSAMPLE00216,701SAMPLE0009,Trial Signup Follow-up,Leo Kim,Granite Fintech,Responded,True,2026-04-16,Event
+00vSAMPLE00217,701SAMPLE0009,Trial Signup Follow-up,Emma Larsen,Ionberg Cloud,Responded,True,2026-04-03,Referral - Partner
+00vSAMPLE00218,701SAMPLE0009,Trial Signup Follow-up,Owen Larsen,Northwind Robotics,Sent,False,,List / Campaign
+00vSAMPLE00219,701SAMPLE0009,Trial Signup Follow-up,Nora Moreau,Granite Fintech,Responded,True,2026-04-24,List / Campaign
+00vSAMPLE00220,701SAMPLE0009,Trial Signup Follow-up,Noah Garcia,Ionberg Cloud,Attended,True,2026-04-06,AppExchange
+00vSAMPLE00221,701SAMPLE0009,Trial Signup Follow-up,Mia Tanaka,Fjord Data,Attended,True,2026-04-21,Referral - Partner
+00vSAMPLE00222,701SAMPLE0009,Trial Signup Follow-up,Owen Larsen,Acme Analytics,No Show,False,,AppExchange
+00vSAMPLE00223,701SAMPLE0009,Trial Signup Follow-up,Sofia Moreau,Corex Medical,Responded,True,2026-04-15,Event
+00vSAMPLE00224,701SAMPLE0009,Trial Signup Follow-up,Ruth Idris,Krest Manufacturing,No Show,False,,AppExchange
+00vSAMPLE00225,701SAMPLE0009,Trial Signup Follow-up,Zoe Moreau,Juniper Retail,Attended,True,2026-04-10,Event
+00vSAMPLE00226,701SAMPLE0009,Trial Signup Follow-up,Mia Quinn,Acme Analytics,Responded,True,2026-04-28,AppExchange
+00vSAMPLE00227,701SAMPLE0009,Trial Signup Follow-up,Noah Moreau,Krest Manufacturing,Responded,True,2026-04-25,Event
+00vSAMPLE00228,701SAMPLE0009,Trial Signup Follow-up,Mia Patel,Juniper Retail,Attended,True,2026-04-05,List / Campaign
+00vSAMPLE00229,701SAMPLE0009,Trial Signup Follow-up,Kai Moreau,Deltaline Logistics,Sent,False,,Referral - Partner
+00vSAMPLE00230,701SAMPLE0009,Trial Signup Follow-up,Owen Costa,Ionberg Cloud,Responded,True,2026-04-18,Web - Search
+00vSAMPLE00231,701SAMPLE0009,Trial Signup Follow-up,Mia Quinn,Acme Analytics,Responded,True,2026-04-13,Referral - Partner
+00vSAMPLE00232,701SAMPLE0009,Trial Signup Follow-up,Kai Kim,Ionberg Cloud,Sent,False,,Web - Search
+00vSAMPLE00233,701SAMPLE0009,Trial Signup Follow-up,Leo Chen,Northwind Robotics,Sent,False,,Web - Search
+00vSAMPLE00234,701SAMPLE0009,Trial Signup Follow-up,Ivy Ali,Evergreen SaaS,Attended,True,2026-04-02,Web - Search
+00vSAMPLE00235,701SAMPLE0009,Trial Signup Follow-up,Mia Idris,Bluepeak Software,Responded,True,2026-04-25,AppExchange
+00vSAMPLE00236,701SAMPLE0010,User Group Sponsorships,Sofia Idris,Granite Fintech,No Show,False,,Event
+00vSAMPLE00237,701SAMPLE0010,User Group Sponsorships,Ethan Costa,Krest Manufacturing,Sent,False,,Event
+00vSAMPLE00238,701SAMPLE0010,User Group Sponsorships,Noah Patel,Bluepeak Software,Sent,False,,Referral - Partner
+00vSAMPLE00239,701SAMPLE0010,User Group Sponsorships,Liam Garcia,Granite Fintech,Sent,False,,List / Campaign
+00vSAMPLE00240,701SAMPLE0010,User Group Sponsorships,Max Larsen,Deltaline Logistics,No Show,False,,Web - Search
+00vSAMPLE00241,701SAMPLE0010,User Group Sponsorships,Emma Costa,Acme Analytics,No Show,False,,Event
+00vSAMPLE00242,701SAMPLE0010,User Group Sponsorships,Max Ali,Corex Medical,Sent,False,,List / Campaign
+00vSAMPLE00243,701SAMPLE0010,User Group Sponsorships,Liam Chen,Deltaline Logistics,Responded,True,2026-05-08,Web - Search
+00vSAMPLE00244,701SAMPLE0010,User Group Sponsorships,Ivy Ali,Acme Analytics,Attended,True,2026-05-02,List / Campaign
+00vSAMPLE00245,701SAMPLE0010,User Group Sponsorships,Leo Novak,Fjord Data,Sent,False,,Referral - Partner
+00vSAMPLE00246,701SAMPLE0010,User Group Sponsorships,Lucas Costa,Fjord Data,Responded,True,2026-05-25,AppExchange
+00vSAMPLE00247,701SAMPLE0010,User Group Sponsorships,Leo Chen,Acme Analytics,Responded,True,2026-05-12,Referral - Partner
+00vSAMPLE00248,701SAMPLE0010,User Group Sponsorships,Leo Idris,Deltaline Logistics,No Show,False,,AppExchange
+00vSAMPLE00249,701SAMPLE0010,User Group Sponsorships,Nora Chen,Bluepeak Software,Attended,True,2026-05-27,Referral - Partner
+00vSAMPLE00250,701SAMPLE0011,Legacy CPQ EOL Campaign,Kai Garcia,Acme Analytics,No Show,False,,Web - Search
+00vSAMPLE00251,701SAMPLE0011,Legacy CPQ EOL Campaign,Leo Idris,Fjord Data,Responded,True,2026-06-11,Event
+00vSAMPLE00252,701SAMPLE0011,Legacy CPQ EOL Campaign,Lucas Weber,Acme Analytics,Sent,False,,Referral - Partner
+00vSAMPLE00253,701SAMPLE0011,Legacy CPQ EOL Campaign,Emma Silva,Evergreen SaaS,Attended,True,2026-06-25,Web - Search
+00vSAMPLE00254,701SAMPLE0011,Legacy CPQ EOL Campaign,Lucas Kim,Deltaline Logistics,Sent,False,,Web - Search
+00vSAMPLE00255,701SAMPLE0011,Legacy CPQ EOL Campaign,Ethan Osei,Bluepeak Software,Responded,True,2026-06-26,List / Campaign
+00vSAMPLE00256,701SAMPLE0011,Legacy CPQ EOL Campaign,Ruth Larsen,Juniper Retail,Attended,True,2026-06-12,Web - Search
+00vSAMPLE00257,701SAMPLE0011,Legacy CPQ EOL Campaign,Ruth Garcia,Granite Fintech,Responded,True,2026-06-22,Event
+00vSAMPLE00258,701SAMPLE0011,Legacy CPQ EOL Campaign,Ivy Patel,Helix Bio,Attended,True,2026-06-04,Event
+00vSAMPLE00259,701SAMPLE0011,Legacy CPQ EOL Campaign,Ruth Larsen,Northwind Robotics,Sent,False,,Event
+00vSAMPLE00260,701SAMPLE0011,Legacy CPQ EOL Campaign,Owen Garcia,Ionberg Cloud,Responded,True,2026-06-21,Referral - Partner
+00vSAMPLE00261,701SAMPLE0011,Legacy CPQ EOL Campaign,Nora Larsen,Granite Fintech,Sent,False,,Referral - Partner
+00vSAMPLE00262,701SAMPLE0011,Legacy CPQ EOL Campaign,Sofia Weber,Helix Bio,Responded,True,2026-06-06,AppExchange
+00vSAMPLE00263,701SAMPLE0011,Legacy CPQ EOL Campaign,Ruth Kim,Krest Manufacturing,Attended,True,2026-06-04,Referral - Partner
+00vSAMPLE00264,701SAMPLE0011,Legacy CPQ EOL Campaign,Ethan Patel,Krest Manufacturing,Responded,True,2026-06-16,List / Campaign
+00vSAMPLE00265,701SAMPLE0011,Legacy CPQ EOL Campaign,Ethan Costa,Deltaline Logistics,Attended,True,2026-06-14,List / Campaign
+00vSAMPLE00266,701SAMPLE0011,Legacy CPQ EOL Campaign,Zoe Patel,Acme Analytics,Attended,True,2026-06-12,AppExchange
+00vSAMPLE00267,701SAMPLE0011,Legacy CPQ EOL Campaign,Nora Ali,Krest Manufacturing,Sent,False,,Referral - Partner
+00vSAMPLE00268,701SAMPLE0011,Legacy CPQ EOL Campaign,Mia Weber,Ionberg Cloud,Responded,True,2026-06-23,Web - Search
+00vSAMPLE00269,701SAMPLE0011,Legacy CPQ EOL Campaign,Kai Ali,Bluepeak Software,No Show,False,,Referral - Partner
+00vSAMPLE00270,701SAMPLE0011,Legacy CPQ EOL Campaign,Noah Ali,Juniper Retail,No Show,False,,Event
+00vSAMPLE00271,701SAMPLE0011,Legacy CPQ EOL Campaign,Mia Garcia,Helix Bio,No Show,False,,Event
+00vSAMPLE00272,701SAMPLE0011,Legacy CPQ EOL Campaign,Ava Costa,Bluepeak Software,Sent,False,,Web - Search
+00vSAMPLE00273,701SAMPLE0011,Legacy CPQ EOL Campaign,Zoe Quinn,Corex Medical,Responded,True,2026-06-06,Web - Search
+00vSAMPLE00274,701SAMPLE0011,Legacy CPQ EOL Campaign,Noah Ali,Helix Bio,Responded,True,2026-06-26,Referral - Partner
+00vSAMPLE00275,701SAMPLE0011,Legacy CPQ EOL Campaign,Liam Weber,Ionberg Cloud,Sent,False,,List / Campaign
+00vSAMPLE00276,701SAMPLE0012,Reactivation - Closed Lost Q4,Ethan Novak,Krest Manufacturing,Sent,False,,List / Campaign
+00vSAMPLE00277,701SAMPLE0012,Reactivation - Closed Lost Q4,Liam Moreau,Juniper Retail,Attended,True,2026-01-25,Web - Search
+00vSAMPLE00278,701SAMPLE0012,Reactivation - Closed Lost Q4,Ruth Ali,Corex Medical,Responded,True,2026-01-19,Web - Search
+00vSAMPLE00279,701SAMPLE0012,Reactivation - Closed Lost Q4,Owen Quinn,Evergreen SaaS,Responded,True,2026-01-23,Referral - Partner
+00vSAMPLE00280,701SAMPLE0012,Reactivation - Closed Lost Q4,Ruth Larsen,Fjord Data,Sent,False,,Referral - Partner
+00vSAMPLE00281,701SAMPLE0012,Reactivation - Closed Lost Q4,Leo Novak,Ionberg Cloud,Responded,True,2026-01-06,Event
+00vSAMPLE00282,701SAMPLE0012,Reactivation - Closed Lost Q4,Liam Quinn,Helix Bio,Attended,True,2026-01-05,Referral - Partner
+00vSAMPLE00283,701SAMPLE0012,Reactivation - Closed Lost Q4,Emma Ali,Bluepeak Software,Responded,True,2026-01-10,List / Campaign
+00vSAMPLE00284,701SAMPLE0012,Reactivation - Closed Lost Q4,Mia Moreau,Corex Medical,Responded,True,2026-01-28,List / Campaign
+00vSAMPLE00285,701SAMPLE0012,Reactivation - Closed Lost Q4,Kai Chen,Northwind Robotics,No Show,False,,List / Campaign
+00vSAMPLE00286,701SAMPLE0012,Reactivation - Closed Lost Q4,Kai Berg,Acme Analytics,No Show,False,,Event
+00vSAMPLE00287,701SAMPLE0012,Reactivation - Closed Lost Q4,Lucas Chen,Acme Analytics,Attended,True,2026-01-28,Event
+00vSAMPLE00288,701SAMPLE0012,Reactivation - Closed Lost Q4,Mia Osei,Deltaline Logistics,Sent,False,,List / Campaign
+00vSAMPLE00289,701SAMPLE0012,Reactivation - Closed Lost Q4,Mia Quinn,Ionberg Cloud,Responded,True,2026-01-02,AppExchange
+00vSAMPLE00290,701SAMPLE0012,Reactivation - Closed Lost Q4,Ava Tanaka,Bluepeak Software,Responded,True,2026-01-19,Referral - Partner
+00vSAMPLE00291,701SAMPLE0012,Reactivation - Closed Lost Q4,Leo Kim,Corex Medical,Sent,False,,Event

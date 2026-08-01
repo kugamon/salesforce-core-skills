@@ -1,0 +1,19 @@
+{
+  "plugin": "salesforce-core",
+  "note": "One realistic prompt per skill plus expected behaviors. Structural coverage is enforced by scripts/validate_skills.py in CI; behavioral runs require a connected org or the sample-data/ CSVs.",
+  "evals": [
+    {"skill": "sf-apex", "prompt": "Review all Apex triggers in my org for bulkification issues and governor limit risks. Score each one.", "expect": ["detects execution mode", "fetches trigger bodies", "150-point scores with line-level evidence", "no invented class names"]},
+    {"skill": "sf-flow", "prompt": "Create a record-triggered flow on Case that assigns high-priority cases to the escalation queue.", "expect": ["asks/infers entry conditions", "fault path included", "110-point self-check before deploy"]},
+    {"skill": "sf-data", "prompt": "Build me a query for all opportunities closing this quarter over $100K and run it.", "expect": ["selectivity considered", "THIS_QUARTER date literal", "results table"]},
+    {"skill": "sf-lwc", "prompt": "Create an LWC that shows a searchable table of contacts for a selected account.", "expect": ["PICKLES design pass", "wire/apex decision explained", "165-point SLDS check"]},
+    {"skill": "sf-metadata", "prompt": "Create a custom object Inspection__c with Status picklist, Inspector lookup to User, and Date field.", "expect": ["field-level security / permission set handling", "describe verification after create"]},
+    {"skill": "sf-permissions", "prompt": "Who has delete access to Opportunity in this org, and through which permission sets?", "expect": ["object-permission query path", "PS + PSG traversal", "user-level rollup"]},
+    {"skill": "sf-diagram", "prompt": "Create an ERD for our Sales Cloud data model including Account, Contact, Opportunity, Lead.", "expect": ["mermaid erDiagram", "relationship cardinality correct"]},
+    {"skill": "sf-audit", "prompt": "Perform a full org audit and generate the Word, Excel and HTML reports.", "expect": ["single scan feeds all documents", "scores per component", "HTML is single-file with inline CSS/JS and charts (report-template §7-8)"]},
+    {"skill": "sf-test", "prompt": "Write tests for AccountService and run them; show coverage.", "expect": ["test plan matrix before code", "200-record bulk test", "runAs deny case", "Tooling API run + coverage"]},
+    {"skill": "sf-security", "prompt": "Is this codebase ready for AppExchange security review?", "expect": ["category scan with line evidence", "blockers vs advisories split", "Critical caps the grade"]},
+    {"skill": "sf-debug", "prompt": "Why am I getting 'Too many SOQL queries: 101' on opportunity save?", "expect": ["triage before trace flags", "SOQL-in-loop signature identified", "Diagnosis/Evidence/Fix/Prevention format"]},
+    {"skill": "sf-campaigns", "prompt": "Using the sample data in sample-data/, which campaigns are actually working? Rank by ROI and flag data problems.", "expect": ["null-guarded ROI math", "missing-cost campaigns flagged as hygiene finding, not ranked last", "invest/pause recommendations"]},
+    {"skill": "sf-leads", "prompt": "Run a gap analysis on sample-data/leads.csv — which records need enrichment, and which emails look wrong?", "expect": ["gap-rate profile before enriching", "wrong-domain emails flagged", "no writes without approval"]}
+  ]
+}

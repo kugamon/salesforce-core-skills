@@ -1,0 +1,13 @@
+Id,Name,Type,Status,IsActive,StartDate,EndDate,BudgetedCost,ActualCost,NumberOfLeads,NumberOfContacts,NumberOfResponses,NumberOfConvertedLeads,NumberOfOpportunities,NumberOfWonOpportunities,AmountAllOpportunities,AmountWonOpportunities
+701SAMPLE0001,AppExchange Marketplace Listing,Advertisement,In Progress,True,2026-02-01,,12000,9500,180,40,62,21,14,6,410000,168000
+701SAMPLE0002,Q1 Webinar Series - RevOps Modernization,Webinar,In Progress,True,2026-03-01,,8000,7200,95,55,48,11,9,4,220000,95000
+701SAMPLE0003,Dreamforce 2025 Booth,Conference,In Progress,True,2026-04-01,,45000,52000,240,110,88,19,15,5,530000,140000
+701SAMPLE0004,CPQ Migration Guide (Gated Content),Content,In Progress,True,2026-05-01,,3000,2400,140,20,71,17,8,3,190000,61000
+701SAMPLE0005,Spring Nurture Drip,Email,In Progress,True,2026-06-01,,1500,900,60,180,39,4,3,1,45000,12000
+701SAMPLE0006,TrailblazerDX Happy Hour,Event,In Progress,True,2026-01-01,,9000,11000,70,45,25,6,4,2,160000,88000
+701SAMPLE0007,Partner Co-Marketing - SI Alliance,Partners,In Progress,True,2026-02-01,,6000,,55,30,22,9,7,3,240000,120000
+701SAMPLE0008,LinkedIn Thought Leadership Q2,Social Media,In Progress,True,2026-03-01,,5000,4100,85,15,18,3,2,0,38000,0
+701SAMPLE0009,Trial Signup Follow-up,Email,In Progress,True,2026-04-01,,800,650,120,10,58,16,10,4,205000,90000
+701SAMPLE0010,User Group Sponsorships,Event,In Progress,True,2026-05-01,,4000,,25,35,12,2,2,1,60000,35000
+701SAMPLE0011,Legacy CPQ EOL Campaign,Email,In Progress,True,2026-06-01,,2500,2100,160,25,84,23,12,5,380000,155000
+701SAMPLE0012,Reactivation - Closed Lost Q4,Email,In Progress,True,2026-01-01,,500,300,30,40,9,1,1,0,20000,0

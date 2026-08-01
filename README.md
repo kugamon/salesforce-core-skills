@@ -22,6 +22,19 @@ Out of the box, Claude can call your Salesforce MCP server's tools — but it do
 
 This plugin encodes those rules as Cowork skills with structured scoring rubrics (150-point Apex, 110-point Flow, 165-point LWC SLDS 2, 120-point tests, 100-point security), reference guides, metadata schemas, and validation scripts. After you install it, Claude routes Salesforce tasks to the right skill automatically.
 
+## What problems do these skills solve?
+
+| Pain point | Skill | What it does |
+| --- | --- | --- |
+| An org audit takes a consultant weeks | **sf-audit** | 18 scored documents (Word/Excel/HTML) from a single scan |
+| Apex review quality depends on who reviews | **sf-apex** | Consistent 150-point rubric with line-level evidence |
+| Test classes are coverage padding | **sf-test** | 120-point rubric that caps assertion-free tests at 60/120 |
+| AppExchange security review failures | **sf-security** | Blockers-vs-advisories checklist + 100-point scored audit |
+| Debug logs are unreadable walls of text | **sf-debug** | Diagnosis / Evidence / Fix / Prevention from trace to root cause |
+| "Who has access to X?" takes a day to answer | **sf-permissions** | Permission set analysis and access auditing |
+| Campaign ROI is guesswork | **sf-campaigns** | Funnels, ROI math shown, invest/pause recommendations |
+| The CRM is full of blank or wrong lead data | **sf-leads** | Cited, confidence-rated enrichment with approval gates |
+
 ## Prerequisites
 
 You need a Salesforce MCP server connected to Claude Desktop, wired to your target org. Options include:
@@ -134,6 +147,16 @@ The marketplace pattern means future contributors can add more plugins under `pl
 }
 ```
 
+## Try it without an org
+
+The repo ships synthetic sample data (`sample-data/`) so you can see the skills work before connecting a Salesforce MCP server:
+
+> "Using the sample data in sample-data/, which campaigns are actually working? Rank by ROI and flag data problems."
+
+> "Run a gap analysis on sample-data/leads.csv — which records need enrichment, and which emails look wrong?"
+
+See [sample-data/README.md](sample-data/README.md) for what's in the dataset (including the deliberate data-quality problems to find).
+
 ## Verify
 
 After installing and restarting, test a skill:
@@ -176,6 +199,13 @@ PRs welcome. Especially useful contributions:
 - Improved scoring rubrics and reference guides as Salesforce releases evolve
 
 Keep skill files terse — a focused skill that triggers correctly beats a sprawling one Claude scrolls past.
+
+## Related projects
+
+- **[salesforce-mcp-auto-auth-chrome](https://github.com/kugamon/salesforce-mcp-auto-auth-chrome)** — our recommended Salesforce MCP server (auto-auth from Chrome).
+- **[forcedotcom/sf-skills](https://github.com/forcedotcom/sf-skills)** — Salesforce's official skill library. Broader platform coverage (Agentforce, Data 360, OmniStudio, Commerce), SFDX-project-first. Use it for greenfield development inside an SFDX project; use this repo for MCP-connected live-org admin, audit, and data work.
+- **[elijeangilles/revops-skills](https://github.com/elijeangilles/revops-skills)** — complementary RevOps analytics pack (pipeline hygiene, forecast prep) that also runs against any Salesforce MCP server.
+- **[kugamon/kugamon-skills](https://github.com/kugamon/kugamon-skills)** — Quote-to-Cash and Subscription Management skills for orgs running the Kugamon managed packages, built on top of this plugin.
 
 ## License
 

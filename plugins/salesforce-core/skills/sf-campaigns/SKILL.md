@@ -103,3 +103,29 @@ animated HTML) rather than dumping tables into prose.
 - Query tuning or bulk exports → **sf-data**
 - Campaign-sourced leads needing enrichment before scoring → **sf-leads**
 - Full org marketing-data hygiene → **sf-audit** (data quality section)
+
+## Custom-field discernment (customized orgs)
+
+Standard fields aren't always where the truth lives. Before computing
+metrics in an unfamiliar org:
+
+1. Describe Campaign (and Opportunity when computing pipeline) and list
+   populated custom fields whose names shadow the standard metrics —
+   `Actual_Spend__c` beside an empty `ActualCost`,
+   `Total_Contract_Value__c` beside a stale `Amount`, custom member-status
+   fields beside `Status`.
+2. Detect shadowing with a sampling query: compare populated-rate and
+   recency of the standard field vs the candidate
+   (`SELECT COUNT(Id), COUNT(ActualCost), COUNT(Actual_Spend__c) FROM Campaign`).
+3. When a shadow candidate wins on population, **ask the user which field
+   is authoritative before computing** — a confident ROI from the wrong
+   field is worse than a question. Record the choice in the report's
+   methodology note so the numbers are auditable.
+
+## Demo mode (no org)
+
+The repo ships synthetic data at `sample-data/` (campaigns.csv,
+campaign_members.csv). When no Salesforce MCP server is connected — or the
+user asks for a demo — run the same workflows against those CSVs and say
+so in the output. The dataset contains deliberate hygiene findings
+(missing costs, zero-win campaigns) worth surfacing.

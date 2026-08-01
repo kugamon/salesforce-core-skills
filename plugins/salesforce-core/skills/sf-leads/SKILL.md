@@ -114,3 +114,22 @@ feedback for the admin).
 
 - Bulk data quality beyond enrichment → **sf-data** / **sf-audit**
 - Campaign-sourced lead performance → **sf-campaigns**
+
+## Custom-field discernment (customized orgs)
+
+Orgs frequently track lead data in custom fields the standard gap query
+won't see — a custom `Industry_Segment__c` used instead of `Industry`, a
+`LinkedIn_Profile__c`, a custom company-size picklist. Before gap analysis
+in an unfamiliar org, describe Lead/Contact, spot populated custom fields
+that shadow the standard ones (populated-rate sampling, as in
+data-quality-rules §1-2 verification style), and confirm with the user
+which fields the org actually maintains. Enriching a standard field the
+org ignores creates the illusion of data quality without the substance.
+
+## Demo mode (no org)
+
+The repo ships synthetic leads at `sample-data/leads.csv` with realistic
+gaps and ~10% wrong-domain emails. When no Salesforce MCP server is
+connected — or the user asks for a demo — run gap analysis and enrichment
+proposals against that CSV (research steps simulated or run for real;
+writes proposed only, since there's no org).

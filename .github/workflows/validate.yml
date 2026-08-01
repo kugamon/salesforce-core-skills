@@ -1,0 +1,23 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Structural validation (skills, manifests, evals, vendor strings)
+        run: python3 scripts/validate_skills.py
+      - name: JSON well-formedness
+        run: |
+          find . -name "*.json" -not -path "./.git/*" -print0 | xargs -0 -I{} python3 -c "import json,sys; json.load(open('{}'))" 
+      - name: Python syntax
+        run: |
+          find . -name "*.py" -not -path "./.git/*" -print0 | xargs -0 python3 -m py_compile
