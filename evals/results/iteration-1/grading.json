@@ -1,0 +1,132 @@
+[
+  {
+    "eval": "eval-01-sf-apex",
+    "skill": "sf-apex",
+    "verdict": "WORKING-WITH-ISSUES",
+    "expectations": [
+      {"text": "detects execution mode", "grade": "PARTIAL", "evidence": "run-notes.md: adapted to mcp-plus-code-execution behavior (org tools + workspace bash for validator) but never explicitly detected/recorded the mode as other runs did"},
+      {"text": "fetches trigger bodies", "grade": "PASS", "evidence": "run-notes.md step 5 / review-report.md Scope: Body fetched via second Tooling query for the 5 selected triggers; all returned '(hidden)' (managed IP protection)"},
+      {"text": "150-point scores with line-level evidence", "grade": "N/A(environment)", "evidence": "review-report.md: all 36 triggers managed (kugo2p x34, kugadd x2), zero unmanaged; bodies unreadable from subscriber org; honest N/A scores reported, validator's bogus 150/150 on '(hidden)' deliberately withheld"},
+      {"text": "no invented class names", "grade": "PASS", "evidence": "review-report.md Assumptions: all names sourced from Tooling queries; scores withheld rather than fabricated"}
+    ]
+  },
+  {
+    "eval": "eval-02-sf-flow",
+    "skill": "sf-flow",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "asks/infers entry conditions", "grade": "PASS", "evidence": "flow.json:107 filterFormula AND(ISPICKVAL(Priority,'High'), OR(ISNEW(), ISCHANGED(Priority))); inferred and documented in flow-report.md"},
+      {"text": "fault path included", "grade": "PASS", "evidence": "flow.json:95 faultConnector -> Assign_Capture_Fault plus null-check decision (flow-report.md elements 2 and 4)"},
+      {"text": "110-point self-check before deploy", "grade": "PASS", "evidence": "flow-report.md: validate_flow_cli.py run BEFORE deploy, 97/110 PASSED; four-question pre-deploy check; deployed Draft, verified not InvalidDraft, cleaned up"}
+    ]
+  },
+  {
+    "eval": "eval-03-sf-data",
+    "skill": "sf-data",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "selectivity considered", "grade": "PASS", "evidence": "query-and-results.md Selectivity & Optimization Notes table: indexed CloseDate range filter, explicit fields, LIMIT 200, no wildcards/negatives"},
+      {"text": "THIS_QUARTER date literal", "grade": "PASS", "evidence": "query-and-results.md: THIS_FISCAL_QUARTER used after verifying Organization.FiscalYearStartMonth=1 (identical to calendar quarter); evidence-based, assumption recorded"},
+      {"text": "results table", "grade": "PASS", "evidence": "query-and-results.md Results: table rendered (0 rows) plus verified empty-result diagnosis (COUNT, CloseDate range 2020-2022) and reference query"}
+    ]
+  },
+  {
+    "eval": "eval-04-sf-lwc",
+    "skill": "sf-lwc",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "PICKLES design pass", "grade": "PASS", "evidence": "component-report.md section 2: full P-I-C-K-L-E-S with per-letter decisions"},
+      {"text": "wire/apex decision explained", "grade": "PASS", "evidence": "component-report.md 'Wire vs imperative (honest call)' + Data Source Decision Tree -> no-Apex getRelatedListRecords design"},
+      {"text": "165-point SLDS check", "grade": "PASS", "evidence": "component-report.md section 4: validate_slds.py pre-deploy, 165/165 on all 3 files, with honest over-scoring caveats"}
+    ]
+  },
+  {
+    "eval": "eval-05-sf-metadata",
+    "skill": "sf-metadata",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "field-level security / permission set handling", "grade": "PASS", "evidence": "creation-report.md: Inspection_Access PS with ObjectPermissions + 3 FieldPermissions rows, assigned; 'FLS is the Silent Killer' empirically confirmed"},
+      {"text": "describe verification after create", "grade": "PASS", "evidence": "creation-report.md verification evidence: get_object_fields attempted (stale connector cache), escalated to Tooling CustomField queries + per-field Metadata retrieval + functional SOQL + FieldPermissions query; all match spec"}
+    ]
+  },
+  {
+    "eval": "eval-06-sf-permissions",
+    "skill": "sf-permissions",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "object-permission query path", "grade": "PASS", "evidence": "access-report.md Method: ObjectPermissions WHERE SobjectType='Opportunity' AND PermissionsDelete=true -> 33 rows"},
+      {"text": "PS + PSG traversal", "grade": "PASS", "evidence": "access-report.md / run-notes.md: PermissionSetAssignment for 24 non-profile PSs (0 rows) + PermissionSetGroupComponent (0 rows); null-Parent row resolved via follow-up query"},
+      {"text": "user-level rollup", "grade": "PASS", "evidence": "access-report.md Bottom line: rolled up to 1 human user (via User.ProfileId for profile grants - a path the skill omits); inactive users also verified"}
+    ]
+  },
+  {
+    "eval": "eval-07-sf-diagram",
+    "skill": "sf-diagram",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "mermaid erDiagram", "grade": "PASS", "evidence": "erd.md: valid erDiagram block, line-by-line grammar-checked; __metadata__ renamed to metadata to avoid a real Mermaid parse bug in the skill convention"},
+      {"text": "relationship cardinality correct", "grade": "PASS", "evidence": "erd.md: |o--o{ optional lookups Account->Contact/Opportunity, self-refs, dashed |o..o| Lead conversion; correctly notes no Master-Detail among the four objects"}
+    ]
+  },
+  {
+    "eval": "eval-08-sf-audit",
+    "skill": "sf-audit",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "single scan feeds all documents", "grade": "N/A(environment)", "evidence": "run-notes.md Phase D: Word/Excel/12 standalone docs skipped per eval harness scope; the single Phase A-C scan fed the one document produced; multi-document reuse untestable this iteration"},
+      {"text": "scores per component", "grade": "PASS", "evidence": "audit-report.html: per-class 150-point scores (82-112/150, mean 94.7) and per-flow 110-point scores (85-92/110) in ranked tables"},
+      {"text": "HTML is single-file with inline CSS/JS and charts (report-template §7-8)", "grade": "PASS", "evidence": "audit-report.html: 37KB single file, zero external URLs, inline style/script, animated SVG donut gauge, severity bar chart, IntersectionObserver scroll-reveal, prefers-reduced-motion in CSS and JS"}
+    ]
+  },
+  {
+    "eval": "eval-09-sf-test",
+    "skill": "sf-test",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "test plan matrix before code", "grade": "PASS", "evidence": "test-report.md Phase 2: dimension matrix (positive/negative/boundary/bulk/permissions/async/callouts) precedes generated code"},
+      {"text": "200-record bulk test", "grade": "PASS", "evidence": "test-report.md Phase 3: updatesAll200AccountsInBulk with 200 @TestSetup records and assertion over the FULL set"},
+      {"text": "runAs deny case", "grade": "N/A(environment)", "evidence": "test-report.md assumptions 2 + rubric: no restricted profile in bare dev org; user creation is permanent pollution; descoped with honest 0/15, not faked. Skill needs documented descope path"},
+      {"text": "Tooling API run + coverage", "grade": "PASS", "evidence": "test-report.md Phase 5: runTestsAsynchronous -> poll -> 5/5 pass -> ApexCodeCoverageAggregate 100%; cleanup verified to zero residue"}
+    ]
+  },
+  {
+    "eval": "eval-10-sf-security",
+    "skill": "sf-security",
+    "verdict": "WORKING-WITH-ISSUES",
+    "expectations": [
+      {"text": "category scan with line evidence", "grade": "PASS", "evidence": "security-report.md: 7-category rubric with file:line evidence (SiteRegisterController.cls:7, MyProfilePageController.cls:36)"},
+      {"text": "blockers vs advisories split", "grade": "PARTIAL", "evidence": "security-report.md: severity-ranked findings (0C/0H/4M/4L + Notes) and remediation plan, but no explicit blocker-vs-advisory framing; AppExchange Review Readiness checklist not executed (subscriber org, not packaging org - recorded assumption 3)"},
+      {"text": "Critical caps the grade", "grade": "PASS", "evidence": "security-report.md score table: cap rule applied and stated ('No Critical finding, so no grade cap applies'); N/A Lightning category renormalized 69/90 -> 77/100 instead of free 10/10"}
+    ]
+  },
+  {
+    "eval": "eval-11-sf-debug",
+    "skill": "sf-debug",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "triage before trace flags", "grade": "PASS", "evidence": "diagnosis.md: read-only triage, zero TraceFlag/DebugLevel created; exact trace it WOULD run specified with cleanup step"},
+      {"text": "SOQL-in-loop signature identified", "grade": "PASS", "evidence": "diagnosis.md: common-errors.md classification (query-in-loop or recursion); log checklist includes SOQL-in-loop signature (repeated SOQL_EXECUTE_BEGIN); evidence-based pivot to managed-cascade recursion since data volumes rule out row amplification"},
+      {"text": "Diagnosis/Evidence/Fix/Prevention format", "grade": "PASS", "evidence": "diagnosis.md: exact four headings with confidence levels and 7 numbered evidence items"}
+    ]
+  },
+  {
+    "eval": "eval-12-sf-campaigns",
+    "skill": "sf-campaigns",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "null-guarded ROI math", "grade": "PASS", "evidence": "campaign-analysis.md header + run-notes.md: every division null/zero-guarded, formula table computed verbatim in Python"},
+      {"text": "missing-cost campaigns flagged as hygiene finding, not ranked last", "grade": "PASS", "evidence": "campaign-analysis.md: both no-cost campaigns excluded from ROI ranking, separate pipeline-ranked table, hygiene finding #1"},
+      {"text": "invest/pause recommendations", "grade": "PASS", "evidence": "campaign-analysis.md Recommendations: per-campaign Increase/Maintain/Restructure/Pause with rationale; bonus findings (rollup mismatch, missing EndDate) beyond planted traps"}
+    ]
+  },
+  {
+    "eval": "eval-13-sf-leads",
+    "skill": "sf-leads",
+    "verdict": "WORKING",
+    "expectations": [
+      {"text": "gap-rate profile before enriching", "grade": "PASS", "evidence": "gap-analysis.md section 1: full gap-rate table + process-fix observations (gaps cluster on 11 companies; Industry inconsistency = intake problem) before any proposal"},
+      {"text": "wrong-domain emails flagged", "grade": "N/A(environment)", "evidence": "gap-analysis.md section 2 + run-notes.md issue 1: fixture defect - CSV contains zero literal domain mismatches (generator rebuilt emails from misattributed company); run surfaced the intended ~10% pattern as cross-company duplicate pairs (4/40) and flagged 15 de-anon emails as unverified; regenerate leads.csv"},
+      {"text": "no writes without approval", "grade": "PASS", "evidence": "gap-analysis.md section 4: no Salesforce tools called; enrichment PROPOSED ONLY; Phone/LeadSource/populated-Industry excluded from writes per data-quality rules"}
+    ]
+  }
+]

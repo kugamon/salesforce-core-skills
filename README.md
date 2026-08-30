@@ -7,6 +7,8 @@ A Claude Desktop / Cowork **plugin marketplace** that ships a single plugin (`sa
 
 This repo **does not install an MCP server**. It assumes you already have a Salesforce MCP server connected to your org. The skills are **tool-agnostic** — they reference MCP capabilities generically rather than one vendor's tool names, so they work with any Salesforce MCP server.
 
+Every skill is **behaviorally tested against a live Salesforce org** — 13 independent agent runs covering reads, writes (with verified cleanup), and analysis: [see the eval report](evals/results/iteration-1/eval-report.md) (11 WORKING, 2 WORKING-WITH-ISSUES, 0 BROKEN; all findings fixed in v1.3.1).
+
 ## Why this plugin
 
 Out of the box, Claude can call your Salesforce MCP server's tools — but it doesn't know:
@@ -147,6 +149,16 @@ The marketplace pattern means future contributors can add more plugins under `pl
   "enabledPlugins": ["salesforce-core"]
 }
 ```
+
+### Option 4 — Any agent tool via npx (Cursor, Codex, OpenCode, …)
+
+The skills follow the open [Agent Skills](https://agentskills.io) spec, so non-Claude tools can install them directly (verified — all 13 skills are discovered):
+
+```bash
+npx skills add kugamon/salesforce-core-skills
+```
+
+Note: this path installs the skills only — the Claude-specific extras (guardrail hooks, marketplace updates) ship through Options 1–3.
 
 ## Try it without an org
 

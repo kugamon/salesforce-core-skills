@@ -94,12 +94,29 @@ def main():
             elif n == 0:
                 warnings.append("G3 destructive DML with no explicit record list — verify the target set is bounded before executing")
 
-    out = {"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "allow"}}
-    if warnings:
-        out["hookSpecificOutput"]["additionalContext"] = (
-            "GUARDRAILS (advisory): " + " | ".join(warnings)
-            + " — Address or consciously accept each before proceeding; tell the user about any you accept."
-        )
+    # G2 (permission escalation) and G3 (destructive DML) block for explicit
+    # confirmation; G1 (code quality) stays advisory. Rationale: a scrolled-past
+    # warning can't stop a dangerous write — an "ask" can. G1 blocking would
+    # train users to click through on false positives.
+    blocking = [w for w in warnings if w.startswith(("G2", "G3"))]
+    advisory = [w for w in warnings if not w.startswith(("G2", "G3"))]
+
+    if blocking:
+        out = {"hookSpecificOutput": {
+            "hookEventName": "PreToolUse",
+            "permissionDecision": "ask",
+            "permissionDecisionReason": (
+                "GUARDRAILS: " + " | ".join(blocking + advisory)
+                + " — Confirm this write is intended before proceeding."
+            ),
+        }}
+    else:
+        out = {"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "allow"}}
+        if advisory:
+            out["hookSpecificOutput"]["additionalContext"] = (
+                "GUARDRAILS (advisory): " + " | ".join(advisory)
+                + " — Address or consciously accept each before proceeding; tell the user about any you accept."
+            )
     print(json.dumps(out))
 
 
