@@ -54,6 +54,8 @@ If the type is **Trigger**, also ask:
 - Which trigger events are needed (before insert, after update, etc.)
 - Whether the Trigger Actions Framework (TAF) is installed in the org
 
+**Design check before writing code**: consult `../../shared/standards/automation-decision-tree.md` when the request might not need Apex at all (formula, rollup, validation rule, or flow may win), and `../../shared/standards/async-decision-tree.md` before choosing an async pattern.
+
 ### 2. Check for existing Apex
 
 Before generating, confirm nothing already exists with that name.
@@ -766,7 +768,7 @@ tooling_api_dml(
 
 **⚠️ CRITICAL**: TAF triggers do NOTHING without `Trigger_Action__mdt` records! Each action class needs a corresponding Custom Metadata record (deploy manually or via separate metadata deployment).
 
-**Fallback**: If TAF is NOT installed, use standard trigger pattern (non-TAF).
+**Fallback**: If TAF is NOT installed, use standard trigger pattern (non-TAF). A ready-made, dependency-free handler base class lives at `../../shared/templates/TriggerHandler.cls` (with `../../shared/templates/AccountTrigger.trigger` as the one-line-body wiring example) — the lightweight alternative when TAF is overkill.
 
 ---
 
@@ -779,6 +781,8 @@ tooling_api_dml(
 | Process millions of records     | `Batch Apex`            |
 | Scheduled/recurring job         | `Schedulable`           |
 | Post-queueable cleanup          | `Queueable Finalizer`   |
+
+Quick matrix only — the full tree with limits (chaining rules, scope sizes, the mixed-DML escape, Platform Events vs Change Data Capture) is `../../shared/standards/async-decision-tree.md`.
 
 ---
 

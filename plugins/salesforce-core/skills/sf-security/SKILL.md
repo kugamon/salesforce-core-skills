@@ -149,6 +149,9 @@ For each accepted finding, fix in priority order (Critical → Low):
   allowlist instead where possible.
 - Sharing: `with sharing` default, `inherited sharing` on service/selector
   layers, `without sharing` only in a narrow, documented system-context class.
+  The full decision tree (keyword choice, OWD interplay, user-mode defaults,
+  when runAs tests are mandatory) is
+  `../../shared/standards/sharing-model-decision-tree.md`.
 - Secrets: move to Named Credentials / External Credentials; never custom
   settings for secrets (visible to admins) — call out Protected Custom
   Settings vs Named Credentials tradeoffs.

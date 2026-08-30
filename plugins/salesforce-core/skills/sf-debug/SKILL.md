@@ -168,6 +168,11 @@ Work the log in this order — it's diagnostic priority, not file order:
 <the limit/pattern to watch, monitoring suggestion if warranted>
 ```
 
+Prevention often starts with loggable code: when the org has no logging
+framework, a minimal correlation-id logger template ships at
+`../../shared/templates/Logger.cls` (use Nebula Logger or the org standard
+instead when one is installed).
+
 ## Limit Analysis
 
 Reference ceilings (synchronous / asynchronous). These are **per-namespace**:

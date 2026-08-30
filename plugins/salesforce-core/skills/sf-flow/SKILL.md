@@ -418,7 +418,7 @@ For simple, self-contained flows (single record update, basic field mapping, str
 
 ### Phase 1: Requirements Gathering
 
-**Before building, evaluate alternatives**: See `references/flow-best-practices.md` Section 1 "When NOT to Use Flow" - sometimes a Formula Field, Validation Rule, or Roll-Up Summary Field is the better choice.
+**Before building, evaluate alternatives**: See `references/flow-best-practices.md` Section 1 "When NOT to Use Flow" - sometimes a Formula Field, Validation Rule, or Roll-Up Summary Field is the better choice. The shared cross-skill routing tree (formula/rollup vs flow vs Apex, before-save vs after-save, when not to automate at all) is `../../shared/standards/automation-decision-tree.md` — consult it when the request might belong on the Apex side of the fence.
 
 If the request is underspecified, ask concise follow-up questions to gather:
 

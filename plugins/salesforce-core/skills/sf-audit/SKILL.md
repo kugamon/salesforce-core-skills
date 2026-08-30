@@ -93,6 +93,10 @@ Call `org_init()` first if not already done this session (`org_init` is a conven
 
 ---
 
+## Standing monitoring
+
+In Claude Desktop / Cowork, scoped audits can run on a schedule with delta reporting, and key metrics can feed a live dashboard artifact — see docs/monitoring-recipe.md at the repo root for the recipes and the headless rules that make them safe.
+
 ## Execution modes
 
 Determine execution mode once, before Phase A. Four modes are supported —

@@ -80,7 +80,10 @@ Rules that make tests worth having:
   `@IsTest` annotation, `private`, API version matching the class under test.
 - **`@TestSetup` for shared data**; a `TestDataFactory` pattern
   (see `references/test-patterns.md`) when 3+ test classes need the same
-  objects. Never `SeeAllData=true` unless testing something that genuinely
+  objects. A copyable starting file lives at
+  `../../shared/templates/TestDataFactory.cls` — copy it and extend
+  per object; the reference doc explains the pattern. Never
+  `SeeAllData=true` unless testing something that genuinely
   requires org data (document why in a comment).
 - **Modern `Assert` class** (`Assert.areEqual`, `Assert.isTrue`,
   `Assert.fail`) with a message on every assertion explaining what broke.

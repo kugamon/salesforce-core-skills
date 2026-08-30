@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salesforce Org Audit — Kugamon LLC (kuga-extra-dev) — Apex &amp; Automation Scope</title>
+<style>
+/* ── brand tokens (report-template.md §1) ── */
+:root {
+  --brand-blue: #417ae4;
+  --brand-cyan: #14dddd;
+  --text-on-blue: #ffffff;
+  --surface: #ffffff;
+  --body-bg: #f4f6f9;
+  --border: #e0e4ea;
+  --muted: #6b7280;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--body-bg);
+  color: #1f2937;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.banner {
+  background: #417ae4; /* solid — no gradient */
+  padding: 28px 40px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.banner-text { flex: 1; }
+.banner-title { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+.banner-subtitle { font-size: 13px; color: rgba(255,255,255,.8); margin-top: 4px; }
+.banner-scope { display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 600; color: #fff; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 3px 12px; }
+.banner-score { text-align: right; flex-shrink: 0; }
+.banner-score-value { font-size: 48px; font-weight: 800; color: #fff; line-height: 1; }
+.banner-score-label { font-size: 12px; color: rgba(255,255,255,.8); }
+.banner-score-rating { margin-top: 6px; display: inline-block; font-size: 13px; font-weight: 700; color: #0f766e; background: #e8fbf9; border-radius: 999px; padding: 3px 12px; }
+nav.topnav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 40px;
+  display: flex; flex-wrap: wrap; gap: 4px 18px;
+  box-shadow: 0 1px 3px rgba(16,24,40,.06);
+}
+nav.topnav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; padding: 4px 2px; }
+nav.topnav a:hover { color: var(--brand-blue); }
+main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 64px; }
+section { margin-bottom: 36px; }
+h2 { font-size: 20px; margin: 0 0 14px; letter-spacing: -0.2px; }
+h3 { font-size: 15px; margin: 0 0 8px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(16,24,40,.08);
+  padding: 20px 22px;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.card:hover { box-shadow: 0 4px 10px rgba(16,24,40,.10); transform: translateY(-1px); }
+.grid { display: grid; gap: 16px; }
+.grid.kpis { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.kpi-value { font-size: 30px; font-weight: 800; color: var(--brand-blue); line-height: 1.1; }
+.kpi-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.kpi-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.two-col { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.table-wrap { overflow-x: auto; }
+th {
+  background: var(--brand-blue); color: var(--text-on-blue);
+  text-align: left; padding: 8px 10px; font-size: 12.5px; white-space: nowrap;
+}
+td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tbody tr:hover { background: #f0f4fb; }
+.pill { display: inline-block; font-size: 11.5px; font-weight: 700; border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
+.pill.excellent { background:#e8fbf9; color:#0f9b9b; border:1px solid #14dddd; }
+.pill.good { background:#e9f7ef; color:#27ae60; border:1px solid #27ae60; }
+.pill.acceptable { background:#fef3cd; color:#b7791f; border:1px solid #f39c12; }
+.pill.needswork { background:#fef9e7; color:#e67e22; border:1px solid #e67e22; }
+.pill.critical { background:#fde8e8; color:#e74c3c; border:1px solid #e74c3c; }
+.pill.high { background:#fde8e8; color:#e74c3c; }
+.pill.medium { background:#fef3cd; color:#b7791f; }
+.pill.low { background:#ebf1fb; color:#417ae4; }
+.pill.positive { background:#e9f7ef; color:#27ae60; }
+.pill.managed { background:#eef2f7; color:#6b7280; }
+.finding { border-left: 4px solid var(--border); border-radius: 8px; background: var(--surface); padding: 12px 16px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(16,24,40,.06); }
+.finding.high { border-left-color: #e74c3c; }
+.finding.medium { border-left-color: #e67e22; }
+.finding.low { border-left-color: #417ae4; }
+.finding.positive { border-left-color: #27ae60; }
+.finding h4 { margin: 0 0 4px; font-size: 14px; }
+.finding p { margin: 0; font-size: 13px; color: #374151; }
+.barrow { display: grid; grid-template-columns: 190px 1fr 64px; gap: 10px; align-items: center; margin-bottom: 10px; }
+.barrow .lbl { font-size: 13px; font-weight: 600; }
+.barrow .val { font-size: 13px; font-weight: 700; text-align: right; }
+.bartrack { background: #edf0f5; border-radius: 6px; height: 14px; overflow: hidden; }
+.bar { height: 100%; border-radius: 6px; transform-origin: left; transform: scaleX(0); transition: transform .8s cubic-bezier(.22,1,.36,1); }
+.bar.in { transform: scaleX(1); }
+.gauge-arc { transition: stroke-dashoffset 1s ease-out; }
+.reveal { opacity: 0; }
+.reveal.in { animation: fadeUp .5s ease-out forwards; }
+@keyframes fadeUp { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .bar, .gauge-arc { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
+}
+.note { font-size: 12.5px; color: var(--muted); }
+.weights-box { background:#ebf1fb; border:1px solid #c7d7f5; border-radius:10px; padding:14px 18px; font-size:13.5px; }
+footer { border-top: 1px solid var(--border); margin-top: 40px; padding: 18px 40px; background: var(--brand-blue); color: #fff; font-size: 12.5px; }
+@media (max-width: 768px) {
+  .banner { flex-direction: column; align-items: flex-start; padding: 22px 20px; }
+  .banner-score { text-align: left; }
+  nav.topnav { padding: 10px 16px; }
+  .two-col { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <div class="banner-text">
+    <div class="banner-title">Salesforce Org Audit Report</div>
+    <div class="banner-subtitle">Kugamon LLC · Org ID: 00D8c0000041vBHEAY · Instance: USA842 · Developer Edition (kuga-extra-dev) · 2026-08-30</div>
+    <span class="banner-scope">Scoped audit: Apex inventory · Flows / Process Builders / Workflow Rules · Validation Rules</span>
+  </div>
+  <div class="banner-score">
+    <div class="banner-score-value" data-target="85">0</div>
+    <div class="banner-score-label">out of 100 (scoped)</div>
+    <div class="banner-score-rating">Excellent</div>
+  </div>
+</div>
+
+<nav class="topnav">
+  <a href="#summary">Summary</a>
+  <a href="#score">Score &amp; Weights</a>
+  <a href="#apex">Apex Inventory</a>
+  <a href="#flows">Flows</a>
+  <a href="#legacy">Legacy Automation</a>
+  <a href="#validation">Validation Rules</a>
+  <a href="#findings">Findings</a>
+  <a href="#recs">Recommendations</a>
+</nav>
+
+<main>
+
+<section id="summary" class="reveal">
+  <h2>Executive Summary</h2>
+  <div class="grid kpis">
+    <div class="card"><div class="kpi-value" data-target="10">0</div><div class="kpi-label">Local Apex Classes</div><div class="kpi-note">all standard site boilerplate</div></div>
+    <div class="card"><div class="kpi-value" data-target="0">0</div><div class="kpi-label">Local Apex Triggers</div><div class="kpi-note">zero custom triggers</div></div>
+    <div class="card"><div class="kpi-value" data-target="279">0</div><div class="kpi-label">Managed Classes</div><div class="kpi-note">+ 36 managed triggers (3 namespaces)</div></div>
+    <div class="card"><div class="kpi-value" data-target="5">0</div><div class="kpi-label">Active Flows</div><div class="kpi-note">all record-triggered, autolaunched</div></div>
+    <div class="card"><div class="kpi-value" data-target="0">0</div><div class="kpi-label">Process Builders &amp; Workflow Rules</div><div class="kpi-note">no legacy automation debt</div></div>
+    <div class="card"><div class="kpi-value" data-target="0">0</div><div class="kpi-label">Local Validation Rules</div><div class="kpi-note">43 managed (not scoreable)</div></div>
+  </div>
+  <p class="note" style="margin-top:12px">
+    Audit run 2026-08-30 against the live org via read-only Tooling/SOQL API calls (execution mode:
+    <strong>mcp-plus-code-execution</strong>). Scope was limited on request to Apex inventory, Flow/PB/WFR automation,
+    and validation rules. Permissions, LWC, data model, reports, integrations, coverage, licensing, team, and change
+    history were <strong>not audited</strong>. All five active flows were individually retrieved and scored against the
+    110-point sf-flow rubric — no sampling. Apex was inventoried at surface level (name, size, API version); class
+    bodies were not scored against the 150-point rubric in this scoped run, and that is reflected in the weighting below.
+  </p>
+</section>
+
+<section id="score">
+  <h2>Overall Score &amp; Partial-Audit Weights</h2>
+  <div class="two-col">
+    <div class="card reveal" style="text-align:center">
+      <h3>Scoped Org Health</h3>
+      <svg width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="Overall scoped score 85 out of 100">
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#edf0f5" stroke-width="18"></circle>
+        <circle id="gaugeArc" class="gauge-arc" cx="100" cy="100" r="70" fill="none" stroke="#14dddd" stroke-width="18"
+          stroke-linecap="round" stroke-dasharray="439.82" stroke-dashoffset="439.82"
+          transform="rotate(-90 100 100)"></circle>
+        <text x="100" y="96" text-anchor="middle" font-size="40" font-weight="800" fill="#1f2937"><tspan data-target="85">0</tspan></text>
+        <text x="100" y="122" text-anchor="middle" font-size="12" fill="#6b7280">/ 100 · Excellent</text>
+      </svg>
+      <p class="note">Weighted across audited domains only.</p>
+    </div>
+    <div>
+      <div class="card reveal" style="margin-bottom:16px">
+        <h3>Domain Breakdown (audited domains)</h3>
+        <div class="barrow"><span class="lbl">Flow Automation (60%)</span><div class="bartrack"><div class="bar" style="width:80.5%;background:#14dddd"></div></div><span class="val">80.5%</span></div>
+        <div class="barrow"><span class="lbl">Apex Surface Hygiene (20%)</span><div class="bartrack"><div class="bar" style="width:85%;background:#14dddd"></div></div><span class="val">85%</span></div>
+        <div class="barrow"><span class="lbl">Legacy Automation Hygiene (20%)</span><div class="bartrack"><div class="bar" style="width:100%;background:#27ae60"></div></div><span class="val">100%</span></div>
+        <div class="barrow"><span class="lbl">Validation Rules</span><div class="bartrack"><div class="bar" style="width:100%;background:#e0e4ea"></div></div><span class="val">N/A</span></div>
+      </div>
+      <div class="weights-box reveal">
+        <strong>Partial-audit weighting (stated per skill rule):</strong> this is a scoped audit, so only audited
+        domains are weighted — <strong>Flow Automation 60% · Apex surface hygiene 20% · Legacy automation hygiene
+        (WFR/PB) 20%</strong>. <strong>Validation Rules is N/A</strong> (zero local rules exist; the 43 managed-package
+        rules are not user-serviceable) and is excluded with the remaining weights renormalized — it does not count
+        toward the score in either direction. Unaudited domains (permissions, LWC, data model, coverage, etc.) carry
+        <strong>zero weight</strong>. Weighted result: 0.6×80.5 + 0.2×85 + 0.2×100 = <strong>85 / 100</strong>.
+        Note: Apex contributes a surface-hygiene signal only (API versions, test pairing, size); class bodies were not
+        rubric-scored in this scope.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="apex" class="reveal">
+  <h2>C1–C2 · Apex Inventory</h2>
+  <div class="card">
+    <h3>Local (unmanaged) classes — 10 total, 0 triggers</h3>
+    <p class="note">All 10 local classes are the standard Salesforce Experience Cloud / Site boilerplate controllers and
+    their tests, auto-created with the org. Every controller has a paired test class (1:1). All are Active at API v54.0.
+    Bodies were not rubric-scored in this scoped inventory pass.</p>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Class</th><th>API Version</th><th>Length (chars, no comments)</th><th>Type</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>ChangePasswordController</td><td>54.0</td><td>376</td><td>Boilerplate</td><td rowspan="10">Standard site/community controllers. Low risk; flag: API v54 &lt; 55 <span class="pill low">LOW</span>. Consider removing if Sites/Experience Cloud is unused, or upgrading API versions in bulk.</td></tr>
+        <tr><td>ChangePasswordControllerTest</td><td>54.0</td><td>480</td><td>Test</td></tr>
+        <tr><td>ForgotPasswordController</td><td>54.0</td><td>379</td><td>Boilerplate</td></tr>
+        <tr><td>ForgotPasswordControllerTest</td><td>54.0</td><td>346</td><td>Test</td></tr>
+        <tr><td>MyProfilePageController</td><td>54.0</td><td>1,403</td><td>Boilerplate</td></tr>
+        <tr><td>MyProfilePageControllerTest</td><td>54.0</td><td>2,507</td><td>Test</td></tr>
+        <tr><td>SiteLoginController</td><td>54.0</td><td>352</td><td>Boilerplate</td></tr>
+        <tr><td>SiteLoginControllerTest</td><td>54.0</td><td>393</td><td>Test</td></tr>
+        <tr><td>SiteRegisterController</td><td>54.0</td><td>1,524</td><td>Boilerplate</td></tr>
+        <tr><td>SiteRegisterControllerTest</td><td>54.0</td><td>559</td><td>Test</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>Managed packages — reported honestly, not scored</h3>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Namespace</th><th>Classes</th><th>Triggers</th><th>Scoring status</th></tr></thead>
+      <tbody>
+        <tr><td>kugo2p (Kugamon Order-to-Payment)</td><td>262</td><td>34</td><td><span class="pill managed">Managed — excluded</span></td></tr>
+        <tr><td>kugadd (Kugamon Address App)</td><td>11</td><td>2</td><td><span class="pill managed">Managed — excluded</span></td></tr>
+        <tr><td>kuga_central</td><td>6</td><td>0</td><td><span class="pill managed">Managed — excluded</span></td></tr>
+        <tr><td><strong>Total managed</strong></td><td><strong>279</strong></td><td><strong>36</strong></td><td></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Managed-package code bodies are not visible or user-serviceable, so they cannot be honestly scored and
+    are excluded from the health score entirely (they neither raise nor lower it). They are counted here so the org's
+    true footprint is not understated: this org runs almost entirely on packaged automation, and active managed triggers
+    exist on kugo2p__PaymentX__c, kugo2p__SalesOrder__c, kugo2p__SalesQuote__c, and Opportunity — the same objects the
+    local flows trigger on (see Findings).</p>
+  </div>
+</section>
+
+<section id="flows" class="reveal">
+  <h2>C3–C4 · Flows &amp; Process Builders (deep dive — all 5 flows individually scored)</h2>
+  <div class="card">
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Flow</th><th>Object / Trigger</th><th>Ver</th><th>API</th><th>Score /110</th><th>%</th><th>Rating</th><th>Top issues</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Kugamon - Internal Payment Received Email</td><td>kugo2p__PaymentX__c · after-save (C+U)</td><td>3</td><td>56</td>
+          <td>94</td><td>85%</td><td><span class="pill excellent">Pass</span></td>
+          <td>No fault connectors on email alert / quick action; entry guard (ISNEW/ISCHANGED) is correct</td>
+        </tr>
+        <tr>
+          <td>Kugamon - Internal Order Approved Email and Notification</td><td>kugo2p__SalesOrder__c · after-save (U)</td><td>6</td><td>56</td>
+          <td>89</td><td>81%</td><td><span class="pill good">Pass</span></td>
+          <td>CustomNotificationType lookup has no "found?" null check; no fault connectors on 4 fallible elements; PRIORVALUE entry guard is correct</td>
+        </tr>
+        <tr>
+          <td>Update Opportunity Close Date from Primary Order</td><td>kugo2p__SalesOrder__c · after-save async (C+U)</td><td>3</td><td>54</td>
+          <td>87</td><td>79%</td><td><span class="pill acceptable">Below 80%</span></td>
+          <td>No fault connector on async Opportunity update (silent failure); IsChanged filter makes the Create half of the trigger dead; "&minus;0" no-op formula</td>
+        </tr>
+        <tr>
+          <td>Update Opportunity Close Date from Primary Quote</td><td>kugo2p__SalesQuote__c · after-save async (C+U)</td><td>3</td><td>54</td>
+          <td>87</td><td>79%</td><td><span class="pill acceptable">Below 80%</span></td>
+          <td>Mirror of the Order flow — same three issues; also competes with it for Opportunity.CloseDate</td>
+        </tr>
+        <tr>
+          <td>Kugamon - Internal Failed Payment Email</td><td>kugo2p__PaymentX__c · after-save (C+U)</td><td>2</td><td>56</td>
+          <td>86</td><td>78%</td><td><span class="pill acceptable">Below 80%</span></td>
+          <td>No ISCHANGED entry guard — re-fires (duplicate email + task) on <em>every</em> edit while Status stays Declined/Error/Failure; no fault connectors</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note" style="margin-top:10px">Mean 88.6/110 (80.5%) · Median 87/110 · 3 of 5 below the 88/110 (80%)
+    deployment threshold · 0 Process Builders exist (nothing to migrate). Rubric: Design &amp; Naming /20, Logic &amp;
+    Structure /20, Architecture /15, Performance &amp; Bulk Safety /20, Error Handling /20, Security /15. Error Handling
+    is the weak category across all five flows (missing <code>faultConnector</code> on every fallible element — the
+    single systemic issue in this org's automation).</p>
+  </div>
+</section>
+
+<section id="legacy" class="reveal">
+  <h2>C8 · Workflow Rules &amp; Legacy Automation</h2>
+  <div class="card">
+    <p><span class="pill positive">POSITIVE</span> &nbsp;<strong>Zero Workflow Rules</strong> (local and managed) and
+    <strong>zero Process Builders</strong> are active in this org. There is no legacy-automation migration debt, and no
+    Workflow/PB/Flow overlap is possible. One additional item surfaced during the flow inventory: the standard
+    <em>sfdc_default_ReportExport_Protection_Flow</em> (Transaction Security) exists but has <strong>no active
+    version</strong> — report-export protection is defined but switched off.</p>
+  </div>
+</section>
+
+<section id="validation" class="reveal">
+  <h2>C7 (scoped) · Validation Rules</h2>
+  <div class="card">
+    <p><strong>0 local validation rules</strong> exist — there are no formulas to scan for hardcoded Record IDs,
+    Campaign names, Profile names, or URLs, so this domain is <strong>N/A and excluded from the weighted score</strong>
+    (renormalized, per the partial-audit rule — an empty domain must not pad the score in either direction).
+    The org does contain <strong>43 managed-package validation rules</strong> (kugo2p/kugadd); their formulas are
+    package-controlled and not user-serviceable, so they are inventoried but not audited.</p>
+    <p class="note">Connector note: <code>ErrorConditionFormula</code> is not a queryable column on this connector's
+    Tooling API for ValidationRule (formula lives in the single-row <code>Metadata</code> field) — with zero local
+    rules, no per-rule metadata fetches were required.</p>
+  </div>
+</section>
+
+<section id="findings">
+  <h2>Findings</h2>
+  <div class="two-col">
+    <div class="card reveal">
+      <h3>Severity distribution</h3>
+      <svg viewBox="0 0 300 190" width="100%" role="img" aria-label="Findings by severity: Critical 0, High 2, Medium 4, Low 3, Positive 4">
+        <g font-size="12" fill="#6b7280">
+          <text x="8" y="24">Critical</text><text x="8" y="60">High</text><text x="8" y="96">Medium</text><text x="8" y="132">Low</text><text x="8" y="168">Positive</text>
+        </g>
+        <g>
+          <rect class="bar" x="72" y="12" width="4" height="16" rx="3" fill="#e74c3c" opacity=".35"></rect>
+          <rect class="bar" x="72" y="48" width="100" height="16" rx="3" fill="#e74c3c"></rect>
+          <rect class="bar" x="72" y="84" width="200" height="16" rx="3" fill="#e67e22"></rect>
+          <rect class="bar" x="72" y="120" width="150" height="16" rx="3" fill="#417ae4"></rect>
+          <rect class="bar" x="72" y="156" width="200" height="16" rx="3" fill="#27ae60"></rect>
+        </g>
+        <g font-size="12" font-weight="700" fill="#1f2937">
+          <text x="84" y="24">0</text><text x="180" y="60">2</text><text x="280" y="96">4</text><text x="230" y="132">3</text><text x="280" y="168">4</text>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <div class="finding high reveal"><h4><span class="pill high">HIGH</span> Failed-payment flow re-fires on every edit</h4>
+        <p>"Internal Failed Payment Email" triggers on Create+Update of kugo2p__PaymentX__c with only status/amount filters
+        and no ISCHANGED/ISNEW guard. Any edit to a payment already in Declined/Error/Failure (e.g. adding a note) sends a
+        duplicate internal email and creates a duplicate task. Its sibling "Payment Received" flow has the correct guard —
+        copy that pattern.</p></div>
+      <div class="finding high reveal"><h4><span class="pill high">HIGH</span> No fault paths anywhere (systemic, 5/5 flows)</h4>
+        <p>Every fallible element across all five after-save flows — email alerts, quick actions, custom notification, record
+        lookup, record create, and both async record updates — has <code>faultConnector: null</code>. In the three synchronous
+        flows an action failure surfaces as CANNOT_EXECUTE_FLOW_TRIGGER against the user's save; in the two async close-date
+        flows failures die silently. Add fault connectors (or an error-log subflow) to every fallible element.</p></div>
+      <div class="finding medium reveal"><h4><span class="pill medium">MEDIUM</span> Notification-type lookup without null check</h4>
+        <p>"Internal Order Approved Email and Notification" gets CustomNotificationType "OrderApprovalNotification" by
+        DeveloperName and feeds the Id straight into the notification action with no "record found?" decision. If the type is
+        renamed or absent in a target org, the action fails at runtime.</p></div>
+      <div class="finding medium reveal"><h4><span class="pill medium">MEDIUM</span> Two async flows compete for Opportunity.CloseDate</h4>
+        <p>The Primary Order and Primary Quote close-date flows both write Opportunity.CloseDate on async paths. When an
+        Opportunity has both a primary quote and a primary order with different Date Required values, last-writer-wins is
+        timing-dependent. Consider a precedence rule (order supersedes quote) in a single flow.</p></div>
+      <div class="finding medium reveal"><h4><span class="pill medium">MEDIUM</span> Report-export protection flow never activated</h4>
+        <p>sfdc_default_ReportExport_Protection_Flow (Transaction Security) exists with no active version. If report-export
+        monitoring is wanted, activate it; otherwise delete the draft to reduce noise.</p></div>
+      <div class="finding medium reveal"><h4><span class="pill medium">MEDIUM</span> Managed triggers + local flows on the same objects</h4>
+        <p>Active kugo2p managed triggers exist on PaymentX, SalesOrder, SalesQuote, and Opportunity — the same objects the
+        local flows fire on. This is expected for an ISV app and the package internals are not auditable, but order-of-execution
+        interactions (e.g. package logic also touching CloseDate) should be verified in a sandbox before changing the flows.</p></div>
+      <div class="finding low reveal"><h4><span class="pill low">LOW</span> Dead "Create" path in both close-date flows</h4>
+        <p>Both use trigger type Create+Update but include an IsChanged entry filter, which is false on insert — the Create
+        half never fires. Harmless today (a brand-new primary order/quote won't sync the close date); switch to Update-only
+        or restructure if create-time sync is intended.</p></div>
+      <div class="finding low reveal"><h4><span class="pill low">LOW</span> "&minus; 0" no-op formula duplicated in two flows</h4>
+        <p>OpportunityCloseDateCalculation is <code>{!$Record.kugo2p__DateRequired__c} - 0</code> in both close-date flows —
+        a leftover offset. Assign the field directly.</p></div>
+      <div class="finding low reveal"><h4><span class="pill low">LOW</span> Local Apex ageing at API v54</h4>
+        <p>All 10 boilerplate classes and 2 flows sit at API v54 (4+ versions old). Low risk; batch-upgrade during the next
+        maintenance window, or delete the site controllers if Experience Cloud is unused.</p></div>
+      <div class="finding positive reveal"><h4><span class="pill positive">POSITIVE</span> Clean modern-automation posture</h4>
+        <p>No Workflow Rules, no Process Builders, no hardcoded Record IDs/URLs/Profile/Campaign names in any flow (the
+        notification type is resolved by DeveloperName, not Id), correct PRIORVALUE/ISCHANGED guards in 4 of 5 flows, 1:1
+        test-class pairing on all local Apex, and zero custom triggers to maintain.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="recs" class="reveal">
+  <h2>Top Recommendations (priority order)</h2>
+  <div class="card">
+    <ol style="margin:0; padding-left:20px">
+      <li><strong>Add an ISCHANGED/ISNEW entry guard to "Internal Failed Payment Email"</strong> — stops duplicate internal emails/tasks today. (5-minute fix; copy the filter formula from the Payment Received flow.)</li>
+      <li><strong>Add fault connectors to all fallible elements in the three synchronous email flows</strong> so a mail/notification failure can never block a payment or order save.</li>
+      <li><strong>Add fault paths + an error-notification step to the two async close-date flows</strong>, and add a null-check decision after the CustomNotificationType lookup.</li>
+      <li><strong>Consolidate the two Opportunity close-date writers</strong> (or document quote-vs-order precedence) and remove the "&minus;0" formula and dead Create paths while in there.</li>
+      <li><strong>Decide on the Transaction Security flow</strong> — activate report-export protection or delete the inactive default.</li>
+      <li><strong>Housekeeping:</strong> bulk-raise API versions (Apex v54 → current, flows v54 → current); remove unused site boilerplate controllers if Experience Cloud is not in use.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Scoped audit · Kugamon LLC Developer Edition (kuga-extra-dev) · Generated 2026-08-30 · Read-only Tooling/SOQL API ·
+  Flows scored per sf-flow 110-point rubric (all 5 scored, no sampling) · Apex inventoried at surface level (bodies not
+  rubric-scored) · Managed packages (279 classes / 36 triggers / 43 validation rules) inventoried but excluded from scoring ·
+  Weights: Flows 60% / Apex surface 20% / Legacy hygiene 20% / Validation rules N/A (renormalized)
+</footer>
+
+<script>
+// Respect reduced motion in JS too — the CSS guard alone doesn't stop
+// JS-driven textContent/attribute animations.
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Reveal sections and grow bars as they scroll into view
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}), { threshold: .15 });
+document.querySelectorAll('.reveal, .bar').forEach(el => {
+  if (reduceMotion) { el.classList.add('in'); } else { io.observe(el); }
+});
+
+// Count-up for headline numbers (data-target holds the final value)
+document.querySelectorAll('[data-target]').forEach(el => {
+  const end = parseFloat(el.dataset.target);
+  if (reduceMotion) { el.textContent = Math.round(end); return; }
+  const t0 = performance.now();
+  const step = t => { const p = Math.min((t - t0) / 900, 1);
+    el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+});
+
+// Donut gauge: circumference 439.82, score 85 -> offset = C * (1 - 0.85)
+(function () {
+  const arc = document.getElementById('gaugeArc');
+  const C = 439.82, score = 0.85, target = (C * (1 - score)).toFixed(2);
+  if (reduceMotion) { arc.style.transition = 'none'; arc.setAttribute('stroke-dashoffset', target); return; }
+  requestAnimationFrame(() => requestAnimationFrame(() => arc.setAttribute('stroke-dashoffset', target)));
+})();
+</script>
+</body>
+</html>

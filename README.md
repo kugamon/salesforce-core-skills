@@ -3,7 +3,7 @@
 [![Validate](https://github.com/kugamon/salesforce-core-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/kugamon/salesforce-core-skills/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A Claude Desktop / Cowork **plugin marketplace** that ships a single plugin (`salesforce-core`) with **thirteen general-purpose Salesforce admin & developer skills** — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Architecture Diagrams, Org Audit, Test Generation, Security Review, Debug Log Analysis, Campaign Analytics, and Lead Enrichment.
+A Claude Desktop / Cowork **plugin marketplace** that ships a single plugin (`salesforce-core`) with **fifteen general-purpose Salesforce admin & developer skills** — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Architecture Diagrams, Org Audit, Test Generation, Security Review, Debug Log Analysis, Org Comparison, Integrations, Campaign Analytics, and Lead Enrichment.
 
 This repo **does not install an MCP server**. It assumes you already have a Salesforce MCP server connected to your org. The skills are **tool-agnostic** — they reference MCP capabilities generically rather than one vendor's tool names, so they work with any Salesforce MCP server.
 
@@ -45,7 +45,7 @@ You need a Salesforce MCP server connected to Claude Desktop, wired to your targ
 1. **[salesforce-mcp-auto-auth-chrome](https://github.com/kugamon/salesforce-mcp-auto-auth-chrome)** — local MCP server with 14 Salesforce tools that auto-refreshes its session from your Chrome login (no tokens to paste).
 2. **Any other Salesforce MCP server** — the skills reason about capabilities (SOQL query, DML, metadata create, Tooling API), not specific tool names.
 
-## The 13 skills
+## The 15 skills
 
 | Skill | What it does | Scoring |
 | --- | --- | --- |
@@ -60,6 +60,8 @@ You need a Salesforce MCP server connected to Claude Desktop, wired to your targ
 | [sf-test](plugins/salesforce-core/skills/sf-test/README.md) | Generate, review, and run Apex test classes | 120-point |
 | [sf-security](plugins/salesforce-core/skills/sf-security/README.md) | Security audit + AppExchange review readiness | 100-point |
 | [sf-debug](plugins/salesforce-core/skills/sf-debug/README.md) | Debug log capture and analysis via the Tooling API | — |
+| [sf-orgdiff](plugins/salesforce-core/skills/sf-orgdiff/README.md) | Org-to-org comparison: drift, release verification, baseline diff | — |
+| [sf-integration](plugins/salesforce-core/skills/sf-integration/README.md) | Named/External Credentials, OAuth selection, Platform Events, CDC | — |
 | [sf-campaigns](plugins/salesforce-core/skills/sf-campaigns/README.md) | Campaign performance, funnels, ROI, and lead-source analysis | — |
 | [sf-leads](plugins/salesforce-core/skills/sf-leads/README.md) | Lead/Contact enrichment with citations, confidence ratings, and approval gates | — |
 
@@ -94,7 +96,7 @@ Each skill detects one of four execution modes per session and adapts:
 | `sfdx-repo` | Working dir is an SFDX project with metadata on disk | Read metadata locally, no API calls for body retrieval |
 | `cli` | Salesforce CLI (`sf`) installed and authenticated | Bulk retrieve, CLI queries, code execution |
 | `mcp-plus-code-execution` | MCP server + local Python/shell | MCP for org access, scripts for analysis and reports |
-| `mcp-only` | MCP server only | Everything via MCP tools, paginated |
+| `mcp-core` | MCP server only | Everything via MCP tools, paginated |
 
 See any skill's `references/execution-modes.md` for details.
 
@@ -115,7 +117,7 @@ salesforce-core-skills/                  # repo root = a marketplace
         ├── .claude-plugin/
         │   └── plugin.json              # plugin manifest
         ├── hooks/                       # PreToolUse validation hooks
-        ├── shared/                      # shared validator scripts
+        ├── shared/                      # shared hooks helpers + standards/ + templates/
         └── skills/
             ├── sf-apex/                 # each skill: SKILL.md + README +
             ├── sf-audit/                #   references/ + assets/ + scripts/
@@ -124,9 +126,11 @@ salesforce-core-skills/                  # repo root = a marketplace
             ├── sf-debug/
             ├── sf-diagram/
             ├── sf-flow/
+            ├── sf-integration/
             ├── sf-leads/
             ├── sf-lwc/
             ├── sf-metadata/
+            ├── sf-orgdiff/
             ├── sf-permissions/
             ├── sf-security/
             └── sf-test/
@@ -165,7 +169,7 @@ The marketplace pattern means future contributors can add more plugins under `pl
 
 ### Option 4 — Any agent tool via npx (Cursor, Codex, OpenCode, …)
 
-The skills follow the open [Agent Skills](https://agentskills.io) spec, so non-Claude tools can install them directly (verified — all 13 skills are discovered):
+The skills follow the open [Agent Skills](https://agentskills.io) spec, so non-Claude tools can install them directly (all 15 skills; verified discovery on this nested layout):
 
 ```bash
 npx skills add kugamon/salesforce-core-skills
@@ -197,6 +201,8 @@ Claude should detect the execution mode, connect to your Salesforce MCP server, 
 - "Write tests for AccountService and show me the coverage."
 - "Is this codebase ready for AppExchange security review?"
 - "Why am I getting 'Too many SOQL queries: 101' on opportunity save?"
+- "Compare my sandbox against production — what drifted?"
+- "Set up a named credential for the Stripe API — which OAuth flow?"
 - "Which campaigns are actually working? Rank them by ROI."
 - "Find leads missing industry or title and enrich the top 10."
 - "Analyze all my profiles and permission sets and recommend security fixes and cleanup."
@@ -216,11 +222,15 @@ For reports, analysis and simple metadata tasks a fast model (e.g. Sonnet) is a 
 
 **Skill references a tool your server doesn't have.** The skills use generic tool names (`soql_query`, `sobject_dml`, `metadata_create`, …). Map them to your server's equivalents — see [Org connection convention](#org-connection-convention).
 
+## Docs
+
+[When to use this vs. the official Salesforce library](docs/when-to-use-what.md) · [Standing org monitoring recipe (Cowork)](docs/monitoring-recipe.md) · [Eval methodology](evals/README.md) · [Sample animated audit report](docs/demo/sample-audit-report.html) (download and open — single-file HTML) · [CHANGELOG](CHANGELOG.md)
+
 ## Contributing
 
 PRs welcome. Especially useful contributions:
 
-- Additional skills (e.g. sf-deploy, sf-docs, sf-integration) — drop a folder under `plugins/salesforce-core/skills/`
+- Additional skills (e.g. sf-deploy, sf-docs) — drop a folder under `plugins/salesforce-core/skills/`
 - New plugins under `plugins/<name>/`, registered in `marketplace.json`
 - Improved scoring rubrics and reference guides as Salesforce releases evolve
 
