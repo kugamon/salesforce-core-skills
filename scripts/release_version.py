@@ -128,16 +128,25 @@ def write_manifests(new: str) -> None:
         path.write_text(json.dumps(data, indent=2) + "\n")
 
 
+def changelog_entry(new: str, body: str, today: str) -> str:
+    """Version heading + the release notes with their grouping intact.
+
+    The notes are already well-formed markdown (### sections and bullets);
+    flattening them into one line — as an earlier version did — produced an
+    unreadable run-on entry. The compare link is dropped because the
+    changelog header already points at the releases page.
+    """
+    kept = [ln for ln in body.splitlines() if not ln.startswith("**Full diff:")]
+    return f"## [{new}] — {today}\n\n" + "\n".join(kept).strip() + "\n\n"
+
+
 def write_changelog(new: str, body: str) -> None:
     if not CHANGELOG.exists():
         return
     from datetime import date
 
     text = CHANGELOG.read_text()
-    summary = " ".join(
-        line[2:] for line in body.splitlines() if line.startswith("- ")
-    )[:400]
-    entry = f"## [{new}] — {date.today().isoformat()}\n- {summary}\n\n"
+    entry = changelog_entry(new, body, date.today().isoformat())
     anchor = "\n## ["
     idx = text.find(anchor)
     text = (text[: idx + 1] + entry + text[idx + 1 :]) if idx != -1 else text + "\n" + entry
@@ -179,6 +188,24 @@ def self_test() -> int:
     if agg != BUMP_MINOR:
         print(f"  FAIL aggregate: expected {BUMP_MINOR}, got {agg}")
         failures += 1
+    sample = (
+        "### Features\n\n- **sf-x** — a thing\n\n"
+        "### Fixes\n\n- **sf-y** — another\n\n"
+        "**Full diff:** https://example.test/compare\n"
+    )
+    entry = changelog_entry("9.9.9", sample, "2026-01-01")
+    checks = [
+        (entry.startswith("## [9.9.9] — 2026-01-01\n\n"), "heading"),
+        ("### Features" in entry and "### Fixes" in entry, "sections preserved"),
+        ("\n- **sf-x** — a thing" in entry, "bullets on their own lines"),
+        ("Full diff" not in entry, "compare link dropped"),
+        (entry.count("\n- ") == 2, "no bullet flattening"),
+        (entry.endswith("\n\n"), "trailing spacing"),
+    ]
+    for ok, label in checks:
+        if not ok:
+            print(f"  FAIL changelog {label}")
+            failures += 1
     print("self-test:", "PASS" if not failures else f"{failures} FAILURES")
     return 1 if failures else 0
 

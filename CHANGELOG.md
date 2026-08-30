@@ -3,9 +3,24 @@
 Releases: https://github.com/kugamon/salesforce-core-skills/releases
 
 ## [2.3.0] — 2026-08-30
-- **sf-records** — add record stewardship skill and promote shared data-quality canon **ci** — push an annotated release tag so gh release create can find it link Salesforce's official sf-skills library in the positioning section move when-to-use-what guidance into the README
+
+### Features
+
+- **sf-records** — add record stewardship skill and promote shared data-quality canon
+
+### Fixes
+
+- **ci** — push an annotated release tag so gh release create can find it
+
+### Documentation
+
+- link Salesforce's official sf-skills library in the positioning section
+- move when-to-use-what guidance into the README
 
 ## [2.2.0] — 2026-08-30
+
+### Features
+
 - **ci** — automate releases from conventional commit history
 
 ## [2.0.0] — 2026-08-30
