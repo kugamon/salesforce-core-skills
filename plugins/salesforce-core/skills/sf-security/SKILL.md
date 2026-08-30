@@ -48,7 +48,9 @@ Query the attack surface in parallel (Tooling API):
 - `ApexClass` / `ApexTrigger` (Name, Body, Status, NamespacePrefix — exclude
   managed namespaces unless asked)
 - `LightningComponentBundle` + resources (LWC), `AuraDefinitionBundle`
-- `RemoteSiteSetting`, `NamedCredential`, CSP Trusted Sites
+- Remote Site Settings (Tooling object `RemoteProxy`), `NamedCredential`, CSP
+  Trusted Sites — queryable field sets vary by API version and connector, so
+  describe the object first rather than assuming a field list
 - Sharing model: `EntityDefinition` internal/external sharing defaults for
   objects the code touches
 - Connected apps and `@RestResource` classes (public entry points)
@@ -104,9 +106,9 @@ Severity scale:
 **N/A rule:** a category with no scannable surface (e.g. Lightning security
 in an org with zero unmanaged LWC/Aura) is **N/A, not a perfect score** — the
 rubric only defines deductions, so an empty category would otherwise silently
-inflate the total. Exclude N/A categories and renormalize to the applicable
-maximum (e.g. 69/90 → 77/100), and state in the report which categories were
-N/A and why.
+inflate the total. Exclude N/A categories and renormalize: scale earned
+points to the applicable maximum (earned / applicable-max, reported on a
+100-point scale), and state in the report which categories were N/A and why.
 
 Grade bands: 90+ Excellent · 75–89 Good · 60–74 Needs work · <60 At risk.
 Any Critical finding caps the grade at "Needs work" regardless of score —
@@ -114,10 +116,16 @@ a 92-point org with one hardcoded secret is not "Excellent".
 
 ### Phase 4: Report
 
-Produce the scored report in the sf-audit house format (Word/Excel/HTML —
-reuse `sf-audit/references/report-template.md` styling, including the §7 visualization minimums — score gauge, category bars, severity distribution chart — and the §8 single-file HTML standard with inline CSS/JS and scroll-reveal animations): executive summary,
-score by category, findings table sorted by severity, remediation plan with
-effort estimates, and the AppExchange readiness verdict if relevant.
+Report inline as markdown unless the user asked for a document deliverable —
+an audit answer in chat should not force-generate files. When documents ARE
+requested, produce the scored report in the sf-audit house format
+(Word/Excel/HTML — reuse `sf-audit/references/report-template.md` styling,
+including the §7 visualization minimums — score gauge, category bars,
+severity distribution chart — and the §8 single-file HTML standard with
+inline CSS/JS and scroll-reveal animations). Either way the content is the
+same: executive summary, score by category, findings table sorted by
+severity, remediation plan with effort estimates, and the AppExchange
+readiness verdict if relevant.
 
 ---
 
@@ -162,7 +170,12 @@ declarations on every class, 75% coverage with meaningful assertions, secure
 external integrations (Named Credentials, TLS, no secrets), Lightning
 Web Security compatibility, guest user profile lockdown, and the false-positive
 documentation format reviewers expect. Output a gap list with the submission
-blockers separated from the advisories.
+blockers separated from the advisories. The dividing line: **blockers** are
+findings that are exploitable now or on the automatic-rejection list
+(Critical/High — injection, secrets in code, missing CRUD/FLS on entry
+points); **advisories** are Medium/Low items with a documented justification
+path (e.g. a deliberate `without sharing` system-context class explained in
+the false-positive doc).
 
 ## References
 

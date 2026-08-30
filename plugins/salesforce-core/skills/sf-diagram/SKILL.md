@@ -85,7 +85,7 @@ The sf-diagram skill provides comprehensive diagramming capabilities:
 
 ### Phase 1: Initialize & Gather Requirements
 
-If the diagram requires org metadata (ERDs, permission hierarchies), call `org_init()` first.
+If the diagram requires org metadata (ERDs, permission hierarchies), call `org_init()` first (`org_init` is a convention — see the Tool-name mapping in `references/execution-modes.md`).
 
 **Ask the user** to gather:
 
@@ -162,7 +162,7 @@ soql_query(
 2. Add annotations and notes where helpful
 3. Include `autonumber` for sequence diagrams
 4. For data models: Use `flowchart LR` with object-type color coding
-5. Keep ERD objects simple - show object name and record count only (no fields)
+5. Keep ERD objects simple — entity attributes are optional; default to object name + record count, and include key fields only when the audience needs them (see `references/erd-conventions.md`)
 
 **Generate ASCII fallback**:
 
@@ -332,7 +332,7 @@ Score: XX/80 - Rating
 ### Data Model Diagrams
 
 - Use `flowchart LR` format (left-to-right flow)
-- Keep objects simple: name + record count only (no fields)
+- Keep objects simple: name + record count by default — entity attributes are optional, added only when the audience needs key fields
 - Color code by object type: Blue=Standard, Orange=Custom, Green=External
 - Use `-->` for Lookup, `==>` for Master-Detail relationships
 - Add LDV indicator for objects >2M records
@@ -417,6 +417,14 @@ The following developer-focused features are **NOT needed** in this MCP-based ve
 - `scripts/query-org-metadata.py` (Python CLI) - Use MCP tools instead
 - `scripts/mermaid_preview.py` (localhost preview) - Not needed in sandboxed environments
 - sf CLI metadata commands - Use `sobject_describe` / `tooling_api_query` instead
+
+---
+
+## References
+
+| File | Contents |
+| --- | --- |
+| `references/erd-conventions.md` | Object-type indicators, LDV/OWD annotations, LK/MD labels, cardinality, and the `__metadata__` entity-row pattern |
 
 ---
 

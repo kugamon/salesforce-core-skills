@@ -60,7 +60,10 @@ FROM Campaign WHERE IsActive = true ORDER BY StartDate DESC LIMIT 50
 | Budget variance | ActualCost − BudgetedCost |
 
 3. Present ranked by ROI (or pipeline when costs are unrecorded — say which
-   and why), then close with recommendations: increase / maintain / pause /
+   and why). Pipeline-based ROI flatters campaigns that never close — when
+   any ranked campaign has zero wins, also compute won-ROI
+   ((AmountWonOpportunities − ActualCost) / ActualCost) and show both
+   columns so the flattery is visible. Then close with recommendations: increase / maintain / pause /
    restructure per campaign, grounded in the numbers.
 
 Campaigns with no ActualCost make ROI meaningless — flag them as a data

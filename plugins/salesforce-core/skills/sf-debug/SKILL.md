@@ -61,7 +61,11 @@ package, plus vendor escalation with a log excerpt:
   `TriggerObjectOrEventApiName` column), and its `Label` may carry a prefix
   that `Flow.MasterLabel` lacks. Label-based filters can silently miss
   namespaced objects; cross-check against `Flow`/`FlowDefinition` when
-  inventorying automation on a namespaced object.
+  inventorying automation on a namespaced object. The reliable cross-check:
+  fetch the flow via Tooling (`sobjects/Flow/{Id}`) and read
+  `Metadata.start.object` — that is the API name of the object the flow
+  actually triggers on. Resolve labels to API names this way before
+  concluding which object a flow touches.
 
 ## Execution modes
 
@@ -72,6 +76,10 @@ a convenience). Initialize the connection first (`org_init` convention).
 ---
 
 ## Set Up Tracing
+
+In headless runs, creating a DebugLevel/TraceFlag is a gated org write —
+propose it rather than executing unless the caller granted write permission
+(see the headless rule in `references/execution-modes.md`).
 
 1. **Identify the traced entity** — a user (most common), the Automated
    Process user (flows/platform events), or a platform integration user.
@@ -162,7 +170,11 @@ Work the log in this order — it's diagnostic priority, not file order:
 
 ## Limit Analysis
 
-Reference ceilings (synchronous / asynchronous):
+Reference ceilings (synchronous / asynchronous). These are **per-namespace**:
+certified managed packages get their own limit buckets, which is why a log
+shows one `LIMIT_USAGE_FOR_NS` block per namespace — and why a transaction's
+cumulative totals can legitimately exceed a single row of this table. Read
+each namespace's block against the table separately.
 
 | Limit | Sync | Async | Log marker |
 | --- | --- | --- | --- |

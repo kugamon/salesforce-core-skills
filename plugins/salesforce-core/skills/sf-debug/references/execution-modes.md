@@ -24,6 +24,12 @@ Never report a capability as missing because a conventional name isn't
 present — find the connector's equivalent and record the mapping once in
 your working notes.
 
+Calling conventions differ too — some connectors take structured parameters,
+others a raw SOQL string, so check the tool's schema before building the call.
+Tooling `runTestsAsynchronous` requires POST (GET returns 405), and raw
+sub-resource GETs (e.g. `sobjects/ApexLog/{id}/Body`) go through the generic
+REST tool, not the query tool.
+
 ## Headless runs (no user available)
 
 When running non-interactively (subagent, scheduled task, CI): approval

@@ -89,7 +89,7 @@ a context compaction.
 
 ## Prerequisites
 
-Call `org_init()` first if not already done this session.
+Call `org_init()` first if not already done this session (`org_init` is a convention — see the Tool-name mapping in `references/execution-modes.md`).
 
 ---
 
@@ -779,6 +779,12 @@ tooling_api_query: SELECT Id, EntityDefinition.QualifiedApiName, ValidationName,
 > can't be sorted on. Order by `EntityDefinitionId` instead (and if the
 > SELECT of the relationship field also errors on your connector, select
 > `EntityDefinitionId` and resolve names in a follow-up query).
+>
+> **`ErrorConditionFormula` may not be SOQL-queryable either** — some
+> connectors return `INVALID_FIELD` for it. When that happens, query the rule
+> Ids first, then fetch each rule via Tooling REST
+> (`sobjects/ValidationRule/{Id}`) and read the formula from the `Metadata`
+> payload.
 
 For each validation rule, scan `ErrorConditionFormula` for anti-patterns using
 these regex patterns:
@@ -1801,7 +1807,10 @@ Tell the user:
   domain is N/A — e.g. zero local validation rules), weight only the scored
   domains and **state the weights used** in the summary (e.g. "Apex 40% /
   Flows 40% / legacy hygiene 20%"). Never let an unaudited or empty domain
-  count toward the score in either direction — renormalize, don't pad.
+  count toward the score in either direction — renormalize, don't pad. The
+  same applies within a domain: if per-component scoring was descoped (e.g.
+  Apex classes not individually scored against the /150 rubric), say so
+  explicitly in the report rather than implying full coverage.
 - **Components needing attention**: count below 70, by domain
 - **Permissions findings**: count by severity
 - **Legacy automation**: active Workflow Rules and Process Builders count

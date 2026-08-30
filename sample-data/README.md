@@ -9,6 +9,8 @@ Synthetic datasets for zero-setup demos. All names, companies, emails
 | `campaign_members.csv` | ~300 members | **sf-campaigns** | Mixed response statuses across campaign types |
 | `leads.csv` | 40 leads | **sf-leads** | Missing titles/industries/websites at realistic rates; 4 wrong-domain emails (10% — records 5, 13, 27, 33, all pointing at `northwind.example.com` while the Company says otherwise: the de-anonymization misattribution pattern), plus emails from de-anon sources (`Leadpipe`/`RB2B`) that should be treated as unverified; mostly blank phones |
 
+Additional deliberate quirks: the 4 wrong-domain emails (records 5, 13, 27, 33) all carry de-anonymization LeadSources (RB2B/Leadpipe) so the pattern teaches correctly; leads.csv contains 2 cross-company duplicate pairs (same person at two companies) for dedupe practice; and campaigns.csv's zero-win campaigns illustrate why pipeline-based ROI flatters — compare against won-amount ROI.
+
 ## Try it
 
 Point Claude at this folder and ask:

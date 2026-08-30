@@ -8,8 +8,8 @@ argument-hint: '[hierarchy|audit|analyze|create|clone|update|delete|agent-access
 description: >
   Permission Set analysis, hierarchy viewer, and "Who has X?" auditing. Use when analyzing
   permissions, visualizing PS/PSG hierarchies, finding which Permission Sets grant access
-  to specific objects, fields, or Apex classes, or auditing user permissions via the Salesforce MCP
-  AI MCP Server.
+  to specific objects, fields, or Apex classes, or auditing user permissions via
+  a Salesforce MCP server.
   Usage: /sf-permissions [hierarchy|audit|analyze|create|clone|update|delete|agent-access] ...
 ---
 
@@ -84,7 +84,7 @@ results (e.g. PermissionSet/PSG datasets) are retrieved.
 | **Delete Permission Set**    | `metadata_delete`   | Yes           | PS/PSG removed from org    |
 | **Add Object/Field Perms**   | `sobject_dml`       | Yes           | Permission records created |
 
-**CRITICAL**: Always call `org_init()` FIRST before any MCP operations!
+**CRITICAL**: Always call `org_init()` FIRST before any MCP operations! (`org_init` is a convention — see the Tool-name mapping in `references/execution-modes.md`)
 
 ---
 
@@ -113,10 +113,13 @@ Use when the user asks who can access a specific object, field, Apex class, or c
 **Object access** (e.g., "Who can delete Account?"):
 
 ```
-soql_query(sObject="ObjectPermissions", fields=["Parent.Name", "SobjectType", "PermissionsCreate", "PermissionsRead", "PermissionsEdit", "PermissionsDelete"], whereClause="SobjectType = '<ObjectName>' AND Permissions<Access> = true")
+soql_query(sObject="ObjectPermissions", fields=["Parent.Name", "Parent.Type", "SobjectType", "PermissionsCreate", "PermissionsRead", "PermissionsEdit", "PermissionsDelete"], whereClause="SobjectType = '<ObjectName>' AND Permissions<Access> = true")
 ```
 
 Resolve hex Parent.Name IDs with a follow-up PermissionSet query.
+`Parent.Type` is what distinguishes profile-owned parents (`Profile`) from
+standalone permission sets (`Regular`), groups (`Group`), and session/system
+types — you need it to bucket the grants correctly.
 
 **Field access** (e.g., "Who can edit Account.AnnualRevenue?"):
 
@@ -157,6 +160,13 @@ report them as a one-line footnote ("+N internal session-activation perm
 sets, 0 assigned users") unless the user asks for them. A `Parent` that comes
 back entirely null in the relationship query is usually one of these —
 resolve it with a follow-up PermissionSet query by `ParentId`.
+
+**Guest-site permission sets are the exception to the zero-assignment
+filter:** permission sets assigned to a site's guest user also show ~0
+`PermissionSetAssignment` rows, but they ARE live grants — every anonymous
+visitor to the site exercises them. Call them out separately (flag the site
+and object access they open up); never fold them into the discarded Session
+bucket just because the assignment count is low.
 
 #### Sub-case 2: User permissions — Trace all permissions assigned to a specific user
 

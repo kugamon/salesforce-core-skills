@@ -469,7 +469,7 @@ available for post-processing and how large query results are retrieved.
 
 For simple, self-contained requests (utility class, hello-world, single-method class, quick test), bypass the detailed requirements/design elaboration and full scoring from Phases 1-3 while still performing initialization and mandatory guardrails, then generate + deploy:
 
-1. Call `org_init()` (Phase 1 init; always required)
+1. Call `org_init()` (Phase 1 init; always required — `org_init` is a convention, see the Tool-name mapping in `references/execution-modes.md`)
 2. Generate the code as a string
 3. Run mandatory guardrail checks (anti-patterns only — skip full 150-point scoring)
 4. Deploy via `tooling_api_dml`

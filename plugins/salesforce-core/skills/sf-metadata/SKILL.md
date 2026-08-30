@@ -133,7 +133,7 @@ are retrieved.
 | **Query Metadata**       | `tooling_api_query` | Yes           | Metadata records  |
 | **Deploy Code Metadata** | `tooling_api_dml`   | Yes           | Code deployed     |
 
-**CRITICAL**: Always call `org_init()` FIRST before any MCP operations!
+**CRITICAL**: Always call `org_init()` FIRST before any MCP operations! (`org_init` is a convention — see the Tool-name mapping in `references/execution-modes.md`)
 
 ---
 
@@ -186,6 +186,11 @@ sf-data requires objects deployed to org. Always deploy metadata BEFORE creating
 - Can be assigned to users easily
 - More maintainable and self-documenting
 - Much lower credit cost
+
+When assigning a permission set to the *current* user, don't guess the
+running user's Id — the connector's identity varies by setup. Resolve it
+first (`SELECT Id FROM User WHERE Username = '<connector username>'`, or the
+REST identity endpoint), then insert the `PermissionSetAssignment`.
 
 **Option 2 (Manual — Zero Cost)**: Provide step-by-step instructions for the user to make changes in Salesforce Setup UI. Zero the Salesforce MCP server credits consumed.
 
@@ -548,6 +553,10 @@ Parameters:
   - limit: 500 (optional)
   - sf_user: Connection identifier
 ```
+
+**Tooling SOQL has no semi-joins**: `WHERE Id IN (SELECT ... FROM ...)`
+fails on Tooling objects. Query each object flat and join/filter the
+results client-side instead.
 
 ---
 

@@ -73,8 +73,13 @@ Display sharing model on entities to show default record access levels.
 
 ### Query OWD
 
-```bash
-sf sobject describe --sobject Account --target-org myorg --json | jq '.result.sharingModel'
+The REST describe result does not include the sharing model — query
+`EntityDefinition` via the Tooling API instead:
+
+```
+tooling_api_query(sObject="EntityDefinition",
+                  fields=["QualifiedApiName", "InternalSharingModel"],
+                  whereClause="QualifiedApiName = 'Account'")
 ```
 
 ### Common OWD Patterns
@@ -165,7 +170,7 @@ erDiagram
     }
 ```
 
-**Note**: The `__metadata__` row is a convention for displaying object-level info within the erDiagram entity block.
+**Note**: The `__metadata__` row is a convention for displaying object-level info within the erDiagram entity block. Attribute names with leading underscores require Mermaid >= 10.5 (validated on 11.x) — older renderers reject them.
 
 ---
 
@@ -208,18 +213,8 @@ style std fill:#f0f9ff,stroke:#0369a1,stroke-dasharray:5
 
 ## Query Commands Reference
 
-### Batch Query Script
-
-Use the provided Python script for efficient metadata queries:
-
-```bash
-python3 ~/.claude/plugins/marketplaces/sf-skills/sf-diagram-mermaid/scripts/query-org-metadata.py \
-    --objects Account,Contact,Lead,Opportunity,Case \
-    --target-org myorg \
-    --output table
-```
-
-### Manual Queries
+Gather metadata with your MCP server's describe and query tools — one
+`sobject_describe` + one count query per object covers everything below.
 
 **Record Count (LDV)**:
 
@@ -227,16 +222,18 @@ python3 ~/.claude/plugins/marketplaces/sf-skills/sf-diagram-mermaid/scripts/quer
 soql_query(sObject="Account", fields=["COUNT()"])
 ```
 
-**OWD Setting**:
+**OWD Setting** (not in the REST describe — use EntityDefinition):
 
-```bash
-sf sobject describe --sobject Account --target-org myorg --json | jq '.result.sharingModel'
+```
+tooling_api_query(sObject="EntityDefinition",
+                  fields=["QualifiedApiName", "InternalSharingModel"],
+                  whereClause="QualifiedApiName = 'Account'")
 ```
 
-**Object Type Check**:
+**Object Type Check** (the `custom` flag in the describe result):
 
-```bash
-sf sobject describe --sobject Invoice__c --target-org myorg --json | jq '.result.custom'
+```
+sobject_describe(sObject="Invoice__c")
 ```
 
 ---
@@ -312,7 +309,7 @@ flowchart TB
 2. **Query live org data** for accurate LDV and OWD values
 3. **Use consistent naming** - API names, not labels
 4. **Group related objects** using subgraphs
-5. **Limit fields shown** to key relationships (5-10 per entity max)
+5. **Entity attributes are optional** — default to name + annotations only; include key fields (5-10 max) only when the audience needs them
 6. **Show relationship direction** - parent on left, child on right
 7. **Mark required relationships** with appropriate cardinality
 

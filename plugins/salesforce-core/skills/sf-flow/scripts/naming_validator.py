@@ -143,7 +143,15 @@ class NamingValidator:
         return results
 
     def _get_flow_label(self) -> str:
-        """Get the flow label (API name)."""
+        """Get the flow API name (fullName), falling back to label.
+
+        Naming conventions apply to the API name (fullName / DeveloperName),
+        not the human-readable label (which may contain spaces). Only fall
+        back to <label> when no API name is present in the XML.
+        """
+        full_name_elem = self.root.find('sf:fullName', self.namespace)
+        if full_name_elem is not None and full_name_elem.text:
+            return full_name_elem.text
         label_elem = self.root.find('sf:label', self.namespace)
         return label_elem.text if label_elem is not None else "Unknown"
 

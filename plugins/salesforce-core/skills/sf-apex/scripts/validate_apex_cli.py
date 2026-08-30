@@ -97,10 +97,21 @@ def run_validation(file_path: str) -> dict:
 
         stars = "⭐" * rating_stars + "☆" * (5 - rating_stars)
 
+        # Count CRITICAL findings before printing the headline: a FAILED
+        # verdict must lead the report — never a quality adjective like
+        # "Very Good" next to blocking issues.
+        critical_count = sum(1 for i in issues if i.get("severity") == "CRITICAL")
+
         output_parts.append("")
         output_parts.append(f"🔍 Apex Validation: {os.path.basename(file_path)}")
         output_parts.append("═" * 60)
-        output_parts.append(f"📊 Score: {score}/{max_score} {stars} {rating}")
+        if critical_count > 0:
+            output_parts.append(
+                f"📊 FAILED ({critical_count} CRITICAL) — "
+                f"score {score}/{max_score} withheld from pass consideration"
+            )
+        else:
+            output_parts.append(f"📊 Score: {score}/{max_score} {stars} {rating}")
 
         if scores:
             output_parts.append("")
@@ -136,8 +147,6 @@ def run_validation(file_path: str) -> dict:
         else:
             output_parts.append("")
             output_parts.append("✅ No issues found!")
-
-        critical_count = sum(1 for i in issues if i.get("severity") == "CRITICAL")
 
         output_parts.append("═" * 60)
         if critical_count > 0:

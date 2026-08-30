@@ -756,6 +756,28 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
     output_json = "--json" in sys.argv
 
+    # Unsupported inputs (js-meta.xml config, __tests__ files, etc.) are
+    # explicitly reported as NOT SCORED — never silently skipped and never
+    # given a misleading 0/0 "below threshold" verdict. Exit 0 so batch
+    # runs over a whole component bundle continue past them.
+    _path = Path(file_path)
+    _compound_ext = "".join(_path.suffixes).lower() or _path.name
+    _is_test_file = "__tests__" in _path.parts or _compound_ext.endswith(".test.js")
+    if _is_test_file or _path.suffix.lower() not in SLDSValidator.APPLICABLE_CATEGORIES:
+        _detail = "__tests__ file" if _is_test_file else _compound_ext
+        if output_json:
+            print(json.dumps({
+                "not_scored": True,
+                "reason": f"unsupported file type: {_detail}",
+                "file": file_path,
+            }, indent=2))
+        else:
+            print(
+                f"⏭️  NOT SCORED (unsupported file type: {_detail}) — "
+                f"{os.path.basename(file_path)} (SLDS scoring applies to .html/.css/.js only)"
+            )
+        sys.exit(0)
+
     validator = SLDSValidator(file_path)
     results = validator.validate()
 

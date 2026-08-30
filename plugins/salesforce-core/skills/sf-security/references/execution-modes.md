@@ -125,7 +125,8 @@ code is the key differentiator from `mcp-core`.
   `sobject_describe`, etc.
 - **Artifact download**: when a response includes `instructions.artifactUrl`,
   fetch the URL and write the full JSON to a local file for processing.
-  See `references/mcp-pagination.md` for details.
+  (Full pagination protocol: `mcp-pagination.md` in a sibling skill's
+  references, e.g. `sf-audit` — this skill does not bundle its own copy.)
 - Code execution for post-processing (scoring scripts, report generation,
   jq transforms, etc.).
 
@@ -148,8 +149,8 @@ fails and you cannot write files to disk, you are in `mcp-core`.
 - All metadata via MCP tools (same as `mcp-plus-code-execution`).
 - **No artifact download** — cannot fetch URLs or write files.
 - Large responses must be paged through in-context using
-  `fetch_more(artifactId=..., cursor=...)`. See
-  `references/mcp-pagination.md` for details.
+  `fetch_more(artifactId=..., cursor=...)` (protocol documented in
+  `mcp-pagination.md` under a sibling skill's references, e.g. `sf-audit`).
 - Process data in small batches; discard between batches to manage context.
 
 ---

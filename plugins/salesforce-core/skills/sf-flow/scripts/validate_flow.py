@@ -1264,9 +1264,15 @@ class EnhancedFlowValidator:
         return total_elements * 15  # ~15 lines per element
 
     def _is_autolaunched(self) -> bool:
-        """Check if flow is autolaunched."""
+        """Check if flow is a genuinely autolaunched (no-trigger) flow.
+
+        Record-triggered, scheduled, and platform-event flows also report
+        processType=AutoLaunchedFlow but carry a start/triggerType — they
+        are launched by their trigger, not invoked as reusable subflows,
+        so the input/output reusability advisory must not fire for them.
+        """
         process_type = self._get_text("processType")
-        return process_type == "AutoLaunchedFlow"
+        return process_type == "AutoLaunchedFlow" and not self._get_trigger_type()
 
     def _has_input_output(self) -> bool:
         """Check if flow has input or output variables."""

@@ -100,8 +100,11 @@ Rules that make tests worth having:
 
 Deploy the test class via the MCP metadata tool (`metadata_create` /
 `metadata_update` equivalents). On compile errors, fix and redeploy — common
-causes are missing required fields on test data (re-check Phase 1 findings)
-and API-version mismatches.
+causes are missing required fields on test data (re-check Phase 1 findings),
+API-version mismatches, and SOQL `WHERE` clauses on non-filterable fields
+(long text areas can't be filtered in SOQL — query without the filter and
+filter in memory instead). When you get to running the tests, remember
+`runTestsAsynchronous` is POST-only — a GET returns 405.
 
 ### Phase 5: Run and report
 

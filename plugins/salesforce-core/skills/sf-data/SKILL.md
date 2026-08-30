@@ -136,7 +136,7 @@ Show the structure, fields, relationships, and record types of a Salesforce obje
 | **Describe Objects**  | `sobject_describe`     | Yes           | Object metadata        |
 | **Tooling API Query** | `tooling_api_query`    | Yes           | Metadata records       |
 
-**CRITICAL**: Always call `org_init()` FIRST before any MCP operations!
+**CRITICAL**: Always call `org_init()` FIRST before any MCP operations! (`org_init` is a convention — see the Tool-name mapping in `references/execution-modes.md`)
 
 ---
 

@@ -49,8 +49,11 @@ def _prepare_flow_file(file_path: str) -> str:
             if "processType" in data:
                 from mcp_validator import _json_metadata_to_xml
 
-                # Strip wrapper keys that aren't part of Flow XML
-                flow_data = {k: v for k, v in data.items() if k not in ("fullName", "fileName")}
+                # Strip wrapper keys that aren't part of Flow XML.
+                # Keep fullName: it is the flow's API name, which the naming
+                # validator must check (naming rules apply to the API name,
+                # not the human-readable label).
+                flow_data = {k: v for k, v in data.items() if k not in ("fileName",)}
                 xml_content = _json_metadata_to_xml(flow_data)
                 tmp_path = os.path.join(
                     tempfile.gettempdir(),

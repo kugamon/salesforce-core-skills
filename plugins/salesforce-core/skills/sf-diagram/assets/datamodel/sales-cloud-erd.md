@@ -19,13 +19,11 @@ Pre-built data model for Salesforce Sales Cloud using `flowchart LR` format with
 
 ## Query Org Metadata (Recommended)
 
-Enrich diagram with live org data:
-
-```bash
-python3 ~/.claude/plugins/marketplaces/sf-skills/sf-diagram-mermaid/scripts/query-org-metadata.py \
-    --objects Account,Contact,Lead,Opportunity,Product2,Campaign \
-    --target-org myorg
-```
+Enrich the diagram with live org data using your MCP server's describe and
+query tools: `sobject_describe(sObject="...")` for relationships and object
+type, plus `soql_query(sObject="...", fields=["COUNT()"])` for record counts
+— one pair of calls per object (Account, Contact, Lead, Opportunity,
+Product2, Campaign).
 
 ---
 

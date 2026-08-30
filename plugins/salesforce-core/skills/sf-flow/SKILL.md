@@ -321,6 +321,8 @@ metadata_read(
 6. Describe objects/fields via sobject_describe before flow creation
 ```
 
+(`org_init` is a convention — see the Tool-name mapping in `references/execution-modes.md`.)
+
 **Scoring**: 110 points across 6 categories. Minimum 88 (80%) for deployment. Trivial flows (single-step automations, test/throwaway flows) are exempt from the minimum threshold — score them for informational purposes but do not block deployment. Guardrail anti-pattern checks (DML in loops, missing fault paths) still apply regardless of complexity.
 
 ---

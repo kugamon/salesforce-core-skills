@@ -155,6 +155,12 @@ metadata_create(
 )
 ```
 
+If `metadata_create` is unavailable and you fall back to per-resource Tooling
+inserts, **create order matters**: the JS module is the bundle's base file and
+must be POSTed first (bundle record → JS → HTML → CSS), otherwise the insert
+fails with `No base file for markup://c:<name>`. Full recipe: "Creating a
+bundle via Tooling API — create order matters" in the Update workflow below.
+
 ### 6. Report
 
 Show the per-file validation scores and deployment status. If the component exposes `lightning__agentforce` capability, remind the user to add an agent action in Setup to make it discoverable.
@@ -503,7 +509,7 @@ tooling_api_query(
 org_init()
 ```
 
-Call with no parameters — uses the default org. If a default is configured, confirm with the user before proceeding. If no default is configured, ask for the Salesforce user/alias.
+Call with no parameters — uses the default org. If a default is configured, confirm with the user before proceeding. If no default is configured, ask for the Salesforce user/alias. (`org_init` is a convention — see the Tool-name mapping in `references/execution-modes.md`.)
 
 ---
 
