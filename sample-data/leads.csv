@@ -3,7 +3,7 @@ Id,FirstName,LastName,Company,Title,Email,Phone,Industry,Website,NumberOfEmploye
 00QSAMPLE00002,Lucas,Osei,Deltaline Logistics,CFO,lucas.osei@deltaline.example.com,,Computer Software,https://www.deltaline.example.com,45,Manually Created,Nurture,US
 00QSAMPLE00003,Ava,Idris,Granite Fintech,VP Revenue Operations,ava.idris@granite.example.com,+1 415 555 6850,,https://www.granite.example.com,300,Leadpipe,New,DE
 00QSAMPLE00004,Zoe,Osei,Northwind Robotics,Director of Sales Ops,zoe.osei@northwind.example.com,+1 415 555 8612,Logistics,,850,Leadpipe,Working,US
-00QSAMPLE00005,Ruth,Patel,Deltaline Logistics,Salesforce Administrator,ruth.patel@deltaline.example.com,,Computer Software,https://www.deltaline.example.com,,Web - Search,New,CA
+00QSAMPLE00005,Ruth,Patel,Deltaline Logistics,Salesforce Administrator,ruth.patel@northwind.example.com,,Computer Software,https://www.deltaline.example.com,,Web - Search,New,CA
 00QSAMPLE00006,Ivy,Patel,Juniper Retail,Salesforce Administrator,ivy.patel@juniper.example.com,+1 415 555 6438,Financial Services,https://www.juniper.example.com,,AppExchange,New,CA
 00QSAMPLE00007,Ruth,Idris,Evergreen SaaS,Salesforce Administrator,ruth.idris@evergreen.example.com,+1 415 555 5369,Healthcare,https://www.evergreen.example.com,850,RB2B,New,DE
 00QSAMPLE00008,Ethan,Ali,Evergreen SaaS,VP Revenue Operations,ethan.ali@evergreen.example.com,,Computer Software,,120,Web - Search,Nurture,CA
@@ -11,7 +11,7 @@ Id,FirstName,LastName,Company,Title,Email,Phone,Industry,Website,NumberOfEmploye
 00QSAMPLE00010,Ethan,Chen,Bluepeak Software,,ethan.chen@bluepeak.example.com,,Logistics,https://www.bluepeak.example.com,,AppExchange,Nurture,CA
 00QSAMPLE00011,Liam,Osei,Juniper Retail,CFO,liam.osei@juniper.example.com,,Financial Services,https://www.juniper.example.com,850,AppExchange,Nurture,US
 00QSAMPLE00012,Emma,Chen,Krest Manufacturing,Salesforce Administrator,emma.chen@krest.example.com,,Healthcare,https://www.krest.example.com,850,Leadpipe,New,US
-00QSAMPLE00013,Max,Silva,Acme Analytics,Salesforce Administrator,max.silva@acme.example.com,,Computer Software,https://www.acme.example.com,,AppExchange,Nurture,FI
+00QSAMPLE00013,Max,Silva,Acme Analytics,Salesforce Administrator,max.silva@northwind.example.com,,Computer Software,https://www.acme.example.com,,AppExchange,Nurture,FI
 00QSAMPLE00014,Noah,Ali,Deltaline Logistics,,noah.ali@deltaline.example.com,+1 415 555 6922,Manufacturing,https://www.deltaline.example.com,45,Leadpipe,Working,US
 00QSAMPLE00015,Max,Chen,Evergreen SaaS,Head of RevOps,max.chen@evergreen.example.com,,Logistics,https://www.evergreen.example.com,45,RB2B,Nurture,CA
 00QSAMPLE00016,Max,Moreau,Fjord Data,,max.moreau@fjord.example.com,+1 415 555 8372,Logistics,,2400,AppExchange,Working,DE
@@ -25,13 +25,13 @@ Id,FirstName,LastName,Company,Title,Email,Phone,Industry,Website,NumberOfEmploye
 00QSAMPLE00024,Ruth,Quinn,Deltaline Logistics,CFO,ruth.quinn@deltaline.example.com,,Computer Software,,,Manually Created,Nurture,US
 00QSAMPLE00025,Liam,Ali,Granite Fintech,Head of RevOps,liam.ali@granite.example.com,,,https://www.granite.example.com,,Leadpipe,Nurture,FI
 00QSAMPLE00026,Kai,Idris,Evergreen SaaS,VP Revenue Operations,kai.idris@evergreen.example.com,,Healthcare,,,Web - Search,New,CA
-00QSAMPLE00027,Ivy,Kim,Bluepeak Software,VP Revenue Operations,ivy.kim@bluepeak.example.com,,Healthcare,https://www.bluepeak.example.com,,Leadpipe,Working,DE
+00QSAMPLE00027,Ivy,Kim,Bluepeak Software,VP Revenue Operations,ivy.kim@northwind.example.com,,Healthcare,https://www.bluepeak.example.com,,Leadpipe,Working,DE
 00QSAMPLE00028,Nora,Patel,Northwind Robotics,VP Revenue Operations,nora.patel@northwind.example.com,,Manufacturing,https://www.northwind.example.com,,Manually Created,Working,US
 00QSAMPLE00029,Zoe,Novak,Fjord Data,Head of RevOps,zoe.novak@fjord.example.com,,,https://www.fjord.example.com,850,Manually Created,Nurture,CA
 00QSAMPLE00030,Ava,Costa,Evergreen SaaS,Business Systems Manager,ava.costa@evergreen.example.com,+1 415 555 1436,Computer Software,https://www.evergreen.example.com,300,Manually Created,New,US
 00QSAMPLE00031,Liam,Quinn,Bluepeak Software,Head of RevOps,liam.quinn@bluepeak.example.com,,,https://www.bluepeak.example.com,120,RB2B,New,FI
 00QSAMPLE00032,Emma,Silva,Northwind Robotics,CFO,emma.silva@northwind.example.com,,Financial Services,https://www.northwind.example.com,2400,Web - Search,New,FI
-00QSAMPLE00033,Mia,Silva,Helix Bio,Director of Sales Ops,mia.silva@helix.example.com,+1 415 555 8531,,https://www.helix.example.com,300,Manually Created,Nurture,FI
+00QSAMPLE00033,Mia,Silva,Helix Bio,Director of Sales Ops,mia.silva@northwind.example.com,+1 415 555 8531,,https://www.helix.example.com,300,Manually Created,Nurture,FI
 00QSAMPLE00034,Ivy,Quinn,Corex Medical,Salesforce Administrator,ivy.quinn@corex.example.com,+1 415 555 5876,Financial Services,https://www.corex.example.com,120,Web - Search,Nurture,CA
 00QSAMPLE00035,Kai,Tanaka,Deltaline Logistics,VP Revenue Operations,kai.tanaka@deltaline.example.com,+1 415 555 6654,Logistics,https://www.deltaline.example.com,120,AppExchange,New,US
 00QSAMPLE00036,Noah,Costa,Granite Fintech,Business Systems Manager,noah.costa@granite.example.com,+1 415 555 5442,Financial Services,https://www.granite.example.com,300,Leadpipe,New,DE

@@ -773,6 +773,12 @@ tooling_api_query: SELECT Id, EntityDefinition.QualifiedApiName, ValidationName,
   FROM ValidationRule WHERE NamespacePrefix = null
 ```
 
+> **Tooling API quirk:** `ORDER BY EntityDefinition.QualifiedApiName` on
+> ValidationRule returns a 500 `UNKNOWN_EXCEPTION` — the relationship field
+> can't be sorted on. Order by `EntityDefinitionId` instead (and if the
+> SELECT of the relationship field also errors on your connector, select
+> `EntityDefinitionId` and resolve names in a follow-up query).
+
 For each validation rule, scan `ErrorConditionFormula` for anti-patterns using
 these regex patterns:
 
@@ -1789,7 +1795,12 @@ If the user requests changes, regenerate only the affected report(s).
 Tell the user:
 
 - **Org inventory**: full counts for every category (including formula fields)
-- **Overall health score**: weighted average across scored domains
+- **Overall health score**: weighted average across scored domains.
+  **Partial audits:** when only some domains are audited (scoped request, or a
+  domain is N/A — e.g. zero local validation rules), weight only the scored
+  domains and **state the weights used** in the summary (e.g. "Apex 40% /
+  Flows 40% / legacy hygiene 20%"). Never let an unaudited or empty domain
+  count toward the score in either direction — renormalize, don't pad.
 - **Components needing attention**: count below 70, by domain
 - **Permissions findings**: count by severity
 - **Legacy automation**: active Workflow Rules and Process Builders count

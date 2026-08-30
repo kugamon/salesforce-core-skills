@@ -20,7 +20,7 @@ themselves; capture logs only when the row says so.
 
 | Error | Likely cause | What to look for in the log |
 | --- | --- | --- |
-| `System.LimitException: Too many SOQL queries: 101` | Query in a loop, or trigger recursion | SOQL-in-loop signature; `CODE_UNIT` re-entry for recursion; fix = bulkify (sf-apex) or add recursion guard |
+| `System.LimitException: Too many SOQL queries: 101` | Query in a loop, or trigger recursion | SOQL-in-loop signature; `CODE_UNIT` re-entry for recursion; fix = bulkify (sf-apex) or add recursion guard. A namespace suffix (e.g. `: 101 (ns)`) pins it to a managed package — see the subscriber-org branch in SKILL.md. Flow-side variant: an Update element writing an *unchanged* value still re-fires all triggers; add an ISCHANGED-style entry condition |
 | `Too many DML statements: 151` | DML in loop | Same pattern on `DML_BEGIN` |
 | `Apex CPU time limit exceeded` | Inefficient loops, nested triggers/flows, giant collections | CPU meter + the code unit bracketing; flows count toward Apex CPU — check `FLOW_ELEMENT_BEGIN` density |
 | `Too many query rows: 50001` | Unselective query, missing WHERE | The query text in `SOQL_EXECUTE_BEGIN`; fix selectivity (sf-data) |

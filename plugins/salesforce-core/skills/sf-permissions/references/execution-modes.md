@@ -1,5 +1,40 @@
 # Execution Modes
 
+## Tool-name mapping (read this first)
+
+The tool names used across these skills — `org_init`, `soql_query`,
+`sobject_dml`, `sobject_describe`, `metadata_create`, `metadata_update`,
+`tooling_api_query`, `tooling_api_dml`, `apex_execute` — are **capability
+conventions, not literal tool names**. Map each to whatever your connected
+Salesforce MCP server actually exposes BEFORE calling anything. Typical
+mappings (mcp-salesforce-connector family):
+
+| Convention | Common real tool |
+| --- | --- |
+| `soql_query` | `run_soql_query` |
+| `sobject_describe` | `get_object_fields` |
+| `sobject_dml` | `create_record` / `update_record` / `delete_record` (or `bulk_*`) |
+| `tooling_api_query` | `tooling_execute` with `query/?q=...` (GET) |
+| `tooling_api_dml` | `tooling_execute` POST/PATCH/DELETE on `sobjects/...` |
+| `metadata_create` / `metadata_update` | `restful` / `tooling_execute` against Metadata or Tooling endpoints — note CustomObject creation is NOT available via Tooling REST (see sf-metadata) |
+| `apex_execute` | `apex_execute` |
+| `org_init` | your server's init/connection tool; if none exists, verify with `SELECT Id FROM Organization LIMIT 1` and proceed |
+
+Never report a capability as missing because a conventional name isn't
+present — find the connector's equivalent and record the mapping once in
+your working notes.
+
+## Headless runs (no user available)
+
+When running non-interactively (subagent, scheduled task, CI): approval
+gates degrade predictably rather than blocking. Read-only steps proceed
+with assumptions stated in the output. Org WRITES the skill gates behind
+user approval stay **propose-only** unless the caller explicitly granted
+write permission for named artifacts. `AskUserQuestion` steps become
+"choose the safest default and record the decision." Never silently skip a
+gate — record what would have been asked and what was chosen.
+
+
 All These Salesforce skills support four execution modes. The mode
 determines how metadata is retrieved, how large responses are handled, and
 what local tooling is available.

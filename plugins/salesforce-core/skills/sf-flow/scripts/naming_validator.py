@@ -5,12 +5,13 @@ Naming Convention Validator for Salesforce Flows (v2.0.0)
 Validates flow naming conventions based on industry best practices.
 All checks are ADVISORY - they provide suggestions but do not block deployment.
 
-Flow Naming Convention:
-- Record-Triggered: RTF_<Object>_<Purpose>
+Flow Naming Convention (aligned with SKILL.md naming table):
+- Record-Triggered (After):  Auto_<Object>_<Action>   (legacy RTF_ also accepted)
+- Record-Triggered (Before): Before_<Object>_<Action> (legacy RTF_ also accepted)
 - Screen Flow: Screen_<Purpose> or SCR_<Purpose>
-- Autolaunched: Auto_<Purpose> or AL_<Purpose>
-- Scheduled: Scheduled_<Purpose> or SCHED_<Purpose>
-- Subflow: Sub_<Purpose> or UTIL_<Purpose>
+- Scheduled: Sched_<Purpose> (legacy Scheduled_/SCHED_ also accepted)
+- Platform Event: Event_<Purpose>
+- Autolaunched/Subflow: Sub_<Purpose> or Util_<Purpose> (legacy Auto_/AL_/UTIL_ accepted)
 
 Variable Naming Convention (v2.0.0):
 - var_ : Regular variables (e.g., var_AccountName)
@@ -32,9 +33,9 @@ class NamingValidator:
     # Naming patterns for different flow types
     NAMING_PATTERNS = {
         'AutoLaunchedFlow': {
-            'patterns': [r'^Auto_[A-Z][A-Za-z0-9_]*$', r'^AL_[A-Z][A-Za-z0-9_]*$', r'^Sub_[A-Z][A-Za-z0-9_]*$', r'^UTIL_[A-Z][A-Za-z0-9_]*$'],
-            'prefixes': ['Auto_', 'AL_', 'Sub_', 'UTIL_'],
-            'description': 'Autolaunched flows should use Auto_, AL_, Sub_, or UTIL_ prefix'
+            'patterns': [r'^Auto_[A-Z][A-Za-z0-9_]*$', r'^AL_[A-Z][A-Za-z0-9_]*$', r'^Sub_[A-Z][A-Za-z0-9_]*$', r'^Util_[A-Z][A-Za-z0-9_]*$', r'^UTIL_[A-Z][A-Za-z0-9_]*$'],
+            'prefixes': ['Sub_', 'Util_', 'Auto_', 'AL_'],
+            'description': 'Autolaunched flows should use Sub_ or Util_ prefix'
         },
         'Flow': {
             'patterns': [r'^Screen_[A-Z][A-Za-z0-9_]*$', r'^SCR_[A-Z][A-Za-z0-9_]*$'],
@@ -42,16 +43,32 @@ class NamingValidator:
             'description': 'Screen flows should use Screen_ or SCR_ prefix'
         },
         'InvocableProcess': {
-            'patterns': [r'^Scheduled_[A-Z][A-Za-z0-9_]*$', r'^SCHED_[A-Z][A-Za-z0-9_]*$'],
-            'prefixes': ['Scheduled_', 'SCHED_'],
-            'description': 'Scheduled flows should use Scheduled_ or SCHED_ prefix'
+            'patterns': [r'^Sched_[A-Z][A-Za-z0-9_]*$', r'^Scheduled_[A-Z][A-Za-z0-9_]*$', r'^SCHED_[A-Z][A-Za-z0-9_]*$'],
+            'prefixes': ['Sched_', 'Scheduled_', 'SCHED_'],
+            'description': 'Scheduled flows should use Sched_ prefix'
         }
     }
 
-    # Special pattern for Record-Triggered flows (check in triggerType)
-    RECORD_TRIGGERED_PATTERNS = [
-        r'^RTF_[A-Z][A-Za-z][A-Za-z0-9]*_[A-Z][A-Za-z0-9_]*$',  # RTF_Account_UpdateIndustry
-    ]
+    # Record-triggered naming, per SKILL.md naming table:
+    #   Record-Triggered (After)  -> Auto_<Object>_<Action>
+    #   Record-Triggered (Before) -> Before_<Object>_<Action>
+    # Legacy RTF_ names are accepted for both to avoid flagging existing flows.
+    RECORD_TRIGGERED_PATTERNS_BY_TIMING = {
+        'before': [
+            r'^Before_[A-Z][A-Za-z0-9_]*$',
+            r'^RTF_[A-Z][A-Za-z][A-Za-z0-9]*_[A-Z][A-Za-z0-9_]*$',
+        ],
+        'after': [
+            r'^Auto_[A-Z][A-Za-z0-9_]*$',
+            r'^RTF_[A-Z][A-Za-z][A-Za-z0-9]*_[A-Z][A-Za-z0-9_]*$',
+        ],
+    }
+    RECORD_TRIGGERED_PREFIX_BY_TIMING = {'before': 'Before_', 'after': 'Auto_'}
+
+    # Trigger types that come through <start><triggerType> but are NOT
+    # record-change flows — routed to their own prefix conventions.
+    SCHEDULED_TRIGGER_TYPES = {'Scheduled', 'ScheduledJourney'}
+    PLATFORM_EVENT_TRIGGER_TYPES = {'PlatformEvent'}
 
     def __init__(self, flow_xml_path: str):
         """
@@ -93,10 +110,16 @@ class NamingValidator:
         }
 
         # Check naming convention
+        trigger_type = self._get_trigger_type()
         if is_record_triggered:
             results['follows_convention'] = self._check_record_triggered_naming(flow_label)
             if not results['follows_convention']:
                 results['suggested_names'] = self._suggest_record_triggered_names()
+        elif trigger_type in self.SCHEDULED_TRIGGER_TYPES:
+            # Scheduled flows use Sched_ per SKILL.md, regardless of processType
+            results['follows_convention'] = self._check_standard_naming(flow_label, 'InvocableProcess')
+            if not results['follows_convention']:
+                results['suggested_names'] = self._suggest_standard_names('InvocableProcess')
         else:
             results['follows_convention'] = self._check_standard_naming(flow_label, flow_type)
             if not results['follows_convention']:
@@ -129,21 +152,47 @@ class NamingValidator:
         process_type_elem = self.root.find('sf:processType', self.namespace)
         return process_type_elem.text if process_type_elem is not None else "Unknown"
 
+    def _get_trigger_type(self) -> str:
+        """Get the triggerType text (checks root level and inside <start>)."""
+        for path in ('sf:triggerType', './/sf:start/sf:triggerType'):
+            elem = self.root.find(path, self.namespace)
+            if elem is not None and elem.text:
+                return elem.text
+        return ""
+
     def _is_record_triggered(self) -> bool:
-        """Check if flow is record-triggered."""
-        trigger_type = self.root.find('sf:triggerType', self.namespace)
-        return trigger_type is not None
+        """Check if flow is triggered by a record change (before/after save or delete)."""
+        return self._get_trigger_type().startswith('Record')
+
+    def _get_trigger_timing(self) -> str:
+        """Return 'before' or 'after' for record-triggered flows ('after' default)."""
+        trigger_type = self._get_trigger_type()
+        return 'before' if trigger_type in ('RecordBeforeSave', 'RecordBeforeDelete') else 'after'
+
+    @staticmethod
+    def _sanitize_api_name(name: str) -> str:
+        """Sanitize a label into a valid Flow API name fragment.
+
+        Replaces spaces and invalid characters with underscores so rename
+        suggestions are always deployable API names (no spaces).
+        """
+        clean = re.sub(r'[^A-Za-z0-9_]+', '_', name).strip('_')
+        clean = re.sub(r'_+', '_', clean)
+        return clean or 'Purpose'
 
     def _check_record_triggered_naming(self, label: str) -> bool:
-        """Check if record-triggered flow follows RTF_ convention."""
-        for pattern in self.RECORD_TRIGGERED_PATTERNS:
+        """Check record-triggered flow naming per SKILL.md (Before_/Auto_; legacy RTF_)."""
+        timing = self._get_trigger_timing()
+        for pattern in self.RECORD_TRIGGERED_PATTERNS_BY_TIMING[timing]:
             if re.match(pattern, label):
                 return True
 
-        # Generate warning
+        expected_prefix = self.RECORD_TRIGGERED_PREFIX_BY_TIMING[timing]
+        timing_label = 'before-save' if timing == 'before' else 'after-save'
         warning_msg = (
             f"ℹ️ ADVISORY: Flow name '{label}' doesn't follow convention. "
-            f"Record-triggered flows should use format: RTF_<Object>_<Purpose>"
+            f"Record-triggered ({timing_label}) flows should use format: "
+            f"{expected_prefix}<Object>_<Action>"
         )
         self.warnings.append({
             'type': 'NAMING_CONVENTION',
@@ -179,30 +228,49 @@ class NamingValidator:
 
         return False
 
+    # Known prefixes stripped before building a rename suggestion (avoids
+    # double-prefixing, e.g. "Auto_Before_..." from a Before_-named flow).
+    _KNOWN_PREFIXES = (
+        'Before_', 'Auto_', 'RTF_', 'Screen_', 'SCR_', 'Sched_', 'Scheduled_',
+        'SCHED_', 'Event_', 'Sub_', 'Util_', 'UTIL_', 'AL_',
+    )
+
+    def _strip_known_prefix(self, name: str) -> str:
+        """Remove a recognized convention prefix from a name, if present."""
+        for prefix in self._KNOWN_PREFIXES:
+            if name.startswith(prefix) and len(name) > len(prefix):
+                return name[len(prefix):]
+        return name
+
     def _suggest_record_triggered_names(self) -> list[str]:
-        """Suggest proper names for record-triggered flows."""
+        """Suggest proper names for record-triggered flows (per SKILL.md table)."""
         # Try to extract object name from trigger
         obj_elem = self.root.find('.//sf:start/sf:object', self.namespace)
         object_name = obj_elem.text if obj_elem is not None else "Object"
+
+        timing = self._get_trigger_timing()
+        prefix = self.RECORD_TRIGGERED_PREFIX_BY_TIMING[timing]
 
         current_label = self._get_flow_label()
 
         # Generate suggestions
         suggestions = [
-            f"RTF_{object_name}_UpdateRelated",
-            f"RTF_{object_name}_ValidateData",
-            f"RTF_{object_name}_SendNotifications",
+            f"{prefix}{object_name}_UpdateRelated",
+            f"{prefix}{object_name}_ValidateData",
+            f"{prefix}{object_name}_SendNotifications",
         ]
 
-        # Try to infer purpose from current name
-        if '_' in current_label:
-            parts = current_label.split('_')
-            if len(parts) >= 2:
-                purpose = '_'.join(parts[1:])
-                suggestions.insert(0, f"RTF_{object_name}_{purpose}")
+        # Try to infer purpose from current name (sanitized to a valid API name,
+        # with any existing convention prefix stripped first)
+        purpose = self._strip_known_prefix(self._sanitize_api_name(current_label))
+        if purpose and purpose != 'Purpose':
+            # Drop a leading object-name duplicate if present
+            purpose = re.sub(rf'^{re.escape(object_name)}_?', '', purpose) or purpose
+            suggestions.insert(0, f"{prefix}{object_name}_{purpose}")
 
         self.suggestions.append(
-            f"Consider renaming to: {suggestions[0]} (follows RTF_<Object>_<Purpose> convention)"
+            f"Consider renaming to: {suggestions[0]} "
+            f"(follows {prefix}<Object>_<Action> convention)"
         )
 
         return suggestions
@@ -215,13 +283,11 @@ class NamingValidator:
         prefixes = self.NAMING_PATTERNS[flow_type]['prefixes']
         current_label = self._get_flow_label()
 
-        suggestions = []
-        for prefix in prefixes:
-            # Remove any existing prefix
-            clean_name = re.sub(r'^[A-Za-z]+_', '', current_label)
-            # Capitalize first letter
-            clean_name = clean_name[0].upper() + clean_name[1:] if clean_name else "Purpose"
-            suggestions.append(f"{prefix}{clean_name}")
+        # Sanitize to a valid API name and strip any existing convention prefix
+        clean_name = self._strip_known_prefix(self._sanitize_api_name(current_label))
+        clean_name = clean_name[0].upper() + clean_name[1:] if clean_name else "Purpose"
+
+        suggestions = [f"{prefix}{clean_name}" for prefix in prefixes]
 
         if suggestions:
             self.suggestions.append(

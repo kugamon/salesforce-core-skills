@@ -68,6 +68,19 @@ Remove metadata from an org.
 3. **Delete** — use `metadata_delete` with the metadata type and fullName
 4. **Verify** — confirm the metadata was removed
 
+**Deletion realities** (why "deleted" may not look deleted):
+
+- **Soft delete**: deleted objects and fields go to the Deleted Objects/Fields
+  holding area for 15 days (renamed with a `_del` suffix) before purging. A
+  hard purge is not available via API — Tooling queries may still return the
+  soft-deleted rows, and that is expected, not a failed delete.
+- **Reliable path**: if a Tooling DELETE on CustomField fails with
+  `INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY`, use the Metadata API's
+  `deleteMetadata` (via the connector or the executeAnonymous SOAP fallback) —
+  it succeeds where the Tooling delete is blocked.
+- **PermissionSet order**: remove `PermissionSetAssignment` rows first;
+  deleting an assigned permission set fails with `DEPENDENCY_EXISTS`.
+
 ### Describe Object
 
 Describe a Salesforce object and display its metadata structure.
@@ -269,6 +282,18 @@ metadata_create(
 )
 ```
 
+> **CustomObject caveat — Tooling REST cannot create objects.** `metadata_create`
+> for CustomObject only works when the connector implements the SOAP **Metadata
+> API** (`createMetadata`). If the connector exposes only Tooling/REST endpoints,
+> a CustomObject insert fails at every API version (`No such column 'FullName'`,
+> or `sObject type 'CustomEntityDefinition' is not supported`) — this is a
+> platform limitation, not a permission issue, so don't retry payload variants.
+> The working fallback: run anonymous Apex (`executeAnonymous`) that calls the
+> SOAP Metadata API on the org's own domain (MetadataService pattern; no Remote
+> Site Setting needed for own-domain callouts). CustomField, PermissionSet,
+> ObjectPermissions, and FieldPermissions **do** create fine via Tooling/REST
+> sObject inserts — only the object itself needs the SOAP path.
+
 Use `metadata_create` for new fields:
 
 ```
@@ -398,6 +423,13 @@ sobject_describe(
 ```
 
 Check FLS by querying Permission Set assignments if needed.
+
+**Stale describe warning:** connector describe results are often cached — a
+describe run right after a create, FLS assignment, or delete can miss new
+fields or still show deleted ones. When describe disagrees with what you just
+did, verify authoritatively instead: a Tooling `CustomField` query by
+`TableEnumOrId` plus a live SOQL that selects the new fields. Trust those over
+the cached describe.
 
 ---
 

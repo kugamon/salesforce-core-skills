@@ -51,6 +51,17 @@ def validate_apex(file_path: str) -> dict:
         validator = ApexValidator(file_path)
         custom_results = validator.validate()
 
+        # Not-scorable input (hidden/managed body, empty, non-Apex): report N/A
+        if custom_results.get("not_scorable"):
+            return {
+                "continue": True,
+                "output": (
+                    f"\n🔍 Apex Validation: {os.path.basename(file_path)}\n"
+                    f"📊 Score: N/A — NOT SCORABLE\n"
+                    f"   Reason: {custom_results.get('reason', 'Source not assessable')}\n"
+                ),
+            }
+
         custom_score = custom_results.get("score", 0)
         custom_max = custom_results.get("max_score", 150)
         custom_issues = custom_results.get("issues", [])

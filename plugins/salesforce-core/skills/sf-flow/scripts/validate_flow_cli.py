@@ -101,6 +101,7 @@ def run_validation(file_path: str) -> dict:
                 "message": item.get("message", ""),
                 "line": 0,
                 "fix": item.get("fix", ""),
+                "deduction": item.get("deduction", 0),
             })
         for item in results.get("warnings", []):
             issues.append({
@@ -109,6 +110,7 @@ def run_validation(file_path: str) -> dict:
                 "message": item.get("message", ""),
                 "line": 0,
                 "fix": item.get("suggestion", ""),
+                "deduction": item.get("deduction", 0),
             })
         for item in results.get("advisory_suggestions", []):
             issues.append({
@@ -117,6 +119,7 @@ def run_validation(file_path: str) -> dict:
                 "message": item if isinstance(item, str) else item.get("message", ""),
                 "line": 0,
                 "fix": "" if isinstance(item, str) else item.get("suggestion", ""),
+                "deduction": 0 if isinstance(item, str) else item.get("deduction", 0),
             })
 
         pct = (score / max_score * 100) if max_score > 0 else 0
@@ -164,7 +167,8 @@ def run_validation(file_path: str) -> dict:
                 }.get(sev, "⚪")
                 line_info = f"L{issue['line']}" if issue.get("line") else ""
                 msg = issue["message"][:65] + "..." if len(issue["message"]) > 65 else issue["message"]
-                output_parts.append(f"   {icon} {sev} {line_info}: {msg}")
+                pts = f" [-{issue['deduction']} pts]" if issue.get("deduction") else ""
+                output_parts.append(f"   {icon} {sev}{pts} {line_info}: {msg}")
                 if issue.get("fix"):
                     fix = issue["fix"][:55] + "..." if len(issue["fix"]) > 55 else issue["fix"]
                     output_parts.append(f"      💡 Fix: {fix}")

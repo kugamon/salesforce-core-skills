@@ -27,7 +27,7 @@ SCRIPT_DIR = Path(__file__).parent
 class SLDSValidator:
     """SLDS 2 validation engine for LWC files."""
 
-    # Maximum scores per category (165 total)
+    # Maximum scores per category (165 total when ALL categories apply)
     max_scores = {
         "slds_class_usage": 25,
         "accessibility": 25,
@@ -38,6 +38,15 @@ class SLDSValidator:
         "performance": 10,
         "graphql_patterns": 15,
         "focus_management": 10,
+    }
+
+    # Categories that can actually be assessed per file type. Non-applicable
+    # categories (e.g. GraphQL patterns for a .css file) are reported as N/A
+    # and EXCLUDED from the denominator — they are never silently awarded.
+    APPLICABLE_CATEGORIES = {
+        ".html": ["slds_class_usage", "accessibility", "component_structure"],
+        ".css": ["dark_mode", "styling_hooks", "slds_migration", "performance"],
+        ".js": ["slds_class_usage", "dark_mode", "graphql_patterns", "focus_management"],
     }
 
     def __init__(self, file_path: str):
@@ -105,14 +114,34 @@ class SLDSValidator:
         Returns:
             dict with score, max_score, scores by category, issues, and rating
         """
-        scores = {cat: max_score for cat, max_score in self.max_scores.items()}
+        applicable = self.APPLICABLE_CATEGORIES.get(self.ext, [])
+        # Score ONLY categories applicable to this file type; everything else
+        # is N/A (excluded from the denominator, never awarded for free).
+        scores = {cat: self.max_scores[cat] for cat in applicable}
+        na_categories = [cat for cat in self.max_scores if cat not in applicable]
         issues = []
+
+        if not applicable:
+            return {
+                "score": 0,
+                "max_score": 0,
+                "scores": {},
+                "na_categories": na_categories,
+                "issues": [
+                    {
+                        "severity": "CRITICAL",
+                        "message": f"Unsupported file type '{self.ext}' — expected .html, .css, or .js",
+                    }
+                ],
+                "rating": "N/A",
+            }
 
         if not self.content:
             return {
                 "score": 0,
-                "max_score": sum(self.max_scores.values()),
+                "max_score": sum(scores.values()),
                 "scores": scores,
+                "na_categories": na_categories,
                 "issues": [{"severity": "CRITICAL", "message": "Could not read file"}],
                 "rating": "Error",
             }
@@ -125,14 +154,15 @@ class SLDSValidator:
         elif self.ext == ".js":
             self._validate_js(scores, issues)
 
-        # Calculate total score
+        # Calculate total score over applicable categories only
         total_score = sum(scores.values())
-        max_total = sum(self.max_scores.values())
+        max_total = sum(self.max_scores[cat] for cat in applicable)
 
         return {
             "score": total_score,
             "max_score": max_total,
             "scores": scores,
+            "na_categories": na_categories,
             "issues": issues,
             "rating": self._get_rating(total_score, max_total),
         }
@@ -671,7 +701,7 @@ def _format_report(results: dict, file_path: str) -> str:
     scores = results.get("scores", {})
     if scores:
         parts.append("")
-        parts.append("📋 Category Breakdown:")
+        parts.append(f"📋 Category Breakdown (scored for {Path(file_path).suffix or 'file'}):")
         for cat, cat_score in scores.items():
             cat_max = SLDSValidator.max_scores.get(cat, 0)
             if cat_max > 0:
@@ -679,6 +709,10 @@ def _format_report(results: dict, file_path: str) -> str:
                 diff = f" (-{cat_max - cat_score})" if cat_score < cat_max else ""
                 display = cat.replace("_", " ").title()
                 parts.append(f"   {icon} {display}: {cat_score}/{cat_max}{diff}")
+        # Non-applicable categories: reported N/A, excluded from the score
+        for cat in results.get("na_categories", []):
+            display = cat.replace("_", " ").title()
+            parts.append(f"   ➖ {display}: N/A (not applicable to this file type)")
 
     issues = results.get("issues", [])
     if issues:

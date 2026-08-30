@@ -56,7 +56,9 @@ def format_report(result: dict) -> str:
         lines.append(f"  Error: {result.get('message', 'Unknown error')}")
         lines.append("")
     elif status == "scored":
-        score = result.get("score", result.get("overall_score", 0))
+        score = result.get("score")
+        if score is None:
+            score = result.get("overall_score", 0) or 0
         max_score = result.get("max_score", result.get("total_max", 0))
         rating = result.get("rating", "")
 
@@ -90,7 +92,9 @@ def format_report(result: dict) -> str:
     lines.append("=" * 60)
 
     if status == "scored":
-        score = result.get("score", result.get("overall_score", 0))
+        score = result.get("score")
+        if score is None:
+            score = result.get("overall_score", 0) or 0
         max_score = result.get("max_score", result.get("total_max", 150))
         critical = result.get("critical_issues", [])
         pct = (score / max_score * 100) if max_score > 0 else 0
@@ -158,7 +162,9 @@ def main():
         critical = result.get("critical_issues", [])
         if critical:
             sys.exit(1)
-        score = result.get("score", result.get("overall_score", 0))
+        score = result.get("score")
+        if score is None:
+            score = result.get("overall_score", 0) or 0
         max_score = result.get("max_score", result.get("total_max", 150))
         pct = (score / max_score * 100) if max_score > 0 else 0
         sys.exit(1 if pct < 50 else 0)

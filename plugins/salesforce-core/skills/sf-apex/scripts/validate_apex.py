@@ -61,6 +61,30 @@ class ApexValidator:
                 }
             )
 
+    def not_scorable_reason(self) -> str | None:
+        """Return a reason string if the body cannot be meaningfully scored.
+
+        Covers managed-package bodies (the Tooling API returns the literal
+        string "(hidden)" for IP-protected managed code), empty bodies, and
+        content that is not recognizable Apex at all. Scoring such input would
+        produce a bogus "perfect" result (no patterns to flag), so callers must
+        report N/A instead of a numeric score.
+        """
+        stripped = self.content.strip()
+        if not stripped:
+            return "File is empty — no Apex source to validate"
+        if stripped == "(hidden)" or re.fullmatch(r"\(?\s*hidden\s*\)?", stripped, re.IGNORECASE):
+            return (
+                'Body is "(hidden)" — managed-package code is IP-protected and '
+                "cannot be validated from a subscriber org"
+            )
+        # Sanity check: recognizable Apex contains a type or trigger declaration.
+        if not re.search(
+            r"\b(class|trigger|interface|enum)\s+\w+|@istest\b", stripped, re.IGNORECASE
+        ):
+            return "Content is not recognizable Apex (no class/trigger/interface/enum declaration)"
+        return None
+
     def validate(self) -> dict:
         """
         Run all validations on the Apex file.
@@ -68,6 +92,29 @@ class ApexValidator:
         Returns:
             Dictionary with validation results
         """
+        read_failed = any(i.get("category") == "file" for i in self.issues)
+        if not read_failed:
+            reason = self.not_scorable_reason()
+            if reason:
+                return {
+                    "file": os.path.basename(self.file_path),
+                    "not_scorable": True,
+                    "reason": reason,
+                    "score": None,
+                    "max_score": 150,
+                    "rating": "N/A — NOT SCORABLE",
+                    "scores": {},
+                    "issues": [
+                        {
+                            "severity": "INFO",
+                            "category": "scorability",
+                            "message": reason,
+                            "line": 0,
+                            "fix": "Validate the source in the owning (packaging) org, or skip managed code",
+                        }
+                    ],
+                }
+
         if not self.content:
             return {
                 "file": os.path.basename(self.file_path),
@@ -461,6 +508,15 @@ def main():
 
     validator = ApexValidator(file_path)
     results = validator.validate()
+
+    # Not-scorable input (hidden/managed body, empty file, non-Apex content):
+    # report N/A — never a numeric score, never a deploy verdict.
+    if results.get("not_scorable"):
+        print(f"\n🔍 Apex Validation: {results['file']}")
+        print("Score: N/A — NOT SCORABLE")
+        print(f"Reason: {results['reason']}")
+        print("⚠️  No deploy verdict — source could not be assessed.")
+        sys.exit(2)
 
     # Print results
     print(f"\n🔍 Apex Validation: {results['file']}")

@@ -454,15 +454,23 @@ Animate the data, not the chrome. Standard kit — copy into the `<style>`/`<scr
 ```
 
 ```js
+// Respect reduced motion in JS too — the CSS guard alone doesn't stop
+// JS-driven textContent/attribute animations.
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // Reveal sections and grow bars as they scroll into view
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
 }), { threshold: .15 });
-document.querySelectorAll('.reveal, .bar').forEach(el => io.observe(el));
+document.querySelectorAll('.reveal, .bar').forEach(el => {
+  if (reduceMotion) { el.classList.add('in'); } else { io.observe(el); }
+});
 
 // Count-up for headline numbers (data-target holds the final value)
 document.querySelectorAll('[data-target]').forEach(el => {
-  const end = parseFloat(el.dataset.target); const t0 = performance.now();
+  const end = parseFloat(el.dataset.target);
+  if (reduceMotion) { el.textContent = Math.round(end); return; }
+  const t0 = performance.now();
   const step = t => { const p = Math.min((t - t0) / 900, 1);
     el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
     if (p < 1) requestAnimationFrame(step); };

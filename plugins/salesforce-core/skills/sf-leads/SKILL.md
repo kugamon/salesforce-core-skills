@@ -30,7 +30,8 @@ one.
 | `report`, after a batch                    | Results Report |
 
 Initialize the org connection first (`org_init` convention — see
-`references/execution-modes.md`).
+`references/execution-modes.md`) — unless running in Demo mode (below),
+which has no org to connect to.
 
 ## Gap Analysis
 
@@ -39,7 +40,8 @@ SELECT Id, FirstName, LastName, Company, Title, Email, Phone, Industry,
        LeadSource, Website, NumberOfEmployees, Status
 FROM Lead
 WHERE IsConverted = false
-  AND (Title = null OR Industry = null OR Website = null)
+  AND (Title = null OR Industry = null OR Website = null
+       OR NumberOfEmployees = null)
 ORDER BY CreatedDate DESC LIMIT 20
 ```
 
@@ -89,6 +91,11 @@ Plus: records skipped (with reasons), low-confidence findings awaiting a
 decision, and any picklist values that had no good match (data model
 feedback for the admin).
 
+When the user wants a document deliverable, follow the sf-audit skill's
+`references/report-template.md` (from this skill:
+`../sf-audit/references/report-template.md`) §7–8 rather than inventing a
+report format.
+
 ## Rules (non-negotiable)
 
 - User approval before every write — no silent updates
@@ -132,4 +139,5 @@ The repo ships synthetic leads at `sample-data/leads.csv` with realistic
 gaps and ~10% wrong-domain emails. When no Salesforce MCP server is
 connected — or the user asks for a demo — run gap analysis and enrichment
 proposals against that CSV (research steps simulated or run for real;
-writes proposed only, since there's no org).
+writes proposed only, since there's no org). Skip `org_init` in demo mode —
+there is no org to initialize.

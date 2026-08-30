@@ -64,6 +64,15 @@ def main() -> int:
         print(json.dumps(_allow()))
         return 0
 
+    # Not-scorable body (hidden/managed, empty, non-Apex) — warn, never a score
+    if result.get("not_scorable"):
+        print(json.dumps(_allow(
+            "⚠️ Apex body is not scorable ("
+            + result.get("reason", "source not assessable")
+            + "). Deploying this payload is almost certainly a mistake — verify the body."
+        )))
+        return 0
+
     # Scored result
     score = result.get("score", result.get("overall_score", 0))
     max_score = result.get("max_score", result.get("total_max", 150))

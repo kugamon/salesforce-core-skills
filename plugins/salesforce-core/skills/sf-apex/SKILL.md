@@ -308,6 +308,21 @@ Validate one or more Apex classes or triggers using the 150-point static analysi
 | `All`                                        | All ApexClass **and** ApexTrigger records in the org  |
 | _(no argument)_                              | Ask the user what to validate                         |
 
+### Managed and hidden code
+
+Code from managed packages is not reviewable: any record with a `NamespacePrefix`, or whose `Body` comes back as `(hidden)`, has no source to score. Never run the validator on it — scoring the literal string `(hidden)` produces a meaningless perfect score. Instead:
+
+1. **Inventory by namespace count first** before fetching any bodies:
+
+```
+tooling_api_query(sObject="ApexClass", fields=["NamespacePrefix", "COUNT(Id)"], groupBy="NamespacePrefix")
+```
+
+2. **Fetch bodies only for `NamespacePrefix = null`** rows.
+3. **Report managed components as N/A** in the summary table (name, namespace, "N/A — managed, source hidden"), so the inventory stays complete without fabricating scores.
+
+In subscriber orgs most or all Apex may be managed; saying "nothing scannable" honestly is the correct outcome, not a failure.
+
 ### Validation script
 
 The validation script is at `${CLAUDE_PLUGIN_ROOT}/skills/sf-apex/scripts/validate_apex_cli.py`. Locate it with:

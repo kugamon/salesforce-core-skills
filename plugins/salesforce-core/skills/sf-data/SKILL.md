@@ -54,6 +54,25 @@ Run a SOQL query and display results. For performance-sensitive queries with sel
 3. Confirm scope for large or unfiltered queries
 4. Execute via `soql_query`
 5. Display as table — show record count, truncate long values, note total for large sets
+6. **Verify empty results** — see below before reporting "none found"
+
+### Verifying empty results
+
+A zero-row result is ambiguous: the data may genuinely not exist, or the
+filter may not match how the data is actually shaped (wrong date window,
+label vs API name, unexpected picklist values). Before reporting "none", run
+**one sanity probe** — typically a distribution query on the filtered field:
+
+```
+SELECT COUNT(Id), MIN(CloseDate), MAX(CloseDate) FROM Opportunity
+-- or: SELECT StageName, COUNT(Id) FROM Opportunity GROUP BY StageName
+```
+
+If the probe shows the object has rows outside the filter, report *why* the
+query matched nothing (e.g. "31 opportunities exist, but all close 2020–2022
+— none in this fiscal quarter") rather than a bare zero. If the probe is also
+empty, "none" is confirmed. One probe is enough; don't spiral into a full
+investigation unless the user asks.
 
 ### Build Optimized Query
 
@@ -65,6 +84,7 @@ Build a SOQL query with an explicit optimization pass for indexed field selectio
 4. Confirm scope for large queries
 5. Execute via `soql_query`
 6. Display results with optimization notes
+7. Verify empty results (same rule as Query Data above)
 
 ### Insert, Update, or Delete Records
 

@@ -137,6 +137,26 @@ soql_query(sObject="SetupEntityAccess", fields=["Parent.Name"], whereClause="Set
 
 Present results in a table showing Permission Set/Group names, access type, and user counts.
 
+**Rolling up to actual users** — a grant only matters if someone holds it.
+Count users per grant by parent type:
+
+- **Profile-owned parents** (`Parent.IsOwnedByProfile = true` — add
+  `Parent.IsOwnedByProfile` and `Parent.Profile.Name` to the query above):
+  count via `SELECT Profile.Name, COUNT(Id) FROM User WHERE Profile.Name IN
+  (...) AND IsActive = true GROUP BY Profile.Name`. PermissionSetAssignment
+  does not reliably carry profile rows — counting only PSA reports 0 users
+  for profile grants.
+- **Real permission sets**: count via `PermissionSetAssignment` grouped by
+  `PermissionSetId`, plus `PermissionSetGroupComponent` for PSG membership.
+
+**Filter internal noise by default:** Salesforce-internal `Type = 'Session'`
+permission sets (session-activation, C2C plumbing) can dominate the raw grant
+list — they are not human access. Exclude them from the headline count and
+report them as a one-line footnote ("+N internal session-activation perm
+sets, 0 assigned users") unless the user asks for them. A `Parent` that comes
+back entirely null in the relationship query is usually one of these —
+resolve it with a follow-up PermissionSet query by `ParentId`.
+
 #### Sub-case 2: User permissions — Trace all permissions assigned to a specific user
 
 Use when the user asks "What can John do?" or provides a username/email/user ID.

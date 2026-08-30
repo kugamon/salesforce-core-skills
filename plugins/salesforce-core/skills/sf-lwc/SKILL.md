@@ -287,8 +287,20 @@ Common mistakes that produce Salesforce errors on this path:
 | `XML parse error: Content is not allowed in prolog.: Source`     | You Base64-encoded the value before sending.        |
 | `Compilation Failure` / `Unexpected token`                       | You Base64-encoded a JS or HTML resource.           |
 | `No such column 'FilePath' on entity 'LightningComponentBundle'` | Queried `FilePath` on the bundle, not the resource. |
+| `FIELD_INTEGRITY_EXCEPTION: No base file for markup://c:<name>`  | Created the HTML resource before the JS module — create order matters (see below). |
 
 `*.js-meta.xml` is also a `LightningComponentResource` and is updated the same way (plain text). Use it to change bundle-level properties (apiVersion, isExposed, targets, targetConfigs) when `metadata_update` is unavailable.
+
+### Creating a bundle via Tooling API — create order matters
+
+When creating a component through per-resource Tooling inserts (rather than a single `metadata_create` call), the **JS module is the bundle's base file and must be POSTed first** — inserting the HTML first fails with `No base file for markup://c:<name>`. Create in this order:
+
+1. `LightningComponentBundle` (the bundle record; its `Metadata.targetConfigs` is Base64 of the inner `<targetConfig>` XML — the one Base64 exception on the Tooling path)
+2. JS resource (base file)
+3. HTML resource
+4. CSS resource
+
+Resource `Source` values themselves remain plain text, per the encoding rules above.
 
 ### 3. Validate `*.js-meta.xml` content before writing
 
@@ -944,26 +956,28 @@ export default class AccountList extends LightningElement {
 ```html
 <template>
   <lightning-card title="Accounts" icon-name="standard:account">
-    <template lwc:if="{isLoading}">
+    <template lwc:if={isLoading}>
       <lightning-spinner variant="brand"></lightning-spinner>
     </template>
 
-    <template lwc:else-if="{accounts}">
+    <template lwc:elseif={accounts}>
       <div class="slds-m-around_medium">
         <div class="slds-table slds-table_striped slds-table_bordered">
-          <template for:each="{accounts}" for:item="account">
-            <div key="{account.Id}" class="slds-truncate">{account.Name}</div>
+          <template for:each={accounts} for:item="account">
+            <div key={account.Id} class="slds-truncate">{account.Name}</div>
           </template>
         </div>
       </div>
     </template>
 
-    <template lwc:else-if="{error}">
+    <template lwc:elseif={error}>
       <div class="slds-notify slds-notify_alert slds-theme_alert-danger">{error.body.message}</div>
     </template>
   </lightning-card>
 </template>
 ```
+
+> **Binding syntax note:** LWC attribute bindings are *unquoted* — `lwc:if={isLoading}`, `value={prop}`, `key={account.Id}`. Quoted forms like `lwc:if="{isLoading}"` fail to compile (the quotes make it a literal string, not a binding). Only literal string attributes take quotes (`for:item="account"`).
 
 **Generated: accountList.css**
 

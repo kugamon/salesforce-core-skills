@@ -29,7 +29,8 @@ with the math shown.
 | `compare`, "A vs B", "rank my campaigns"    | Comparison & Ranking |
 
 Initialize the org connection first (`org_init` convention — see
-`references/execution-modes.md`).
+`references/execution-modes.md`) — unless running in Demo mode (below),
+which has no org to connect to.
 
 ## Portfolio Report
 
@@ -93,10 +94,11 @@ goal — pipeline efficiency (ROI) and volume (members) rarely agree.
 
 ## Output
 
-Tables for rankings and funnels, per report-template.md §7 instincts — and
-when the user wants a document deliverable, follow
-`sf-audit/references/report-template.md` §7–8 (visualizations, single-file
-animated HTML) rather than dumping tables into prose.
+Tables for rankings and funnels, per the sf-audit report template's §7
+instincts — and when the user wants a document deliverable, follow the
+sf-audit skill's `references/report-template.md` (from this skill:
+`../sf-audit/references/report-template.md`) §7–8 (visualizations,
+single-file animated HTML) rather than dumping tables into prose.
 
 ## Cross-skill handoffs
 
@@ -127,5 +129,6 @@ metrics in an unfamiliar org:
 The repo ships synthetic data at `sample-data/` (campaigns.csv,
 campaign_members.csv). When no Salesforce MCP server is connected — or the
 user asks for a demo — run the same workflows against those CSVs and say
-so in the output. The dataset contains deliberate hygiene findings
+so in the output. Skip `org_init` in demo mode — there is no org to
+initialize. The dataset contains deliberate hygiene findings
 (missing costs, zero-win campaigns) worth surfacing.

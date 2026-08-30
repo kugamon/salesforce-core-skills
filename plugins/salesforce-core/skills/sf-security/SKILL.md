@@ -52,6 +52,25 @@ Query the attack surface in parallel (Tooling API):
   objects the code touches
 - Connected apps and `@RestResource` classes (public entry points)
 
+**Inventory guard:** never start with a naive `SELECT ... Body FROM ApexClass`
+— in a package-heavy org the response overflows the context window. Query
+counts grouped by `NamespacePrefix` first, then fetch bodies only for
+`NamespacePrefix = null`. Managed bodies come back `(hidden)` anyway; fetching
+them wastes calls and tokens.
+
+### Managed-dominant orgs
+
+When most code is managed (say >50% of classes), declare managed packages
+**out of scannable scope** up front and say why: their bodies are hidden in
+subscriber orgs, and AppExchange packages have already passed Salesforce's
+security review — re-scanning them is neither possible nor necessary. The
+audit then becomes a **subscriber-org configuration audit**: sharing defaults,
+guest/site exposure, remote sites, connected apps, secrets in config, and the
+handful of unmanaged classes. That is the honest framing — the real risks in
+such orgs ARE config risks. Include an explicit scope table in the report so a
+"20/20 injection" line reads as a claim about the scannable surface, not the
+whole org.
+
 ### Phase 2: Scan by category
 
 Work through `references/vulnerability-patterns.md` category by category.
@@ -80,6 +99,13 @@ Severity scale:
 | Lightning security (LWC/Aura)          | 10     | innerHTML/unsafe eval patterns, missing CSP, unsanitized @AuraEnabled inputs |
 | Data exposure & PII                    | 10     | Sensitive fields in debug logs, public sites/guest access leaks, unencrypted PII noted |
 | Test & config hygiene                  | 5      | Security paths untested (no runAs), seeAllData, profile-based instead of permission-set access |
+
+**N/A rule:** a category with no scannable surface (e.g. Lightning security
+in an org with zero unmanaged LWC/Aura) is **N/A, not a perfect score** — the
+rubric only defines deductions, so an empty category would otherwise silently
+inflate the total. Exclude N/A categories and renormalize to the applicable
+maximum (e.g. 69/90 → 77/100), and state in the report which categories were
+N/A and why.
 
 Grade bands: 90+ Excellent · 75–89 Good · 60–74 Needs work · <60 At risk.
 Any Critical finding caps the grade at "Needs work" regardless of score —

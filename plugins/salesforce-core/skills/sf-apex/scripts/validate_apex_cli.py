@@ -11,8 +11,9 @@ Usage:
   python3 validate_apex_cli.py path/to/AccountTrigger.trigger
 
 Exit codes:
-  0  — validation passed (score >= 67%)
-  1  — validation failed (score < 67%) or file not found
+  0  — validation passed (score >= 67% and no CRITICAL issues)
+  1  — validation failed (score < 67%, CRITICAL issues found, or file not found)
+  2  — not scorable (hidden/managed body, empty file, or non-Apex content)
 """
 
 import os
@@ -37,6 +38,25 @@ def run_validation(file_path: str) -> dict:
         validator = ApexValidator(file_path)
         max_scores = dict(validator.scores)  # capture before validate() mutates in place
         results = validator.validate()
+
+        # Not-scorable input (hidden/managed body, empty file, non-Apex content):
+        # report N/A — never a numeric score, never a deploy verdict.
+        if results.get("not_scorable"):
+            output_parts.append("")
+            output_parts.append(f"🔍 Apex Validation: {os.path.basename(file_path)}")
+            output_parts.append("═" * 60)
+            output_parts.append("📊 Score: N/A — NOT SCORABLE")
+            output_parts.append(f"   Reason: {results.get('reason', 'Source not assessable')}")
+            output_parts.append("═" * 60)
+            output_parts.append("⚠️  NOT SCORABLE — no deploy verdict possible for this input")
+            return {
+                "success": True,
+                "not_scorable": True,
+                "output": "\n".join(output_parts),
+                "score": None,
+                "max_score": results.get("max_score", 150),
+                "pct": None,
+            }
 
         score = results.get("score", 0)
         max_score = results.get("max_score", 150)
@@ -117,13 +137,26 @@ def run_validation(file_path: str) -> dict:
             output_parts.append("")
             output_parts.append("✅ No issues found!")
 
+        critical_count = sum(1 for i in issues if i.get("severity") == "CRITICAL")
+
         output_parts.append("═" * 60)
-        if pct >= THRESHOLD_PCT:
+        if critical_count > 0:
+            output_parts.append(
+                f"❌ FAILED — {critical_count} CRITICAL issue(s) must be fixed before deploying"
+            )
+        elif pct >= THRESHOLD_PCT:
             output_parts.append("✅ PASSED — safe to deploy")
         else:
             output_parts.append("❌ BELOW THRESHOLD — fix issues before deploying")
 
-        return {"success": True, "output": "\n".join(output_parts), "score": score, "max_score": max_score, "pct": pct}
+        return {
+            "success": True,
+            "output": "\n".join(output_parts),
+            "score": score,
+            "max_score": max_score,
+            "pct": pct,
+            "critical_count": critical_count,
+        }
 
     except ImportError as e:
         return {"success": False, "output": f"⚠️  Validator not available: {e}", "pct": 0}
@@ -144,7 +177,11 @@ def main() -> int:
 
     result = run_validation(file_path)
     print(result["output"])
-    return 0 if result.get("success") and result.get("pct", 0) >= THRESHOLD_PCT else 1
+    if result.get("not_scorable"):
+        return 2  # N/A — cannot certify either way
+    if result.get("critical_count", 0) > 0:
+        return 1  # CRITICAL findings always fail, regardless of score
+    return 0 if result.get("success") and (result.get("pct") or 0) >= THRESHOLD_PCT else 1
 
 
 if __name__ == "__main__":

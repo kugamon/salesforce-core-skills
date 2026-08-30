@@ -141,6 +141,7 @@ class EnhancedFlowValidator:
             score -= 5
             advisory.append(
                 {
+                    "deduction": 5,
                     "category": "Naming",
                     "message": "Flow name doesn't follow convention",
                     "suggestion": naming_results["suggested_names"][0]
@@ -155,6 +156,7 @@ class EnhancedFlowValidator:
             score -= 5
             advisory.append(
                 {
+                    "deduction": 5,
                     "category": "Documentation",
                     "message": "Flow description missing or too short",
                     "suggestion": "Add clear description (minimum 20 characters)",
@@ -171,6 +173,7 @@ class EnhancedFlowValidator:
             score -= deduction
             advisory.append(
                 {
+                    "deduction": deduction,
                     "category": "Element Naming",
                     "message": f"{issue_count} elements use default names",
                     "suggestion": "Rename elements for better readability",
@@ -187,6 +190,7 @@ class EnhancedFlowValidator:
             score -= deduction
             advisory.append(
                 {
+                    "deduction": deduction,
                     "category": "Variable Naming",
                     "message": f"{issue_count} variables don't follow convention",
                     "suggestion": 'Use "var" prefix for single values, "col" for collections',
@@ -201,6 +205,7 @@ class EnhancedFlowValidator:
             score -= 2
             advisory.append(
                 {
+                    "deduction": 2,
                     "category": "Element Naming",
                     "message": f'{len(copy_names)} elements have "Copy_of" naming: {", ".join(copy_names[:3])}',
                     "suggestion": "Rename copied elements with meaningful names",
@@ -227,6 +232,7 @@ class EnhancedFlowValidator:
             score -= 10
             critical_issues.append(
                 {
+                    "deduction": 10,
                     "severity": "CRITICAL",
                     "message": "❌ DML operations found inside loops - WILL CAUSE BULK FAILURES",
                     "fix": "Move DML outside loops, collect records in collection first",
@@ -242,10 +248,11 @@ class EnhancedFlowValidator:
         invalid_props = self._check_invalid_resource_properties()
         if invalid_props:
             score -= 10
-            for offense in invalid_props:
+            for idx, offense in enumerate(invalid_props):
                 critical_issues.append(
                     {
                         "severity": "CRITICAL",
+                        "deduction": 10 if idx == 0 else 0,
                         "message": (
                             f"❌ <{offense['element_type']}> '{offense['name']}' has invalid "
                             f"property <{offense['property']}> — resource elements do not accept it"
@@ -265,6 +272,7 @@ class EnhancedFlowValidator:
             score -= 8
             critical_issues.append(
                 {
+                    "deduction": 8,
                     "severity": "CRITICAL",
                     "message": "❌ SOQL queries found inside loops - WILL HIT GOVERNOR LIMITS",
                     "fix": "Query records before loop, use collection variable",
@@ -278,6 +286,7 @@ class EnhancedFlowValidator:
             score -= 5
             warnings.append(
                 {
+                    "deduction": 5,
                     "severity": "HIGH",
                     "message": "⚠️ Apex action calls found inside loops - callout limit risk",
                     "suggestion": "Consider bulkifying the action or calling outside the loop",
@@ -291,6 +300,7 @@ class EnhancedFlowValidator:
             score -= 2
             advisory.append(
                 {
+                    "deduction": 2,
                     "category": "Performance",
                     "message": "Formula variables detected with loops - potential CPU impact",
                     "suggestion": "Test with bulk data; complex formulas in loops can cause CPU timeouts",
@@ -303,6 +313,7 @@ class EnhancedFlowValidator:
             score -= 3
             advisory.append(
                 {
+                    "deduction": 3,
                     "category": "Complexity",
                     "message": f"{decision_count} decision points - consider simplification",
                     "suggestion": "Break into subflows or use simpler business rules",
@@ -314,6 +325,7 @@ class EnhancedFlowValidator:
             score -= 5
             advisory.append(
                 {
+                    "deduction": 5,
                     "category": "Performance",
                     "message": "Loop with field mapping detected - Transform element recommended",
                     "suggestion": "Transform is 30-50% faster than loops for field mapping",
@@ -359,6 +371,7 @@ class EnhancedFlowValidator:
                 score -= 3
                 advisory.append(
                     {
+                        "deduction": 3,
                         "category": "Orchestration",
                         "message": "Complex flow with no subflows - consider breaking into components",
                         "suggestion": "Use Parent-Child pattern for better maintainability",
@@ -391,6 +404,7 @@ class EnhancedFlowValidator:
             score -= 5
             advisory.append(
                 {
+                    "deduction": 5,
                     "category": "Modularity",
                     "message": f"Flow is very large (~{line_count} lines) - hard to maintain",
                     "suggestion": "Break into orchestrator + specialized subflows",
@@ -402,6 +416,7 @@ class EnhancedFlowValidator:
             score -= 3
             advisory.append(
                 {
+                    "deduction": 3,
                     "category": "Reusability",
                     "message": "Autolaunched flow without input/output variables",
                     "suggestion": "Add input/output variables for reusability",
@@ -416,6 +431,7 @@ class EnhancedFlowValidator:
             score -= 2
             advisory.append(
                 {
+                    "deduction": 2,
                     "category": "Clean Code",
                     "message": f"{len(unused_vars)} unused variables: {', '.join(unused_vars[:3])}",
                     "suggestion": "Remove unused variables to reduce clutter",
@@ -430,6 +446,7 @@ class EnhancedFlowValidator:
             score -= 3
             advisory.append(
                 {
+                    "deduction": 3,
                     "category": "Clean Code",
                     "message": f"{len(orphaned)} orphaned elements: {', '.join(orphaned[:3])}",
                     "suggestion": "Remove or connect orphaned elements",
@@ -465,19 +482,42 @@ class EnhancedFlowValidator:
         # Bulkification (10 points)
         if self._has_dml_in_loops():  # Already checked, but critical for performance
             score -= 10
-            # Already added to critical issues in logic_structure
+            # Itemize here too — this deduction was previously invisible in the
+            # Performance category (only surfaced under Logic & Structure).
+            warnings.append(
+                {
+                    "severity": "HIGH",
+                    "deduction": 10,
+                    "message": "⚠️ Bulkification: DML inside loops (also flagged CRITICAL under Logic & Structure)",
+                    "suggestion": "Move DML outside loops; collect records first",
+                }
+            )
 
         # ═══════════════════════════════════════════════════════════════════════
-        # NEW v2.0.0: storeOutputAutomatically detection (data leak + performance)
+        # storeOutputAutomatically — aligned with SKILL.md: `true` is the
+        # recommended default. Only flag it when the flow runs in system mode
+        # (bypasses FLS/CRUD), where auto-storing ALL fields can expose
+        # sensitive data. Advisory only in that case — not a generic warning.
         # ═══════════════════════════════════════════════════════════════════════
         store_auto_issues = self._has_store_output_automatically()
-        if store_auto_issues:
+        run_in_mode = self._get_text("runInMode")
+        is_system_mode = run_in_mode in ("SystemModeWithoutSharing", "SystemModeWithSharing")
+        if store_auto_issues and is_system_mode:
             score -= 3
             warnings.append(
                 {
+                    "deduction": 3,
                     "severity": "MEDIUM",
-                    "message": f"⚠️ 'Store all fields' enabled in Get Records: {', '.join(store_auto_issues[:3])}",
-                    "suggestion": "Specify only needed fields to prevent data leaks and improve performance",
+                    "deduction": 3,
+                    "message": (
+                        f"⚠️ System-mode flow auto-stores ALL fields in Get Records: "
+                        f"{', '.join(store_auto_issues[:3])}"
+                    ),
+                    "suggestion": (
+                        "In system-mode flows querying sensitive objects, use explicit "
+                        "field selection (storeOutputAutomatically=false). Otherwise "
+                        "storeOutputAutomatically=true is the recommended default."
+                    ),
                 }
             )
 
@@ -489,6 +529,7 @@ class EnhancedFlowValidator:
             score -= 2
             advisory.append(
                 {
+                    "deduction": 2,
                     "category": "Performance",
                     "message": f"Querying trigger object again: {', '.join(same_object_issues[:3])}",
                     "suggestion": "Use $Record to access trigger record fields instead of querying",
@@ -503,6 +544,7 @@ class EnhancedFlowValidator:
             score -= 2
             advisory.append(
                 {
+                    "deduction": 2,
                     "category": "Performance",
                     "message": f"Get Records without filters: {', '.join(no_filter_issues[:3])}",
                     "suggestion": "Add filter conditions to limit query results and improve performance",
@@ -530,6 +572,7 @@ class EnhancedFlowValidator:
             score -= 5
             warnings.append(
                 {
+                    "deduction": 5,
                     "severity": "HIGH",
                     "message": f"⚠️ Hardcoded Salesforce IDs detected in {len(hardcoded_ids)} elements",
                     "suggestion": "Use variables, Custom Labels, or Custom Metadata for IDs",
@@ -544,6 +587,7 @@ class EnhancedFlowValidator:
             score -= 2
             advisory.append(
                 {
+                    "deduction": 2,
                     "category": "Portability",
                     "message": f"Hardcoded URLs in {len(hardcoded_urls)} elements: {', '.join(hardcoded_urls[:3])}",
                     "suggestion": "Use Custom Labels or Named Credentials for URLs",
@@ -558,6 +602,7 @@ class EnhancedFlowValidator:
             score -= 3
             warnings.append(
                 {
+                    "deduction": 3,
                     "severity": "MEDIUM",
                     "message": f"⚠️ DML operations between screens: {', '.join(dml_between_screens[:3])}",
                     "suggestion": "DML between screens can cause data issues with browser back button",
@@ -570,6 +615,7 @@ class EnhancedFlowValidator:
             score -= 5
             warnings.append(
                 {
+                    "deduction": 5,
                     "severity": "HIGH",
                     "message": f"⚠️ {soql_count} SOQL queries detected - may exceed governor limits",
                     "suggestion": "Consolidate queries or use bulkified patterns",
@@ -579,6 +625,7 @@ class EnhancedFlowValidator:
             score -= 3
             advisory.append(
                 {
+                    "deduction": 3,
                     "category": "Performance",
                     "message": f"{soql_count} SOQL queries - monitor for governor limits",
                     "suggestion": "Test with bulk data (200+ records)",
@@ -591,6 +638,7 @@ class EnhancedFlowValidator:
             score -= 5
             warnings.append(
                 {
+                    "deduction": 5,
                     "severity": "HIGH",
                     "message": f"⚠️ {dml_count} DML operations - may exceed governor limits",
                     "suggestion": "Consolidate DML operations where possible",
@@ -600,6 +648,7 @@ class EnhancedFlowValidator:
             score -= 2
             advisory.append(
                 {
+                    "deduction": 2,
                     "category": "Performance",
                     "message": f"{dml_count} DML operations - monitor for governor limits",
                     "suggestion": "Test with bulk data (200+ records)",
@@ -628,6 +677,7 @@ class EnhancedFlowValidator:
             score -= 10
             critical_issues.append(
                 {
+                    "deduction": 10,
                     "severity": "CRITICAL",
                     "message": "❌ INFINITE LOOP RISK: After-save flow updates same object without entry conditions",
                     "fix": "Add entry conditions to prevent recursive triggering",
@@ -645,7 +695,7 @@ class EnhancedFlowValidator:
             deduction = min(15, high_count * 5 + medium_count * 2)
             score -= deduction
 
-            for issue in save_blocking_issues:
+            for sb_idx, issue in enumerate(save_blocking_issues):
                 # Items in critical_issues use severity="CRITICAL" by convention
                 # elsewhere in this validator; preserve HIGH/MEDIUM differentiation
                 # via a separate risk_level field. Warnings carry both `fix` and
@@ -655,6 +705,7 @@ class EnhancedFlowValidator:
                         {
                             "severity": "CRITICAL",
                             "risk_level": "HIGH",
+                            "deduction": deduction if sb_idx == 0 else 0,
                             "message": issue["message"],
                             "fix": issue["fix"],
                             "element": issue["element_name"],
@@ -665,6 +716,7 @@ class EnhancedFlowValidator:
                         {
                             "severity": issue["severity"],
                             "risk_level": issue["severity"],
+                            "deduction": deduction if sb_idx == 0 else 0,
                             "message": issue["message"],
                             "fix": issue["fix"],
                             "suggestion": issue["fix"],
@@ -699,6 +751,7 @@ class EnhancedFlowValidator:
                         # severity hook adapters key off `severity`.
                         "severity": "CRITICAL",
                         "risk_level": "HIGH",
+                        "deduction": deduction,
                         "message": (
                             f"❌ {missing} fallible element(s) missing faultConnector: {names}{more}"
                         ),
@@ -719,6 +772,7 @@ class EnhancedFlowValidator:
             score -= 2
             advisory.append(
                 {
+                    "deduction": 2,
                     "category": "Error Prevention",
                     "message": f"Get Records may need null checks: {', '.join(null_check_issues[:3])}",
                     "suggestion": "Add Decision element to check for null before using query results",
@@ -732,6 +786,7 @@ class EnhancedFlowValidator:
             score -= 10
             advisory.append(
                 {
+                    "deduction": 10,
                     "category": "Observability",
                     "message": "No structured error logging detected",
                     "suggestion": "Use Sub_LogError subflow in fault paths for better debugging",
@@ -760,6 +815,7 @@ class EnhancedFlowValidator:
             score -= 3
             advisory.append(
                 {
+                    "deduction": 3,
                     "category": "Security",
                     "message": "Flow runs in System mode - bypasses FLS/CRUD",
                     "suggestion": "Document justification and ensure security review",
@@ -771,6 +827,7 @@ class EnhancedFlowValidator:
             score -= 2
             advisory.append(
                 {
+                    "deduction": 2,
                     "category": "Security",
                     "message": f"{len(security_results['sensitive_fields'])} sensitive fields accessed",
                     "suggestion": "Test with restricted profiles and document security measures",
@@ -795,6 +852,7 @@ class EnhancedFlowValidator:
             score -= 5
             advisory.append(
                 {
+                    "deduction": 5,
                     "category": "Governance",
                     "message": f"API version {api_version} is outdated (current: 65.0)",
                     "suggestion": "Update to latest API version for new features",
@@ -1539,8 +1597,21 @@ class EnhancedFlowValidator:
                 defined_vars.add(name.text)
 
         # Get all referenced variables (in elementReference, inputReference, etc.)
+        # assignToReference / assignRecordIdToReference / assignNextValueToReference
+        # count as usage too: fault-handler variables (e.g. var_FaultMessage written
+        # from $Flow.FaultMessage) are write-only by design — the skill's own
+        # fault-handler pattern REQUIRES such a variable, so it must not be
+        # flagged as unused.
         referenced_vars = set()
-        reference_tags = ["elementReference", "inputReference", "outputReference", "value"]
+        reference_tags = [
+            "elementReference",
+            "inputReference",
+            "outputReference",
+            "value",
+            "assignToReference",
+            "assignRecordIdToReference",
+            "assignNextValueToReference",
+        ]
 
         for tag in reference_tags:
             for elem in self.root.findall(f".//{{{self.namespace['sf']}}}{tag}", self.namespace):
@@ -2006,18 +2077,23 @@ class EnhancedFlowValidator:
             status = "✅" if percentage == 100 else "⚠️" if percentage >= 70 else "❌"
             report.append(f"\n{status} {label}: {score}/{max_score} ({percentage:.0f}%)")
 
-            # Show issues
+            # Show issues, itemizing the points each one deducted so the
+            # category score is fully accounted for (no lumped/opaque deductions)
+            def _pts(entry):
+                d = entry.get("deduction", 0)
+                return f" [-{d} pts]" if d else ""
+
             if cat.get("critical_issues"):
                 for issue in cat["critical_issues"]:
-                    report.append(f"   ❌ CRITICAL: {issue['message']}")
+                    report.append(f"   ❌ CRITICAL{_pts(issue)}: {issue['message']}")
 
             if cat.get("warnings"):
-                for warning in cat["warnings"][:2]:  # Limit to 2
-                    report.append(f"   ⚠️  {warning['message']}")
+                for warning in cat["warnings"]:
+                    report.append(f"   ⚠️ {_pts(warning)} {warning['message']}")
 
             if cat.get("advisory"):
-                for adv in cat["advisory"][:2]:  # Limit to 2
-                    report.append(f"   ℹ️  {adv['message']}")
+                for adv in cat["advisory"]:
+                    report.append(f"   ℹ️ {_pts(adv)} {adv['message']}")
 
         # Critical issues summary
         if results["critical_issues"]:

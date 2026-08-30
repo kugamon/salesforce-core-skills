@@ -369,33 +369,75 @@ def format_output(results: dict) -> str:
     return "\n".join(output_parts)
 
 
-if __name__ == "__main__":
+def _read_stdin_hook_input(timeout_seconds: float = 5.0) -> str:
+    """Read hook JSON from stdin WITHOUT hanging forever.
+
+    Previous behavior: any non-tty stdin (e.g. a subprocess pipe with nothing
+    written to it) caused json.load(sys.stdin) to block indefinitely. Now we
+    wait at most `timeout_seconds` for data and fail explicitly otherwise.
+    Returns the file_path extracted from the hook payload, or "".
+    """
     import sys
     import json
 
+    try:
+        import select
+
+        ready, _, _ = select.select([sys.stdin], [], [], timeout_seconds)
+        if not ready:
+            return ""
+    except (ImportError, OSError, ValueError):
+        # select unavailable (e.g. some Windows pipes) — fall through and
+        # attempt the read; the explicit CLI path below is preferred anyway.
+        pass
+
+    try:
+        hook_input = json.load(sys.stdin)
+        return hook_input.get("tool_input", {}).get("file_path", "") or ""
+    except (json.JSONDecodeError, EOFError, ValueError):
+        return ""
+
+
+if __name__ == "__main__":
+    import sys
+
     file_path = None
+    cli_mode = False
 
-    # Mode 1: Hook mode - read from stdin JSON
-    if not sys.stdin.isatty():
-        try:
-            hook_input = json.load(sys.stdin)
-            tool_input = hook_input.get("tool_input", {})
-            file_path = tool_input.get("file_path", "")
-        except (json.JSONDecodeError, EOFError):
-            pass
+    # Mode 1 (preferred): CLI mode - file path from command-line argument.
+    # Checked FIRST so that `python template_validator.py file.html` never
+    # touches stdin (the old stdin-first order hung when stdin was an idle pipe).
+    args = [a for a in sys.argv[1:] if a != "--stdin"]
+    if args:
+        file_path = args[0]
+        cli_mode = True
 
-    # Mode 2: CLI mode - read from command-line argument
-    if not file_path and len(sys.argv) >= 2:
-        file_path = sys.argv[1]
+    # Mode 2: Hook mode - read JSON payload from stdin (bounded wait, never hangs)
+    if not file_path and not sys.stdin.isatty():
+        file_path = _read_stdin_hook_input()
+        if not file_path:
+            print(
+                "Error: no file argument given and no hook JSON arrived on stdin "
+                "within 5s. Pass the template path as an argument: "
+                "python template_validator.py <component.html>",
+                file=sys.stderr,
+            )
+            sys.exit(2)
 
     # No file path from either mode
     if not file_path:
         print("Usage: python template_validator.py <component.html>")
         print('   Or: echo \'{"tool_input": {"file_path": "..."}}\' | python template_validator.py')
-        sys.exit(0)
+        sys.exit(2)
 
-    # Only validate .html files in lwc folders
-    if not file_path.endswith(".html") or "/lwc/" not in file_path:
+    # Scope filter: hook mode stays silent (advisory, never blocks the tool);
+    # CLI mode reports explicitly instead of exiting silently.
+    if not file_path.endswith(".html"):
+        if cli_mode:
+            print(f"Skipped: {file_path} is not an .html LWC template", file=sys.stderr)
+            sys.exit(2)
+        sys.exit(0)
+    if "/lwc/" not in file_path.replace(os.sep, "/") and not cli_mode:
         sys.exit(0)
 
     if not os.path.exists(file_path):

@@ -35,6 +35,33 @@ with the fix — not a wall of log lines.
 rules, flow fault emails) identify themselves without needing a log capture.
 Only set up tracing when the cause genuinely needs execution detail.
 
+### Managed-package failures (subscriber orgs)
+
+When the suspect automation is managed — the trigger/class has a
+`NamespacePrefix`, or the error message carries a namespace suffix like
+`(kugo2p)` — you cannot read the code, so diagnosis shifts from "find the bad
+line" to configuration, data volume, and recursion *interactions* with the
+package, plus vendor escalation with a log excerpt:
+
+- **Namespace suffix is the tell.** Limit errors report per-namespace buckets;
+  `Too many SOQL queries: 101 (ns)` pins the consumer to that package. Always
+  read the FULL error text before blaming local code — it is the single
+  highest-value no-log diagnostic.
+- **Check the interaction, not the package.** Common culprits: a local flow or
+  trigger re-updating records with unchanged values (which re-fires the
+  package's triggers), missing entry conditions, or bulk loads exceeding what
+  the package was tuned for.
+- **MCP body redaction:** some connectors redact `Body` as `(hidden)` in
+  Tooling *query* results even for unmanaged code — fetch via
+  `GET /tooling/sobjects/<Type>/<Id>` for the real body. Managed bodies stay
+  hidden regardless; don't burn calls retrying.
+- **FlowDefinitionView gotcha:** its filter field is
+  `TriggerObjectOrEventLabel` (label text, not API name — there is no
+  `TriggerObjectOrEventApiName` column), and its `Label` may carry a prefix
+  that `Flow.MasterLabel` lacks. Label-based filters can silently miss
+  namespaced objects; cross-check against `Flow`/`FlowDefinition` when
+  inventorying automation on a namespaced object.
+
 ## Execution modes
 
 See `references/execution-modes.md`. This skill is inherently live-org:
