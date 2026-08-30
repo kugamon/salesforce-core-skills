@@ -2,6 +2,12 @@
 
 Releases: https://github.com/kugamon/salesforce-core-skills/releases
 
+## [2.3.1] — 2026-08-30
+
+### Fixes
+
+- **ci** — keep changelog entries grouped instead of flattening them
+
 ## [2.3.0] — 2026-08-30
 
 ### Features
