@@ -4,6 +4,7 @@ plugin: salesforce-core
 argument-hint: '[audit|review|fix] [org|class|component] {name} ...'
 metadata:
   version: 1.0.0
+  minApiVersion: '60.0'
 description: >
   Audits Salesforce orgs and codebases for security vulnerabilities — CRUD/FLS
   enforcement, SOQL injection, sharing violations, hardcoded secrets, unsafe

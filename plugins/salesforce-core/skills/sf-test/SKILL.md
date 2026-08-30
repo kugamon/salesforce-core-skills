@@ -4,6 +4,7 @@ plugin: salesforce-core
 argument-hint: '[generate|review|run] [class|all] {name} ...'
 metadata:
   version: 1.0.0
+  minApiVersion: '60.0'
 description: >
   Generates, reviews, and runs Salesforce Apex test classes with a 120-point
   test-quality scoring rubric using a Salesforce MCP server. Use when writing

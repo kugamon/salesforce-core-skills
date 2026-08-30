@@ -4,6 +4,7 @@ plugin: salesforce-core
 argument-hint: '[find|enrich|report] {lead-name|criteria} ...'
 metadata:
   version: 1.0.0
+  minApiVersion: '60.0'
 description: >
   Enriches Salesforce Lead and Contact records with verified data from web
   research — titles, industries, websites, company size, LinkedIn profiles —

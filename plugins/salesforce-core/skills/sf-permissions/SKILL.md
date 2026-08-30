@@ -3,6 +3,7 @@ name: sf-permissions
 plugin: salesforce-core
 metadata:
   version: 2.0.1
+  minApiVersion: '60.0'
 argument-hint: '[hierarchy|audit|analyze|create|clone|update|delete|agent-access] ...'
 description: >
   Permission Set analysis, hierarchy viewer, and "Who has X?" auditing. Use when analyzing

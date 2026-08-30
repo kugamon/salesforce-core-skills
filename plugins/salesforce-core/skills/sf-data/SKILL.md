@@ -4,6 +4,7 @@ plugin: salesforce-core
 argument-hint: '[query|build-query|insert|update|upsert|delete|validate|describe] {target} ...'
 metadata:
   version: 2.0.2
+  minApiVersion: '60.0'
 description: >
   Salesforce data and SOQL expert. Execute SOQL queries (natural language or raw SOQL),
   build optimized queries with selectivity analysis, insert/update/upsert/delete records,

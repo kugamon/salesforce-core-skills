@@ -16,6 +16,7 @@ description: >
   Usage: /sf-audit [full|apex|flow|lwc|metadata|permissions|reports|integrations|coverage|licensing|team|change-history|data-quality] ...
 metadata:
   version: 3.1.0
+  minApiVersion: '60.0'
 ---
 
 # Salesforce Org Audit

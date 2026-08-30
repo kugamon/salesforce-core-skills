@@ -63,6 +63,19 @@ You need a Salesforce MCP server connected to Claude Desktop, wired to your targ
 | [sf-campaigns](plugins/salesforce-core/skills/sf-campaigns/README.md) | Campaign performance, funnels, ROI, and lead-source analysis | — |
 | [sf-leads](plugins/salesforce-core/skills/sf-leads/README.md) | Lead/Contact enrichment with citations, confidence ratings, and approval gates | — |
 
+## Platform currency
+
+Skills target the current Salesforce platform (validated against **API v66.0**, Winter '26 era) with a stated floor of **API v60.0** (`minApiVersion` in each skill's frontmatter) — the floor guarantees `WITH USER_MODE`, `as user` DML, and the modern `Assert` class. Re-validated each behavioral-eval iteration.
+
+## Reviewer subagents (Claude Code)
+
+The plugin ships two read-only agents pinned to a fast model for cheap parallel review passes:
+
+| Agent | Purpose |
+| --- | --- |
+| `apex-reviewer` | Batch Apex review against the sf-apex 150-point rubric; never deploys |
+| `security-auditor` | Security scan against the sf-security 100-point rubric; never modifies |
+
 ## Org connection convention
 
 The skills refer to `org_init` as shorthand for **your MCP server's session/connection initialization step**. Tool names vary by server:

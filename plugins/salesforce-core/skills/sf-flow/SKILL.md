@@ -4,6 +4,7 @@ plugin: salesforce-core
 argument-hint: '[create|update|validate] {FlowName} ...'
 metadata:
   version: 2.2.0
+  minApiVersion: '60.0'
 description: >
   Creates and validates Salesforce flows with 110-point scoring and Winter '26 best practices
   using Salesforce MCP server. Use when building record-triggered flows, screen flows,

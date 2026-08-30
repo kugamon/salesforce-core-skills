@@ -4,6 +4,7 @@ plugin: salesforce-core
 argument-hint: '[report|analyze|compare] {campaign-name} ...'
 metadata:
   version: 1.0.0
+  minApiVersion: '60.0'
 description: >
   Analyzes Salesforce campaign performance via a Salesforce MCP server —
   member counts, response and conversion rates, pipeline generated, ROI, cost

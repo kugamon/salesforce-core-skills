@@ -4,6 +4,7 @@ plugin: salesforce-core
 argument-hint: '[trace|logs|analyze|limits] {user|class|logId} ...'
 metadata:
   version: 1.0.0
+  minApiVersion: '60.0'
 description: >
   Captures and analyzes Salesforce debug logs through the Tooling API — trace
   flag setup, log retrieval, parsing for exceptions, SOQL-in-loop detection,

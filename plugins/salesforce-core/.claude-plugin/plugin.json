@@ -21,5 +21,6 @@
     "claude-desktop",
     "cowork"
   ],
-  "skills": "./skills"
+  "skills": "./skills",
+  "agents": "./agents"
 }

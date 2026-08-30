@@ -40,6 +40,8 @@ for d in skill_dirs:
         err(f"{d.name}: frontmatter name {'missing' if not nm else nm.group(1)!r} != dir name")
     if "description:" not in fm:
         err(f"{d.name}: frontmatter missing description")
+    if "minApiVersion" not in fm:
+        err(f"{d.name}: frontmatter missing metadata.minApiVersion")
     for req in ("README.md", "LICENSE"):
         if not (d / req).exists():
             err(f"{d.name}: missing {req}")
