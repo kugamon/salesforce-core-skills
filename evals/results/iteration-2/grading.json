@@ -1,0 +1,145 @@
+[
+  {
+    "eval": "eval-01-sf-apex",
+    "skill": "sf-apex",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING-WITH-ISSUES): mode now explicitly recorded; tool-name mapping removed all trial-and-error; managed-code rule skipped body fetches by design; validator returns N/A/exit-2 on (hidden) instead of a bogus 150/150",
+    "expectations": [
+      {"text": "detects execution mode", "grade": "PASS", "evidence": "review-report.md header: 'Mode: mcp-plus-code-execution' explicitly recorded (iter-1 gap closed); run-notes.md documents mapping applied before first org call"},
+      {"text": "fetches trigger bodies", "grade": "N/A(environment)", "evidence": "run-notes.md: namespace GROUP BY first (kugo2p 34, kugadd 2, null 0) -> zero unmanaged triggers, so per the new managed-code rule NO bodies were fetched -- correct branch, nothing fetchable; validator self-test covered the (hidden) path instead"},
+      {"text": "150-point scores with line-level evidence", "grade": "N/A(environment)", "evidence": "review-report.md: all 36 triggers managed, honest N/A inventory ('N/A -- managed, source hidden'); capability partially proven via validator self-test on synthetic BadLoopTrigger (2 CRITICAL with line refs L3/L6, FAILED, exit 1)"},
+      {"text": "no invented class names", "grade": "PASS", "evidence": "review-report.md: all 36 names sourced from metadata-only Tooling query; 'Unmanaged (reviewable) triggers found: 0' stated plainly, no fabricated scores"}
+    ]
+  },
+  {
+    "eval": "eval-02-sf-flow",
+    "skill": "sf-flow",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): same architecture rescored 97->102/110 after all 4 validator-vs-SKILL.md contradictions fixed; deductions now itemized; residual = 2 new precisely-diagnosed INFO false positives (-8 phantom pts)",
+    "expectations": [
+      {"text": "asks/infers entry conditions", "grade": "PASS", "evidence": "flow.json:107 filterFormula AND(ISPICKVAL(Priority,'High'), OR(ISNEW(), ISCHANGED(Priority))); headless defaults recorded per new Headless-runs section"},
+      {"text": "fault path included", "grade": "PASS", "evidence": "flow.json:95 faultConnector -> Assign_Capture_Fault plus null-check decision with terminal no-op default (flow-report.md design)"},
+      {"text": "110-point self-check before deploy", "grade": "PASS", "evidence": "flow-report.md: fixed validate_flow_cli.py run BEFORE deploy -> 102/110 PASSED exit 0, every deduction itemized; four-question pre-deploy check; deployed Draft, verified not InvalidDraft, cleanup to 0 rows"}
+    ]
+  },
+  {
+    "eval": "eval-03-sf-data",
+    "skill": "sf-data",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): empty-result probe is now a skill-mandated step (iter-1 it was improvised); tool-name mapping gave 0 failed calls in 4 total; residuals are one-liners (org_init cross-ref in SKILL.md body, name-vs-signature mapping, fiscal-quarter note)",
+    "expectations": [
+      {"text": "selectivity considered", "grade": "PASS", "evidence": "query-and-results.md design notes: explicit field list, indexed CloseDate in WHERE, IsClosed=false, LIMIT 200, THIS_FISCAL_QUARTER literal -- per skill optimization checklist"},
+      {"text": "THIS_QUARTER date literal", "grade": "PASS", "evidence": "query-and-results.md: THIS_FISCAL_QUARTER used; assumption stated per Headless-runs section (run-notes.md issue 3 asks the skill to codify the fiscal-vs-calendar call)"},
+      {"text": "results table", "grade": "PASS", "evidence": "query-and-results.md: 0-row result presented with the now-mandatory sanity probe (COUNT=31, CloseDate 2020-01-20..2022-03-18, maxAmt $915K) and explained zero + reference re-run query"}
+    ]
+  },
+  {
+    "eval": "eval-04-sf-lwc",
+    "skill": "sf-lwc",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): iter-1 deploy failure (FIELD_INTEGRITY_EXCEPTION) prevented by documented JS-first create order -- 4/4 first-attempt deploys; binding-syntax fix confirmed; fixed validate_slds.py now excludes N/A categories from denominators",
+    "expectations": [
+      {"text": "PICKLES design pass", "grade": "PASS", "evidence": "component-report.md 'Design (PICKLES)': full per-letter decision table (record-picker + getRelatedListRecords, debounce, aria-live, SLDS libs)"},
+      {"text": "wire/apex decision explained", "grade": "PASS", "evidence": "component-report.md P/I rows: explicit No-Apex design via @wire(getRelatedListRecords) with client-side filter getter to avoid re-wire per keystroke; UI API CRUD/FLS rationale under S"},
+      {"text": "165-point SLDS check", "grade": "PASS", "evidence": "component-report.md validation table: fixed validator scores per file type (HTML 65/65, CSS 75/75, JS 75/75) with N/A categories excluded from denominator -- run pre-deploy, zero issues"}
+    ]
+  },
+  {
+    "eval": "eval-05-sf-metadata",
+    "skill": "sf-metadata",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): corrected SOAP-via-executeAnonymous CustomObject path worked first-try (iter-1 burned multiple Tooling payload variants); deletion-realities section predicted both the Tooling DELETE failure and the 15-day soft-delete residue; 0 failed writes",
+    "expectations": [
+      {"text": "field-level security / permission set handling", "grade": "PASS", "evidence": "creation-report.md: Inspection2_Access PS + ObjectPermissions + 3 FieldPermissions + PermissionSetAssignment, all first-attempt; cleanup in documented order (assignment -> permset -> object)"},
+      {"text": "describe verification after create", "grade": "PASS", "evidence": "creation-report.md verification: FieldDefinition SOQL (13 fields, correct types), authoritative Tooling CustomField query (exactly 3 rows), live SOQL over all 3 fields; deletion verified via INVALID_TYPE + 0-row permset query"}
+    ]
+  },
+  {
+    "eval": "eval-06-sf-permissions",
+    "skill": "sf-permissions",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): iter-1's improvised profile roll-up, null-Parent fix, and session-noise filtering are now skill-documented and were followed verbatim; fewer tools loaded (2 vs 3), 6 planned queries, 0 dead ends",
+    "expectations": [
+      {"text": "object-permission query path", "grade": "PASS", "evidence": "access-report.md Method: ObjectPermissions WHERE SobjectType='Opportunity' AND PermissionsDelete=true with Parent.Name/Label/Type/IsOwnedByProfile/Profile.Name -> 33 grants (9 profile / 1 regular PS / 23 Session)"},
+      {"text": "PS + PSG traversal", "grade": "PASS", "evidence": "access-report.md: PermissionSetAssignment count across all 24 non-profile PS IDs -> 0; PermissionSetGroupComponent for KugamonGuestSiteUser -> 0; null-Parent row resolved per the new documented rule (OMOrderRoutingServicePermSet, Type=Session)"},
+      {"text": "user-level rollup", "grade": "PASS", "evidence": "access-report.md Headline: exactly 1 user (Kuldip Hillyer via System Administrator profile) via the now-documented User GROUP BY Profile.Name roll-up; 8 zero-user profiles and guest-site caveat reported; 23 session permsets footnoted per the new filter rule"}
+    ]
+  },
+  {
+    "eval": "eval-07-sf-diagram",
+    "skill": "sf-diagram",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): validation upgraded from mental grammar check to real mermaid.parse() on Mermaid 11.17.2 (all blocks PASS); __metadata__ empirically cleared (downgraded from latent bug to min-version note); dangling CLI snippets in erd-conventions.md/sales-cloud-erd.md still present",
+    "expectations": [
+      {"text": "mermaid erDiagram", "grade": "PASS", "evidence": "erd.md: erDiagram block validated with real renderer (mermaid.parse, Mermaid 11.17.2 = PASS) incl. the skill's __metadata__ convention; flowchart LR alternate + ASCII fallback also provided"},
+      {"text": "relationship cardinality correct", "grade": "PASS", "evidence": "erd.md: lookups one-to-many, self-ref ParentId, dashed }o..o| Lead conversion paths, 'no Master-Detail among these four' stated; minor nit -- Account ||--o{ Contact implies required parent where AccountId is nullable (iter-1's |o--o{ was more precise)"}
+    ]
+  },
+  {
+    "eval": "eval-08-sf-audit",
+    "skill": "sf-audit",
+    "verdict": "WORKING-WITH-ISSUES",
+    "delta": "MIXED vs iteration 1 (WORKING): all four sf-audit fixes verified (ValidationRule ORDER BY, partial-audit weighting, reduced-motion JS guard, tool mapping) and flows now get true per-component /110 scores -- but per-class Apex /150 scoring was deliberately descoped to a surface inventory + 20% hygiene domain (disclosed in the report), stepping back from iter-1's per-class scores; plus new ErrorConditionFormula INVALID_FIELD connector limitation found",
+    "expectations": [
+      {"text": "single scan feeds all documents", "grade": "N/A(environment)", "evidence": "run-notes.md: only audit-report.html produced (scoped run, apex+automation, single deliverable); multi-document reuse again untestable this iteration"},
+      {"text": "scores per component", "grade": "PARTIAL", "evidence": "audit-report.html: all 5 active flows individually scored vs the 110-pt rubric (94/89/87/87/86 with top issues per flow); Apex classes inventoried at surface level only -- report discloses 'class bodies were not scored against the 150-point rubric in this scoped run' (iter-1 scored them 82-112/150)"},
+      {"text": "HTML is single-file with inline CSS/JS and charts (report-template §7-8)", "grade": "PASS", "evidence": "audit-report.html: 29KB single file, zero http(s) references, inline <style>/<script>, SVG donut gauge + domain/severity bars, IntersectionObserver reveal, prefers-reduced-motion guard in both CSS and JS (matchMedia)"}
+    ]
+  },
+  {
+    "eval": "eval-09-sf-test",
+    "skill": "sf-test",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): deploy-tool naming friction eliminated by mapping preamble (both class creates first-try); runAs descope now taken as an honest 15->7 rubric deduction instead of a free N/A; new gaps logged (non-filterable-field compile cause absent from Phase-4 list, runTestsAsynchronous POST method unstated)",
+    "expectations": [
+      {"text": "test plan matrix before code", "grade": "PASS", "evidence": "test-report.md Phase 2: 7-dimension matrix (positive/negative/bulk/boundary/permissions/async/callouts) precedes generation, each row mapped to a method or an explicit descope/N-A"},
+      {"text": "200-record bulk test", "grade": "PASS", "evidence": "test-report.md Phase 3 + score table: stampsAll200InBulk with 200 @TestSetup accounts, assertions over the FULL set (return count + post-commit field values), startTest/stopTest around the action"},
+      {"text": "runAs deny case", "grade": "N/A(environment)", "evidence": "test-report.md matrix + rubric: no restricted profile in bare dev org and class has no explicit CRUD/FLS surface to assert; descoped with documented 7/15 deduction rather than silent full marks"},
+      {"text": "Tooling API run + coverage", "grade": "PASS", "evidence": "test-report.md Phase 5: POST runTestsAsynchronous -> ApexTestQueueItem polled to Completed -> 5/5 pass -> ApexCodeCoverageAggregate 100% (10/10 lines); cleanup verified to 0 rows and 0 residual test data"}
+    ]
+  },
+  {
+    "eval": "eval-10-sf-security",
+    "skill": "sf-security",
+    "verdict": "WORKING-WITH-ISSUES",
+    "delta": "IMPROVED execution vs iteration 1 (WORKING-WITH-ISSUES, verdict unchanged): 0 errors vs 2, all four fixes verified load-bearing, and the codified scope-out + N/A renormalization reproduced iter-1's 77/100 with zero drift; the blockers-vs-advisories expectation remains PARTIAL for the same environmental reason (AppExchange checklist lives in the packaging org)",
+    "expectations": [
+      {"text": "category scan with line evidence", "grade": "PASS", "evidence": "security-report.md: 7-category rubric with file:line evidence (SiteRegisterController.cls:7 hardcoded ID on guest path; MyProfilePageController.cls save() FLS-less User DML); namespace-counts-first guard prevented iter-1's 102KB body overflow"},
+      {"text": "blockers vs advisories split", "grade": "PARTIAL", "evidence": "security-report.md: severity-ranked findings (0C/0H/4M/4L + 5 Notes) with remediation plan and effort estimates, but still no explicit blocker-vs-advisory framing; AppExchange Review Readiness checklist again N/A (subscriber org, recorded assumption)"},
+      {"text": "Critical caps the grade", "grade": "PASS", "evidence": "security-report.md score table: 'No Critical finding -> no grade cap'; Lightning category N/A-excluded and renormalized 69/90 -> 77/100 per the now-written rubric rule (applied verbatim, not invented)"}
+    ]
+  },
+  {
+    "eval": "eval-11-sf-debug",
+    "skill": "sf-debug",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): subscriber-org branch + namespace-suffix tell are now codified and routed the diagnosis directly; the FlowDefinitionView label gotcha was validated live and prevented a real false negative (two kugo2p-object flows writing Opportunity.CloseDate that a label filter misses); 11 calls, 0 failures",
+    "expectations": [
+      {"text": "triage before trace flags", "grade": "PASS", "evidence": "diagnosis.md: read-only run, zero TraceFlag/DebugLevel created; exact proposed capture documented (DebugLevel spec, 30-min TraceFlag expiry, delete-when-done) per the headless propose-only rule"},
+      {"text": "SOQL-in-loop signature identified", "grade": "PASS", "evidence": "diagnosis.md Fix step 5: log-read plan names repeated SOQL_EXECUTE_BEGIN with identical query text (SOQL-in-loop signature), LIMIT_USAGE_FOR_NS buckets, and CODE_UNIT_STARTED re-entry (recursion); diagnosis pins consumption to the kugo2p cascade with bulk-save/recursion as the realistic triggers"},
+      {"text": "Diagnosis/Evidence/Fix/Prevention format", "grade": "PASS", "evidence": "diagnosis.md: exact four headings with 6 numbered evidence items and the namespace-suffix question back to the user as the top no-log diagnostic"}
+    ]
+  },
+  {
+    "eval": "eval-12-sf-campaigns",
+    "skill": "sf-campaigns",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): both iter-1 dangling references fixed and verified (demo-mode org_init skip now explicit; report-template path resolves); iter-1 bonus findings re-confirmed (rollup mismatch now hygiene finding #4) plus new won-only-ROI annotation on zero-win campaigns",
+    "expectations": [
+      {"text": "null-guarded ROI math", "grade": "PASS", "evidence": "campaign-analysis.md Methodology: every formula row carries an explicit guard; no-cost campaigns return n/a not 0; computed by script per run-notes.md"},
+      {"text": "missing-cost campaigns flagged as hygiene finding, not ranked last", "grade": "PASS", "evidence": "campaign-analysis.md: Partner Co-Marketing + User Group Sponsorships in a separate 'Unrankable' pipeline-ranked table and hygiene finding #1 ('looks like a star and can't be credited for it')"},
+      {"text": "invest/pause recommendations", "grade": "PASS", "evidence": "campaign-analysis.md Recommendations: per-campaign Increase/Maintain/Restructure/Pause with grounds; zero-win ROI annotated as unrealized pipeline; both over-budget campaigns caught (README claims only one)"}
+    ]
+  },
+  {
+    "eval": "eval-13-sf-leads",
+    "skill": "sf-leads",
+    "verdict": "WORKING",
+    "delta": "IMPROVED vs iteration 1 (WORKING): fixture repair verified -- regenerated leads.csv (new md5 0b1c717f...) now contains exactly 4 literal wrong-domain emails (records 5/13/27/33, 10%) matching README and SKILL.md; NumberOfEmployees added to the gap query; demo-mode org_init skip explicit; iter-1's N/A expectation now a clean PASS",
+    "expectations": [
+      {"text": "gap-rate profile before enriching", "grade": "PASS", "evidence": "gap-analysis.md section 1: scripted gap-rate table incl. the newly-added NumberOfEmployees (35%, largest enrichable gap) + process-fix observation (intake conflicts cluster on 11 multi-lead companies) before any proposal"},
+      {"text": "wrong-domain emails flagged", "grade": "PASS", "evidence": "gap-analysis.md section 2: all 4 planted mismatches found (00QSAMPLE00005/00013/00027/00033 -> northwind.example.com vs non-Northwind Company), 5 legit Northwind leads correctly not flagged; plus 15 de-anon-source emails tagged unverified per data-quality-rules section 6"},
+      {"text": "no writes without approval", "grade": "PASS", "evidence": "gap-analysis.md + run-notes.md: no Salesforce tools called; all enrichment propose-only; Phone excluded per section 4, LeadSource untouched per section 5, duplicate-person pairs skipped loudly per Enrich step 1"}
+    ]
+  }
+]

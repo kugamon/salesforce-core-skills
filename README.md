@@ -7,7 +7,7 @@ A Claude Desktop / Cowork **plugin marketplace** that ships a single plugin (`sa
 
 This repo **does not install an MCP server**. It assumes you already have a Salesforce MCP server connected to your org. The skills are **tool-agnostic** — they reference MCP capabilities generically rather than one vendor's tool names, so they work with any Salesforce MCP server.
 
-Every skill is **behaviorally tested against a live Salesforce org** — 13 independent agent runs covering reads, writes (with verified cleanup), and analysis: [see the eval report](evals/results/iteration-1/eval-report.md) (11 WORKING, 2 WORKING-WITH-ISSUES, 0 BROKEN; all findings fixed in v1.3.1).
+Every skill is **behaviorally tested against a live Salesforce org** — 13 independent agent runs per iteration covering reads, writes (with verified cleanup), and analysis. [Iteration 2](evals/results/iteration-2/eval-report.md) (v1.4.x skills): 33/39 expectations passed, 0 failed, 12 of 13 runs improved over [iteration 1](evals/results/iteration-1/eval-report.md), and all 8 fixes shipped after iteration 1 verified working.
 
 ## Why this plugin
 
