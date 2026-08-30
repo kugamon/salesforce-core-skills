@@ -2,6 +2,9 @@
 
 Releases: https://github.com/kugamon/salesforce-core-skills/releases
 
+## [2.2.0] — 2026-08-30
+- **ci** — automate releases from conventional commit history
+
 ## [2.0.0] — 2026-08-30
 - New flagship skill **sf-orgdiff** (org-to-org drift/release/baseline comparison, read-only, identity-gated) and **sf-integration** (Named/External Credentials, OAuth flow selection, Platform Events, CDC — with a no-secrets-through-chat discipline). Fifteen skills total.
 - **Shared canon**: decision trees (automation, async, sharing) and copyable Apex templates (TriggerHandler, TestDataFactory, Logger) under `plugins/salesforce-core/shared/`, wired from sf-apex/sf-flow/sf-test/sf-security.
