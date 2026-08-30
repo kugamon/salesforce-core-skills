@@ -17,6 +17,34 @@ Thanks for helping make this the most trustworthy Salesforce skills collection. 
 - **Reference improvements** from real-org experience: connector quirks, API-version gotchas, managed-package realities.
 - **Eval iterations** — run the methodology in [evals/README.md](evals/README.md) against your own dev org and report findings.
 
+## Step-by-step: fork, branch, PR
+
+New to GitHub contributions? The full path:
+
+```sh
+# 1. Fork this repo on github.com (Fork button, top right), then clone YOUR fork
+git clone https://github.com/<your-username>/salesforce-core-skills.git
+cd salesforce-core-skills
+git remote add upstream https://github.com/kugamon/salesforce-core-skills.git
+
+# 2. Branch
+git checkout -b fix-sf-apex-managed-bodies
+
+# 3. Make your changes, then validate before committing
+python3 scripts/validate_skills.py
+
+# 4. Commit and push to your fork
+git add .
+git commit -m "fix(sf-apex): skip managed bodies in the inventory query"
+git push origin fix-sf-apex-managed-bodies
+```
+
+GitHub then shows a **Compare & pull request** button on your fork — click it to open the PR against `kugamon/salesforce-core-skills` `main`.
+
+**PR titles follow [Conventional Commits](https://www.conventionalcommits.org/)** and are checked by CI: `<type>(<scope>): <description>` where type is one of build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test, and scope is usually a skill name. Examples: `feat(sf-orgdiff): add package-version comparison`, `fix(sf-apex): validator no longer scores managed bodies`, `docs: clarify headless approval rules`. Append `!` before the colon for breaking changes.
+
+To keep your fork current: `git fetch upstream && git rebase upstream/main`.
+
 ## PR checklist (also enforced by the PR template)
 
 - [ ] `scripts/validate_skills.py` passes locally
@@ -24,6 +52,7 @@ Thanks for helping make this the most trustworthy Salesforce skills collection. 
 - [ ] evals.json updated for new skills
 - [ ] No secrets, org identifiers, or customer data anywhere (sample data must be synthetic)
 - [ ] Version bumped in both manifests if behavior changed
+- [ ] PR title follows Conventional Commits (CI enforces it)
 
 ## License
 

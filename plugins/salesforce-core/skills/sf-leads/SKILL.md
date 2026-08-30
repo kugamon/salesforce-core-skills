@@ -5,6 +5,16 @@ argument-hint: '[find|enrich|report] {lead-name|criteria} ...'
 metadata:
   version: 1.0.0
   minApiVersion: '60.0'
+  domains:
+    - Data
+    - Marketing
+  relatedSkills:
+    - sf-data
+    - sf-campaigns
+    - sf-audit
+  cliTools:
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Enriches Salesforce Lead and Contact records with verified data from web
   research — titles, industries, websites, company size, LinkedIn profiles —
@@ -12,6 +22,8 @@ description: >
   and user approval before every update. Use when the user asks to enrich
   leads or contacts, fill in missing lead data, research a lead's company,
   update lead info from the web, or fix incomplete lead records.
+  Do NOT use for bulk SOQL or DML against lead records (use sf-data), campaign performance and
+  ROI analysis (use sf-campaigns), or org-wide data-quality auditing (use sf-audit).
   Usage: /sf-leads [find|enrich|report] {lead-name|criteria} ...
 ---
 

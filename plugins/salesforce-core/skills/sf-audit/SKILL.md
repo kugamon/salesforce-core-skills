@@ -13,10 +13,26 @@ description: >
   Scans all formula and criteria logic for hardcoded Record IDs, Campaign names, Profile
   names, URLs, and other fragile values. Generates Word, Excel, HTML reports plus 12
   standalone analysis documents including a customer report and strategic engagement plan.
+  Do NOT use for a targeted vulnerability scan (use sf-security), comparing two orgs for drift
+  (use sf-orgdiff), answering 'who has access to X' (use sf-permissions), or fixing an
+  individual class, flow, or component (use sf-apex, sf-flow, or sf-lwc).
   Usage: /sf-audit [full|apex|flow|lwc|metadata|permissions|reports|integrations|coverage|licensing|team|change-history|data-quality] ...
 metadata:
   version: 3.1.0
   minApiVersion: '60.0'
+  domains:
+    - Quality
+    - Administration
+  relatedSkills:
+    - sf-apex
+    - sf-flow
+    - sf-lwc
+    - sf-permissions
+  cliTools:
+    - tool: ["python3"]
+      semver: ">=3.9"
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 ---
 
 # Salesforce Org Audit

@@ -5,10 +5,25 @@ argument-hint: '[create|update|validate] {FlowName} ...'
 metadata:
   version: 2.2.0
   minApiVersion: '60.0'
+  domains:
+    - Development
+  relatedSkills:
+    - sf-metadata
+    - sf-data
+    - sf-apex
+    - sf-integration
+  cliTools:
+    - tool: ["python3"]
+      semver: ">=3.9"
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Creates and validates Salesforce flows with 110-point scoring and Winter '26 best practices
   using Salesforce MCP server. Use when building record-triggered flows, screen flows,
   autolaunched flows, scheduled flows, or reviewing existing flow performance.
+  Do NOT use for Apex classes and triggers (use sf-apex), creating the objects and fields a flow
+  references (use sf-metadata), or diagnosing a flow failure at runtime from debug logs (use sf-
+  debug).
   Usage: /sf-flow [create|update|validate] {FlowName} ...
 ---
 

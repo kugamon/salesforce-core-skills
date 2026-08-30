@@ -65,6 +65,19 @@ You need a Salesforce MCP server connected to Claude Desktop, wired to your targ
 | [sf-campaigns](plugins/salesforce-core/skills/sf-campaigns/README.md) | Campaign performance, funnels, ROI, and lead-source analysis | — |
 | [sf-leads](plugins/salesforce-core/skills/sf-leads/README.md) | Lead/Contact enrichment with citations, confidence ratings, and approval gates | — |
 
+## Skill metadata
+
+Every skill declares machine-readable routing metadata in its frontmatter, so agents (and humans) can reason about the catalog without loading each skill:
+
+| Field | Purpose |
+| --- | --- |
+| `domains` | Classification (Development, Data, Administration, Quality, Security, Operations, Architecture, Marketing) |
+| `relatedSkills` | The handoff graph — CI verifies every entry resolves to a real skill |
+| `cliTools` | Optional local accelerators (`python3` for validator scripts, `sf` for CLI execution mode). Never required — every skill works MCP-only |
+| `minApiVersion` | Salesforce API floor (see below) |
+
+Descriptions also carry explicit **anti-routing** ("Do NOT use for X — use sf-Y"), which keeps fifteen overlapping skills from colliding on trigger phrases. CI enforces all of the above.
+
 ## Platform currency
 
 Skills target the current Salesforce platform (validated against **API v66.0**, Winter '26 era) with a stated floor of **API v60.0** (`minApiVersion` in each skill's frontmatter) — the floor guarantees `WITH USER_MODE`, `as user` DML, and the modern `Assert` class. Re-validated each behavioral-eval iteration.

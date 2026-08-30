@@ -5,10 +5,23 @@ argument-hint: '[oauth|erd|integration|landscape|hierarchy|agentforce] ...'
 metadata:
   version: 2.0.1
   minApiVersion: '60.0'
+  domains:
+    - Architecture
+  relatedSkills:
+    - sf-metadata
+    - sf-permissions
+    - sf-flow
+    - sf-data
+  cliTools:
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Creates Salesforce architecture diagrams using Mermaid with ASCII fallback. Use when
   visualizing OAuth flows, data models (ERDs), integration sequences, system landscapes,
   role hierarchies, or Agentforce agent architectures.
+  Do NOT use for inventorying or scoring org metadata (use sf-audit), retrieving object and
+  field definitions (use sf-metadata), or auditing who has access to what (use sf-permissions) —
+  this skill draws diagrams from data those skills supply.
   Usage: /sf-diagram [oauth|erd|integration|landscape|hierarchy|agentforce] ...
 ---
 

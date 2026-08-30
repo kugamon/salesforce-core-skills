@@ -5,6 +5,17 @@ argument-hint: '[drift|release|baseline] {source-connector} {target-connector} [
 metadata:
   version: 1.0.0
   minApiVersion: '60.0'
+  domains:
+    - Operations
+    - Architecture
+  relatedSkills:
+    - sf-audit
+    - sf-metadata
+    - sf-security
+    - sf-apex
+  cliTools:
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Compares two connected Salesforce orgs through their MCP connectors —
   inventory-first metadata diffing across Apex, Flows, objects/fields,
@@ -14,6 +25,8 @@ description: >
   asks "what drifted", "compare orgs", "sandbox vs production", "did the
   release deploy everything", "compare against baseline", pre/post-release
   verification, or any question about differences between two orgs.
+  Do NOT use for auditing a single org's quality (use sf-audit), creating or deploying metadata
+  (use sf-metadata), or vulnerability scanning (use sf-security).
   Usage: /sf-orgdiff [drift|release|baseline] {source-connector} {target-connector} [scope] ...
 ---
 

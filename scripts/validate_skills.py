@@ -42,6 +42,22 @@ for d in skill_dirs:
         err(f"{d.name}: frontmatter missing description")
     if "minApiVersion" not in fm:
         err(f"{d.name}: frontmatter missing metadata.minApiVersion")
+    if "domains:" not in fm:
+        err(f"{d.name}: frontmatter missing metadata.domains")
+    # relatedSkills must name real skills (routing graph integrity)
+    rs = re.search(r"relatedSkills:\n((?:\s+- .*\n)+)", fm)
+    if not rs:
+        err(f"{d.name}: frontmatter missing metadata.relatedSkills")
+    else:
+        for line in rs.group(1).strip().splitlines():
+            target = line.strip().lstrip("- ").strip("\"'")
+            if target == d.name:
+                err(f"{d.name}: relatedSkills contains itself")
+            elif not (SKILLS / target).is_dir():
+                err(f"{d.name}: relatedSkills points at unknown skill {target!r}")
+    # anti-routing keeps 15 skills from colliding on trigger phrases
+    if "do not use for" not in fm.lower():
+        err(f"{d.name}: description missing anti-routing (\"Do NOT use for ... (use sf-X)\")")
     for req in ("README.md", "LICENSE"):
         if not (d / req).exists():
             err(f"{d.name}: missing {req}")

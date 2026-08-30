@@ -5,10 +5,25 @@ argument-hint: '[query|build-query|insert|update|upsert|delete|validate|describe
 metadata:
   version: 2.0.2
   minApiVersion: '60.0'
+  domains:
+    - Data
+  relatedSkills:
+    - sf-metadata
+    - sf-apex
+    - sf-flow
+    - sf-permissions
+  cliTools:
+    - tool: ["python3"]
+      semver: ">=3.9"
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Salesforce data and SOQL expert. Execute SOQL queries (natural language or raw SOQL),
   build optimized queries with selectivity analysis, insert/update/upsert/delete records,
   validate data operations, describe objects, and manage test data via Salesforce MCP server.
+  Do NOT use for creating objects, fields, or validation rules (use sf-metadata), web-research
+  enrichment of leads and contacts (use sf-leads), campaign performance analytics (use sf-
+  campaigns), or org-wide data-quality auditing (use sf-audit).
   Usage: /sf-data [query|build-query|insert|update|upsert|delete|validate|describe] {target} ...
 ---
 

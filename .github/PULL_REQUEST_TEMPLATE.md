@@ -1,3 +1,5 @@
+<!-- PR title must follow Conventional Commits: <type>(<scope>): <description> — e.g. feat(sf-orgdiff): add package-version comparison. CI checks this. -->
+
 ## What & why
 
 ## Checklist

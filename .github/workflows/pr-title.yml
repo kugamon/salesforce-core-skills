@@ -1,0 +1,33 @@
+name: PR Title
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+    branches: [main]
+
+jobs:
+  conventional-commit-title:
+    name: Validate Conventional Commit title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR title format
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if ! echo "$PR_TITLE" | grep -qP '^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([^)]+\))?(!)?: .+$'; then
+            echo "PR title does not match Conventional Commits format."
+            echo ""
+            echo "Expected: <type>(<scope>): <description>"
+            echo "  Types: build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test"
+            echo "  Scope is optional and usually a skill name, e.g. (sf-orgdiff)"
+            echo "  Breaking change: append '!' before the colon"
+            echo ""
+            echo "Examples:"
+            echo "  feat(sf-orgdiff): add package-version comparison"
+            echo "  fix(sf-apex): validator no longer scores managed bodies"
+            echo "  docs: clarify headless approval rules"
+            echo ""
+            echo "Got: $PR_TITLE"
+            exit 1
+          fi
+          echo "PR title matches Conventional Commits format."

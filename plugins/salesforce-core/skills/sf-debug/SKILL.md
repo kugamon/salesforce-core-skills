@@ -5,6 +5,16 @@ argument-hint: '[trace|logs|analyze|limits] {user|class|logId} ...'
 metadata:
   version: 1.0.0
   minApiVersion: '60.0'
+  domains:
+    - Operations
+  relatedSkills:
+    - sf-apex
+    - sf-flow
+    - sf-test
+    - sf-data
+  cliTools:
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Captures and analyzes Salesforce debug logs through the Tooling API — trace
   flag setup, log retrieval, parsing for exceptions, SOQL-in-loop detection,
@@ -12,6 +22,8 @@ description: >
   live org. Use when the user hits an error in Salesforce, mentions debug logs,
   governor limits, "too many SOQL queries", CPU timeouts, UNABLE_TO_LOCK_ROW,
   flow errors, or asks why something failed in the org.
+  Do NOT use for writing or refactoring Apex (use sf-apex), generating or running test classes
+  (use sf-test), or a broad org-wide quality inventory (use sf-audit).
   Usage: /sf-debug [trace|logs|analyze|limits] {user|class|logId} ...
 ---
 

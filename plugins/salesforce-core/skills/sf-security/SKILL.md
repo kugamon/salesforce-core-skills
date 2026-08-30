@@ -5,6 +5,17 @@ argument-hint: '[audit|review|fix] [org|class|component] {name} ...'
 metadata:
   version: 1.0.0
   minApiVersion: '60.0'
+  domains:
+    - Security
+    - Quality
+  relatedSkills:
+    - sf-apex
+    - sf-test
+    - sf-audit
+    - sf-integration
+  cliTools:
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Audits Salesforce orgs and codebases for security vulnerabilities — CRUD/FLS
   enforcement, SOQL injection, sharing violations, hardcoded secrets, unsafe
@@ -12,6 +23,9 @@ description: >
   AppExchange security review readiness checklist. Use when the user asks for a
   security audit, security review, vulnerability scan, AppExchange submission
   prep, CRUD/FLS check, or asks "is this code secure".
+  Do NOT use for a broad org-wide quality inventory (use sf-audit), 'who has access to X'
+  permission questions (use sf-permissions), comparing two orgs (use sf-orgdiff), or general
+  Apex refactoring (use sf-apex).
   Usage: /sf-security [audit|review|fix] [org|class|component] {name} ...
 ---
 

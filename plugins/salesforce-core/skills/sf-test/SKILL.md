@@ -5,12 +5,25 @@ argument-hint: '[generate|review|run] [class|all] {name} ...'
 metadata:
   version: 1.0.0
   minApiVersion: '60.0'
+  domains:
+    - Quality
+    - Development
+  relatedSkills:
+    - sf-apex
+    - sf-debug
+    - sf-security
+  cliTools:
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Generates, reviews, and runs Salesforce Apex test classes with a 120-point
   test-quality scoring rubric using a Salesforce MCP server. Use when writing
   test classes, improving code coverage, reviewing existing tests for assertion
   quality and bulk safety, running test suites, or diagnosing coverage gaps
   before a deployment or AppExchange submission.
+  Do NOT use for writing or refactoring production Apex (use sf-apex), diagnosing runtime
+  failures from debug logs (use sf-debug), or scanning code for security vulnerabilities (use
+  sf-security).
   Usage: /sf-test [generate|review|run] [class|all] {name} ...
 ---
 

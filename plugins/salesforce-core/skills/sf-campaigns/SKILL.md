@@ -5,6 +5,16 @@ argument-hint: '[report|analyze|compare] {campaign-name} ...'
 metadata:
   version: 1.0.0
   minApiVersion: '60.0'
+  domains:
+    - Marketing
+    - Data
+  relatedSkills:
+    - sf-data
+    - sf-leads
+    - sf-audit
+  cliTools:
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Analyzes Salesforce campaign performance via a Salesforce MCP server —
   member counts, response and conversion rates, pipeline generated, ROI, cost
@@ -12,6 +22,8 @@ description: >
   campaigns, check campaign performance or ROI, asks "which campaigns are
   working", wants a campaign report, campaign metrics, campaign member
   analysis, or lead source analysis.
+  Do NOT use for raw SOQL or DML against campaign records (use sf-data), enriching lead or
+  contact fields from the web (use sf-leads), or org-wide data-quality auditing (use sf-audit).
   Usage: /sf-campaigns [report|analyze|compare] {campaign-name} ...
 ---
 

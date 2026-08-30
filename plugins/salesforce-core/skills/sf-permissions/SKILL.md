@@ -4,12 +4,25 @@ plugin: salesforce-core
 metadata:
   version: 2.0.1
   minApiVersion: '60.0'
+  domains:
+    - Administration
+    - Security
+  relatedSkills:
+    - sf-metadata
+    - sf-diagram
+    - sf-data
+    - sf-apex
+  cliTools:
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 argument-hint: '[hierarchy|audit|analyze|create|clone|update|delete|agent-access] ...'
 description: >
   Permission Set analysis, hierarchy viewer, and "Who has X?" auditing. Use when analyzing
   permissions, visualizing PS/PSG hierarchies, finding which Permission Sets grant access
   to specific objects, fields, or Apex classes, or auditing user permissions via
   a Salesforce MCP server.
+  Do NOT use for scanning code for vulnerabilities (use sf-security), a broad org-wide quality
+  inventory (use sf-audit), or comparing permissions across two orgs (use sf-orgdiff).
   Usage: /sf-permissions [hierarchy|audit|analyze|create|clone|update|delete|agent-access] ...
 ---
 

@@ -5,9 +5,25 @@ argument-hint: '[create|update|validate] [class|trigger|test-class] {name} ...'
 metadata:
   version: 2.0.3
   minApiVersion: '60.0'
+  domains:
+    - Development
+    - Quality
+  relatedSkills:
+    - sf-test
+    - sf-debug
+    - sf-security
+    - sf-data
+  cliTools:
+    - tool: ["python3"]
+      semver: ">=3.9"
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Generates and reviews Salesforce Apex code with best practices and 150-point scoring using a Salesforce MCP server. Use when writing Apex classes, triggers, test classes, batch
   jobs, or reviewing existing Apex code for bulkification, security, and SOLID principles.
+  Do NOT use for writing or scoring test classes (use sf-test), diagnosing runtime failures and
+  governor-limit errors from debug logs (use sf-debug), or org-wide vulnerability scanning (use
+  sf-security).
   Usage: /sf-apex [create|update|validate] [class|trigger|test-class] {name} ...
 ---
 

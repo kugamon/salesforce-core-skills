@@ -5,9 +5,25 @@ argument-hint: '[create|update|delete|describe] {ObjectName|FieldName|type} ...'
 metadata:
   version: 2.0.1
   minApiVersion: '60.0'
+  domains:
+    - Administration
+    - Development
+  relatedSkills:
+    - sf-flow
+    - sf-data
+    - sf-permissions
+    - sf-apex
+  cliTools:
+    - tool: ["python3"]
+      semver: ">=3.9"
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Salesforce metadata operations expert. Use when creating custom objects, fields, validation
   rules, record types, permission sets, or querying org metadata structures via a Salesforce MCP server.
+  Do NOT use for comparing metadata across two orgs (use sf-orgdiff), Named or External
+  Credentials and Platform Events (use sf-integration), or querying and loading records (use sf-
+  data).
   Usage: /sf-metadata [create|update|delete|describe] {ObjectName|FieldName|type} ...
 ---
 

@@ -5,6 +5,16 @@ argument-hint: '[credentials|events|cdc|review] {name} ...'
 metadata:
   version: 1.0.0
   minApiVersion: '60.0'
+  domains:
+    - Operations
+  relatedSkills:
+    - sf-security
+    - sf-debug
+    - sf-diagram
+    - sf-permissions
+  cliTools:
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Sets up and reviews Salesforce integrations — Named Credentials and External
   Credentials (creation, principal design, migration from legacy credentials
@@ -14,6 +24,9 @@ description: >
   user mentions a named credential, external credential, wants to connect to
   an external API, asks which OAuth flow to use, mentions platform events,
   CDC, change data capture, an integration audit, or callout setup.
+  Do NOT use for creating custom objects and fields (use sf-metadata), scanning code for
+  hardcoded secrets and vulnerabilities (use sf-security), or tracing callout failures and
+  stalled subscribers in debug logs (use sf-debug).
   Usage: /sf-integration [credentials|events|cdc|review] {name} ...
 ---
 

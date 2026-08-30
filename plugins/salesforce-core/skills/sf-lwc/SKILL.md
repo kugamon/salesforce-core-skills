@@ -5,10 +5,24 @@ argument-hint: '[create|update|validate] {ComponentName} ...'
 metadata:
   version: 2.0.2
   minApiVersion: '60.0'
+  domains:
+    - Development
+  relatedSkills:
+    - sf-apex
+    - sf-flow
+    - sf-data
+    - sf-metadata
+  cliTools:
+    - tool: ["python3"]
+      semver: ">=3.9"
+    - tool: ["sf"]
+      semver: ">=2.0.0"
 description: >
   Lightning Web Components development with PICKLES architecture methodology, component
   scaffolding, wire service patterns, event handling, Apex integration, GraphQL support,
   and Jest test generation. Powered by Salesforce MCP server for seamless metadata deployment.
+  Do NOT use for Apex controllers and @AuraEnabled methods (use sf-apex), Flow screen automation
+  (use sf-flow), or org-wide component inventory and scoring (use sf-audit).
   Usage: /sf-lwc [create|update|validate] {ComponentName} ...
 ---
 
