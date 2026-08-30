@@ -96,8 +96,7 @@ goal — pipeline efficiency (ROI) and volume (members) rarely agree.
 
 Tables for rankings and funnels, per the sf-audit report template's §7
 instincts — and when the user wants a document deliverable, follow the
-sf-audit skill's `references/report-template.md` (from this skill:
-`../sf-audit/references/report-template.md`) §7–8 (visualizations,
+sf-audit skill's report-template.md (from this skill: `../sf-audit/references/report-template.md`) §7–8 (visualizations,
 single-file animated HTML) rather than dumping tables into prose.
 
 ## Cross-skill handoffs

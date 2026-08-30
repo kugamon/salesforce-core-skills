@@ -92,8 +92,7 @@ decision, and any picklist values that had no good match (data model
 feedback for the admin).
 
 When the user wants a document deliverable, follow the sf-audit skill's
-`references/report-template.md` (from this skill:
-`../sf-audit/references/report-template.md`) §7–8 rather than inventing a
+report-template.md (from this skill: `../sf-audit/references/report-template.md`) §7–8 rather than inventing a
 report format.
 
 ## Rules (non-negotiable)
