@@ -1,0 +1,107 @@
+name: Release
+
+# Skill-scoped: only content that reaches users can mint a version. Docs,
+# workflows, and repo chores ride along in the next real release instead of
+# generating noise (the version decision itself also ignores non-releasable
+# commit types — see scripts/release_version.py).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'plugins/**'
+      - 'sample-data/**'
+      - 'scripts/**'
+      - 'evals/evals.json'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Compute the version and notes without releasing'
+        type: boolean
+        default: true
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history + tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # The release commit is made by this workflow. GITHUB_TOKEN pushes don't
+      # retrigger workflows, but guard explicitly so a manual re-run or a
+      # future token change can't start a loop.
+      - name: Skip release commits
+        id: guard
+        run: |
+          SUBJECT="$(git log -1 --format=%s)"
+          if echo "$SUBJECT" | grep -qE '^chore\(release\):|\[skip release\]'; then
+            echo "Head commit is a release commit — nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.guard.outputs.skip != 'true'
+        with:
+          python-version: '3.12'
+
+      # A release must never ship a repo that fails its own checks.
+      - name: Validate
+        if: steps.guard.outputs.skip != 'true'
+        run: python3 scripts/validate_skills.py
+
+      - name: Release logic self-test
+        if: steps.guard.outputs.skip != 'true'
+        run: python3 scripts/release_version.py --self-test
+
+      - name: Decide version
+        id: decide
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python3 scripts/release_version.py --dry-run
+            echo "released=false" >> "$GITHUB_OUTPUT"
+            echo "DRY RUN — no files written, no release created." >> "$GITHUB_STEP_SUMMARY"
+          else
+            python3 scripts/release_version.py --github-output "$GITHUB_OUTPUT"
+          fi
+
+      - name: Re-validate after bump
+        if: steps.decide.outputs.released == 'true'
+        run: python3 scripts/validate_skills.py
+
+      - name: Commit, tag and push
+        if: steps.decide.outputs.released == 'true'
+        env:
+          VERSION: ${{ steps.decide.outputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .claude-plugin/marketplace.json plugins/salesforce-core/.claude-plugin/plugin.json CHANGELOG.md
+          git commit -m "chore(release): v${VERSION} [skip ci]"
+          git tag "v${VERSION}"
+          git push origin HEAD:main --follow-tags
+
+      - name: Create GitHub release
+        if: steps.decide.outputs.released == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.decide.outputs.version }}
+          NOTES: ${{ steps.decide.outputs.notes }}
+        run: |
+          printf '%s\n' "$NOTES" > /tmp/notes.md
+          gh release create "v${VERSION}" --title "v${VERSION}" --notes-file /tmp/notes.md
+          {
+            echo "## Released v${VERSION} (${{ steps.decide.outputs.level }})"
+            echo ""
+            cat /tmp/notes.md
+          } >> "$GITHUB_STEP_SUMMARY"

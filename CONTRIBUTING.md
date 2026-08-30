@@ -54,6 +54,25 @@ To keep your fork current: `git fetch upstream && git rebase upstream/main`.
 - [ ] Version bumped in both manifests if behavior changed
 - [ ] PR title follows Conventional Commits (CI enforces it)
 
+## Releases (automated)
+
+Merges to `main` that touch `plugins/**`, `sample-data/**`, `scripts/**`, or `evals/evals.json` trigger the release workflow. It reads the Conventional Commit titles since the last tag and decides:
+
+| Commit types since last tag | Result |
+| --- | --- |
+| `feat` | minor bump (2.1.0 → 2.2.0) |
+| `fix`, `perf`, `refactor` | patch bump (2.1.0 → 2.1.1) |
+| `!` or `BREAKING CHANGE` in the body | major bump (2.1.0 → 3.0.0) |
+| only `docs`, `chore`, `ci`, `style`, `test`, `build` | **no release** — they ride along in the next real one |
+
+The workflow validates the repo, bumps both manifests, updates the changelog, tags, and publishes release notes grouped by type — so commit titles are the release notes. Write them for the person reading the release, not for yourself.
+
+Preview without releasing: Actions → Release → Run workflow (dry run is the default), or locally:
+
+```sh
+python3 scripts/release_version.py --dry-run
+```
+
 ## License
 
 Contributions are accepted under the repo's MIT license. Portions of this project derive from MIT-licensed work with preserved attributions — keep CREDITS.md files accurate.
