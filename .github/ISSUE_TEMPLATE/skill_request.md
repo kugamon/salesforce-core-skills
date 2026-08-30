@@ -8,6 +8,6 @@ labels: enhancement
 
 **Who needs it** — admin / developer / ISV-partner?
 
-**Fit check** — is this live-org ops (belongs here) or greenfield development (see docs/when-to-use-what.md — the official Salesforce library may already cover it)?
+**Fit check** — is this live-org ops (belongs here) or greenfield development (see the README's "When to use this collection" section — the official Salesforce library may already cover it)?
 
 **What exists today** — how do you do this now?

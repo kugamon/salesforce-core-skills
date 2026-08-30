@@ -13,7 +13,7 @@ Thanks for helping make this the most trustworthy Salesforce skills collection. 
 ## What makes a good contribution
 
 - **Bug reports that become eval cases** — the issue template asks for the prompt, the org shape (managed-heavy? empty?), and what went wrong. Good reports get added to `evals/evals.json` and fixed against a live org.
-- **New skills** in uncovered live-org admin/ops territory (check [docs/when-to-use-what.md](docs/when-to-use-what.md) — greenfield-dev topics belong in Salesforce's official library, not here).
+- **New skills** in uncovered live-org admin/ops territory (see the README's [When to use this collection](README.md#when-to-use-this-collection-and-when-not-to) section — greenfield-dev topics belong in Salesforce's official library, not here).
 - **Reference improvements** from real-org experience: connector quirks, API-version gotchas, managed-package realities.
 - **Eval iterations** — run the methodology in [evals/README.md](evals/README.md) against your own dev org and report findings.
 
