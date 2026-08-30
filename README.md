@@ -51,12 +51,12 @@ The Salesforce agent-skills ecosystem has excellent options. Honest guidance:
 - You want **org-to-org drift detection** (sf-orgdiff) — unique to this collection.
 - You run **Claude Desktop / Cowork** and want scheduled monitoring or live dashboards ([monitoring recipe](docs/monitoring-recipe.md)), plus guardrail hooks that stop dangerous writes.
 
-**Use Salesforce's official sf-skills library when…**
+**Use [Salesforce's official sf-skills library](https://github.com/forcedotcom/sf-skills) when…**
 
 - You're doing **greenfield development inside an SFDX project** — the official library's 175 micro-task skills cover the whole platform surface (Agentforce, Data 360, OmniStudio, Commerce, Mobile, LWR) with CLI-first workflows and Salesforce-maintained API currency.
 - You need coverage for products this collection deliberately doesn't chase.
 
-**Both together.** They compose: official skills to build in a scratch org, this collection to audit, test, secure, and monitor what's running in real orgs. Nothing conflicts — different tool assumptions (CLI vs MCP), different jobs.
+**Both together.** They compose: [official skills](https://github.com/forcedotcom/sf-skills) to build in a scratch org, this collection to audit, test, secure, and monitor what's running in real orgs. Nothing conflicts — different tool assumptions (CLI vs MCP), different jobs.
 
 ## Prerequisites
 
