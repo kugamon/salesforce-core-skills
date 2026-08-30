@@ -140,6 +140,17 @@
         "permission-set principal access step included",
         "callout test guidance cross-referenced"
       ]
+    },
+    {
+      "skill": "sf-records",
+      "prompt": "Do a data health check on our Account records \u2014 what's wrong, and are there duplicates?",
+      "expect": [
+        "describes the object first and detects custom fields shadowing standard ones before judging",
+        "cites the shared record canon rather than restating the rules",
+        "reports problems with counts and examples, not prose generalities",
+        "duplicate candidates use a stated matching strategy; merges are never auto-executed",
+        "any fix is proposed (current -> proposed with evidence) before any write"
+      ]
     }
   ]
 }

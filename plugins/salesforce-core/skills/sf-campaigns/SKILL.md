@@ -12,6 +12,7 @@ metadata:
     - sf-data
     - sf-leads
     - sf-audit
+    - sf-records
   cliTools:
     - tool: ["sf"]
       semver: ">=2.0.0"
@@ -120,6 +121,9 @@ single-file animated HTML) rather than dumping tables into prose.
 - Query tuning or bulk exports → **sf-data**
 - Campaign-sourced leads needing enrichment before scoring → **sf-leads**
 - Full org marketing-data hygiene → **sf-audit** (data quality section)
+- Fixing the campaign/member/lead records themselves → **sf-records**; the
+  shared record-writing canon it applies is
+  `../../shared/standards/record-data-quality.md`
 
 ## Custom-field discernment (customized orgs)
 

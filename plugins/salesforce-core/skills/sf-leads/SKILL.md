@@ -12,6 +12,7 @@ metadata:
     - sf-data
     - sf-campaigns
     - sf-audit
+    - sf-records
   cliTools:
     - tool: ["sf"]
       semver: ">=2.0.0"
@@ -33,6 +34,11 @@ Research-driven enrichment: find records with gaps, verify facts from public
 sources, and update Salesforce only with citations attached and approval
 given. Accuracy beats completeness — a wrong Industry is worse than a blank
 one.
+
+The universal record-writing rules this skill obeys are shared canon at
+`../../shared/standards/record-data-quality.md`; object-level stewardship
+(profiling, dedupe/merge, batched fixes, mass updates) belongs to
+**sf-records**.
 
 ## Dispatch
 
@@ -74,7 +80,9 @@ Per record, in order:
    actually does, mapped to the org's Industry picklist values — fetch them
    via describe, don't invent new ones), current title, employee-count
    band, person and company LinkedIn URLs.
-   Apply `references/data-quality-rules.md` throughout: active-picklist
+   Apply the shared canon `../../shared/standards/record-data-quality.md`
+   throughout (lead-specific notes: `references/data-quality-rules.md`):
+   active-picklist
    verification (§1), org-dominant address/code conventions and HQ rule
    (§2), field-length checks (§3), first-party email corroboration (§6),
    and stated-not-inferred source attribution (§5).
@@ -90,7 +98,7 @@ Per record, in order:
 5. **Verify after write.** Re-query the updated records — Flows, validation
    rules, and sync automations can accept a write and then revert it. If a
    field reverts, automation owns it: capture intent in a notes field and
-   tell the user rather than retrying (data-quality-rules §8).
+   tell the user rather than retrying (record-data-quality §8).
 
 Contacts: same workflow against Contact (Account.Website often answers
 company questions — check inside Salesforce before searching outside).
@@ -120,18 +128,21 @@ report format.
 - Opt-out is a one-way door: never unset an email opt-out without documented
   re-opt-in; bounced addresses are unverified until corroborated first-party
 - Departed contacts: flag, never delete — and spawn a cross-referenced lead
-  at the new company when relevant (data-quality-rules §7)
+  at the new company when relevant (record-data-quality §7)
 
 ## References
 
 | File | Read when |
 | --- | --- |
-| `references/data-quality-rules.md` | Before any batch of writes — picklist, convention, attribution, and verification rules |
+| `../../shared/standards/record-data-quality.md` | Before any batch of writes — the shared canon: picklist, convention, attribution, and verification rules |
+| `references/data-quality-rules.md` | Alongside the canon — lead-specific notes (HQ addresses, LeadSource evidence bar, converted leads, ≤10 batches) |
 | `references/execution-modes.md` | Start of session |
 
 ## Cross-skill handoffs
 
 - Bulk data quality beyond enrichment → **sf-data** / **sf-audit**
+- Duplicate leads/contacts, object-wide data health, batched corrections →
+  **sf-records**
 - Campaign-sourced lead performance → **sf-campaigns**
 
 ## Custom-field discernment (customized orgs)
@@ -141,7 +152,7 @@ won't see — a custom `Industry_Segment__c` used instead of `Industry`, a
 `LinkedIn_Profile__c`, a custom company-size picklist. Before gap analysis
 in an unfamiliar org, describe Lead/Contact, spot populated custom fields
 that shadow the standard ones (populated-rate sampling, as in
-data-quality-rules §1-2 verification style), and confirm with the user
+record-data-quality §1-2 verification style), and confirm with the user
 which fields the org actually maintains. Enriching a standard field the
 org ignores creates the illusion of data quality without the substance.
 

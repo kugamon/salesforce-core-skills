@@ -3,7 +3,7 @@
 [![Validate](https://github.com/kugamon/salesforce-core-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/kugamon/salesforce-core-skills/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A Claude Desktop / Cowork **plugin marketplace** that ships a single plugin (`salesforce-core`) with **fifteen general-purpose Salesforce admin & developer skills** — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Architecture Diagrams, Org Audit, Test Generation, Security Review, Debug Log Analysis, Org Comparison, Integrations, Campaign Analytics, and Lead Enrichment.
+A Claude Desktop / Cowork **plugin marketplace** that ships a single plugin (`salesforce-core`) with **sixteen general-purpose Salesforce admin & developer skills** — Apex, Flow, SOQL/Data, LWC, Metadata, Permissions, Architecture Diagrams, Org Audit, Test Generation, Security Review, Debug Log Analysis, Org Comparison, Integrations, Record Stewardship, Campaign Analytics, and Lead Enrichment.
 
 This repo **does not install an MCP server**. It assumes you already have a Salesforce MCP server connected to your org. The skills are **tool-agnostic** — they reference MCP capabilities generically rather than one vendor's tool names, so they work with any Salesforce MCP server.
 
@@ -37,6 +37,7 @@ This plugin encodes those rules as Cowork skills with structured scoring rubrics
 | "Who has access to X?" takes a day to answer | **sf-permissions** | Permission set analysis and access auditing |
 | Campaign ROI is guesswork | **sf-campaigns** | Funnels, ROI math shown, invest/pause recommendations |
 | The CRM is full of blank or wrong lead data | **sf-leads** | Cited, confidence-rated enrichment with approval gates |
+| Nobody knows how bad the data on an object is | **sf-records** | Data-health profile, dedupe/merge plans, proposed-then-verified fixes |
 
 ## When to use this collection (and when not to)
 
@@ -65,7 +66,7 @@ You need a Salesforce MCP server connected to Claude Desktop, wired to your targ
 1. **[salesforce-mcp-auto-auth-chrome](https://github.com/kugamon/salesforce-mcp-auto-auth-chrome)** — local MCP server with 14 Salesforce tools that auto-refreshes its session from your Chrome login (no tokens to paste).
 2. **Any other Salesforce MCP server** — the skills reason about capabilities (SOQL query, DML, metadata create, Tooling API), not specific tool names.
 
-## The 15 skills
+## The 16 skills
 
 | Skill | What it does | Scoring |
 | --- | --- | --- |
@@ -84,6 +85,7 @@ You need a Salesforce MCP server connected to Claude Desktop, wired to your targ
 | [sf-integration](plugins/salesforce-core/skills/sf-integration/README.md) | Named/External Credentials, OAuth selection, Platform Events, CDC | — |
 | [sf-campaigns](plugins/salesforce-core/skills/sf-campaigns/README.md) | Campaign performance, funnels, ROI, and lead-source analysis | — |
 | [sf-leads](plugins/salesforce-core/skills/sf-leads/README.md) | Lead/Contact enrichment with citations, confidence ratings, and approval gates | — |
+| [sf-records](plugins/salesforce-core/skills/sf-records/README.md) | Record stewardship: data-health inspection, dedupe/merge, batched fixes, safe bulk updates | — |
 
 ## Skill metadata
 
@@ -165,6 +167,7 @@ salesforce-core-skills/                  # repo root = a marketplace
             ├── sf-metadata/
             ├── sf-orgdiff/
             ├── sf-permissions/
+            ├── sf-records/
             ├── sf-security/
             └── sf-test/
 ```
@@ -202,7 +205,7 @@ The marketplace pattern means future contributors can add more plugins under `pl
 
 ### Option 4 — Any agent tool via npx (Cursor, Codex, OpenCode, …)
 
-The skills follow the open [Agent Skills](https://agentskills.io) spec, so non-Claude tools can install them directly (all 15 skills; verified discovery on this nested layout):
+The skills follow the open [Agent Skills](https://agentskills.io) spec, so non-Claude tools can install them directly (all 16 skills; verified discovery on this nested layout):
 
 ```bash
 npx skills add kugamon/salesforce-core-skills

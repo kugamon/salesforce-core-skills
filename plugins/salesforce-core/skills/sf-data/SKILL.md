@@ -12,6 +12,7 @@ metadata:
     - sf-apex
     - sf-flow
     - sf-permissions
+    - sf-records
   cliTools:
     - tool: ["python3"]
       semver: ">=3.9"
@@ -745,6 +746,15 @@ Other skills reference sf-data for SOQL and DML needs:
 | sf-metadata    | -> sf-data | After verifying fields exist                                         |
 | sf-permissions | -> sf-data | Permission analysis queries                                          |
 | sf-diagram     | -> sf-data | Query data for diagram generation                                    |
+
+**sf-data vs sf-records — mechanics vs stewardship.** sf-data owns *how* to
+express and execute a query or DML call (syntax, selectivity, batching,
+validation); **sf-records** owns *what is wrong with an object's records and
+how to safely fix it* (data-health profiling, duplicate detection and merges,
+proposed-then-verified corrections, rollback-planned mass updates, per-object
+playbooks). A stewardship request ("clean up my accounts", "find duplicate
+contacts", "what's wrong with our opportunity data") routes to sf-records,
+which comes back here for the query and DML mechanics.
 
 ---
 
