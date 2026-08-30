@@ -88,8 +88,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .claude-plugin/marketplace.json plugins/salesforce-core/.claude-plugin/plugin.json CHANGELOG.md
           git commit -m "chore(release): v${VERSION} [skip ci]"
-          git tag "v${VERSION}"
-          git push origin HEAD:main --follow-tags
+          # Annotated (not lightweight): --follow-tags ignores lightweight tags,
+          # and gh release create refuses a tag that isn't on the remote.
+          # Pushing both refs in one call keeps commit and tag atomic.
+          git tag -a "v${VERSION}" -m "Release v${VERSION}"
+          git push origin HEAD:main "refs/tags/v${VERSION}"
 
       - name: Create GitHub release
         if: steps.decide.outputs.released == 'true'
