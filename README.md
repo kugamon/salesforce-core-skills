@@ -45,6 +45,7 @@ The Salesforce agent-skills ecosystem has excellent options. Honest guidance:
 
 **Use salesforce-core-skills when…**
 
+- You're an admin, RevOps or sales ops lead, consultant, or ISV — not only a developer
 - You're operating against a **live org through an MCP connector** — auditing, scoring, debugging, comparing, enriching. That's this collection's home turf: every skill is MCP-first and behaviorally tested against a live org ([evals/](evals/)).
 - You need **scored, evidence-cited reviews** (150-pt Apex, 110-pt Flow, 165-pt LWC, 120-pt tests, 100-pt security) or client-ready audit documents.
 - You work in **managed-package / subscriber orgs** — these skills handle hidden code honestly instead of pretending to review it.
@@ -54,6 +55,7 @@ The Salesforce agent-skills ecosystem has excellent options. Honest guidance:
 
 **Use [Salesforce's official sf-skills library](https://github.com/forcedotcom/sf-skills) when…**
 
+- You're a developer writing new Apex, LWC, or Agentforce code
 - You're doing **greenfield development inside an SFDX project** — the official library's 175 micro-task skills cover the whole platform surface (Agentforce, Data 360, OmniStudio, Commerce, Mobile, LWR) with CLI-first workflows and Salesforce-maintained API currency.
 - You need coverage for products this collection deliberately doesn't chase.
 
